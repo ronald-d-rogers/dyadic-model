@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="744" viewBox="0 0 1200 744" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="744" fill="#ffffff"/>
+  <defs>
+    <pattern id="hatch" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#7f8c8d" stroke-width="1.4"/>
+    </pattern>
+  </defs>
+
+  <text x="60" y="46" font-size="23" font-weight="bold" fill="#111">delta = the slope of the asymptote, measured down from the Bernstein ceiling</text>
+  <text x="60" y="74" font-size="14.5" fill="#444">log-log picture (schematic). The peak-to-average ratio on a rung grows like N^(n-delta)/2, so its graph is a straight line of slope (n-delta)/2;</text>
+  <text x="60" y="94" font-size="14.5" fill="#444">equivalently delta = n - 2 x slope. Steeper line = more concentrated = smaller delta.</text>
+
+  <!-- ================= LEFT PANEL: log-log axes ================= -->
+  <rect x="100" y="110" width="520" height="390" fill="#fbfbfd" stroke="none"/>
+
+  <line x1="100" y1="500" x2="622" y2="500" stroke="#222" stroke-width="1.6"/>
+  <line x1="100" y1="500" x2="100" y2="106" stroke="#222" stroke-width="1.6"/>
+  <polygon points="622,500 612,495 612,505" fill="#222"/>
+  <polygon points="100,106 95,116 105,116" fill="#222"/>
+
+  <g font-size="12" fill="#555" text-anchor="middle">
+    <line x1="100" y1="500" x2="100" y2="505" stroke="#222"/><text x="100" y="522">0</text>
+    <line x1="204" y1="500" x2="204" y2="505" stroke="#222"/><text x="204" y="522">2</text>
+    <line x1="308" y1="500" x2="308" y2="505" stroke="#222"/><text x="308" y="522">4</text>
+    <line x1="412" y1="500" x2="412" y2="505" stroke="#222"/><text x="412" y="522">6</text>
+    <line x1="516" y1="500" x2="516" y2="505" stroke="#222"/><text x="516" y="522">8</text>
+    <line x1="620" y1="500" x2="620" y2="505" stroke="#222"/><text x="620" y="522">10</text>
+  </g>
+  <g font-size="12" fill="#555" text-anchor="end">
+    <line x1="95" y1="500" x2="100" y2="500" stroke="#222"/><text x="92" y="504">0</text>
+    <line x1="95" y1="370" x2="100" y2="370" stroke="#222"/><text x="92" y="374">5</text>
+    <line x1="95" y1="240" x2="100" y2="240" stroke="#222"/><text x="92" y="244">10</text>
+    <line x1="95" y1="110" x2="100" y2="110" stroke="#222"/><text x="92" y="114">15</text>
+    <line x1="100" y1="370" x2="620" y2="370" stroke="#eee" stroke-width="1"/>
+    <line x1="100" y1="240" x2="620" y2="240" stroke="#eee" stroke-width="1"/>
+    <line x1="100" y1="110" x2="620" y2="110" stroke="#eee" stroke-width="1"/>
+  </g>
+
+  <text x="360" y="560" font-size="14" text-anchor="middle" fill="#333">log2 (wavenumber N_k)  &#8594;  smaller scales</text>
+  <text x="34" y="305" font-size="14" text-anchor="middle" fill="#333" transform="rotate(-90 34 305)">log2 ( peak / average )</text>
+
+  <!-- the four asymptotes: slope (n-delta)/2 with n = 3 -->
+  <line x1="100" y1="500" x2="620" y2="110" stroke="#c0392b" stroke-width="3"/>
+  <line x1="100" y1="500" x2="620" y2="240" stroke="#e67e22" stroke-width="3"/>
+  <line x1="100" y1="500" x2="620" y2="370" stroke="#2980b9" stroke-width="3"/>
+  <line x1="100" y1="500" x2="620" y2="500" stroke="#7f8c8d" stroke-width="3"/>
+
+  <!-- a real flow: jagged, settling onto the delta=1 line -->
+  <polyline fill="none" stroke="#111" stroke-width="1.7" stroke-linejoin="round"
+    points="126,458 157,471 188,432 220,464 251,414 282,432 313,396 344,391 376,347 407,360 438,321 469,328 500,295 532,287 563,269 594,250 620,240"/>
+  <circle cx="620" cy="240" r="3.5" fill="#111"/>
+
+  <!-- line labels -->
+  <text x="480" y="208" font-size="14.5" font-weight="bold" fill="#c0392b" transform="rotate(-36.87 480 208)">delta = 0</text>
+  <text x="556" y="262" font-size="14.5" font-weight="bold" fill="#e67e22">delta = 1</text>
+  <text x="556" y="382" font-size="14.5" font-weight="bold" fill="#2980b9">delta = 2</text>
+  <text x="556" y="488" font-size="14.5" font-weight="bold" fill="#7f8c8d">delta = 3</text>
+
+  <!-- notes in the empty upper-left of the plot -->
+  <text x="112" y="146" font-size="13.5" fill="#333">slope = (n - delta) / 2,   with n = 3</text>
+  <text x="112" y="167" font-size="12.5" fill="#666">the red line (delta = 0) is the steepest Bernstein allows;</text>
+  <text x="112" y="186" font-size="12.5" fill="#666">the vertical gap from it down to a lower line is (delta/2) x log2 N.</text>
+
+  <!-- ================= RIGHT PANEL: the geometry ================= -->
+  <text x="700" y="132" font-size="16" font-weight="bold" fill="#111">the set the action lives on</text>
+  <text x="700" y="152" font-size="12.5" fill="#666">(schematic; delta is its dimension)</text>
+
+  <rect x="700" y="180" width="170" height="170" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.6"/>
+  <g fill="#c0392b">
+    <circle cx="722" cy="205" r="3.4"/><circle cx="766" cy="196" r="3.4"/><circle cx="826" cy="212" r="3.4"/>
+    <circle cx="742" cy="243" r="3.4"/><circle cx="800" cy="238" r="3.4"/><circle cx="844" cy="262" r="3.4"/>
+    <circle cx="716" cy="278" r="3.4"/><circle cx="770" cy="284" r="3.4"/><circle cx="828" cy="300" r="3.4"/>
+    <circle cx="748" cy="318" r="3.4"/><circle cx="806" cy="330" r="3.4"/><circle cx="858" cy="212" r="3.4"/>
+    <circle cx="712" cy="330" r="3.4"/><circle cx="856" cy="334" r="3.4"/><circle cx="788" cy="262" r="3.4"/>
+  </g>
+  <text x="785" y="374" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">delta = 0: points</text>
+  <text x="785" y="392" font-size="12" text-anchor="middle" fill="#666">steepest asymptote</text>
+
+  <rect x="900" y="180" width="170" height="170" fill="#fef6ee" stroke="#e67e22" stroke-width="1.6"/>
+  <g fill="none" stroke="#e67e22" stroke-width="3.2" stroke-linecap="round">
+    <path d="M912,330 C 940,300 950,250 985,232 C 1015,216 1035,206 1058,200"/>
+    <path d="M912,232 C 945,244 960,270 995,286 C 1025,300 1040,318 1058,330"/>
+    <path d="M930,196 C 950,232 960,300 952,342"/>
+  </g>
+  <text x="985" y="374" font-size="14" text-anchor="middle" fill="#e67e22" font-weight="bold">delta = 1: filaments</text>
+  <text x="985" y="392" font-size="12" text-anchor="middle" fill="#666">intermediate slope</text>
+
+  <rect x="700" y="420" width="170" height="170" fill="#eef4fa" stroke="#2980b9" stroke-width="1.6"/>
+  <g fill="#2980b9" opacity="0.55">
+    <rect x="712" y="452" width="146" height="9"/>
+    <rect x="712" y="496" width="146" height="9"/>
+    <rect x="712" y="540" width="146" height="9"/>
+  </g>
+  <text x="785" y="614" font-size="14" text-anchor="middle" fill="#2980b9" font-weight="bold">delta = 2: sheets</text>
+  <text x="785" y="632" font-size="12" text-anchor="middle" fill="#666">gentler asymptote</text>
+
+  <rect x="900" y="420" width="170" height="170" fill="#e9eceb" stroke="#7f8c8d" stroke-width="1.6"/>
+  <rect x="900" y="420" width="170" height="170" fill="url(#hatch)" opacity="0.5"/>
+  <text x="985" y="614" font-size="14" text-anchor="middle" fill="#7f8c8d" font-weight="bold">delta = 3: fills the box</text>
+  <text x="985" y="632" font-size="12" text-anchor="middle" fill="#666">flat asymptote (no concentration)</text>
+
+  <text x="60" y="668" font-size="12" fill="#777">delta is defined by the saturation level of Bernstein's inequality, i.e. by the exponent in  peak ~ N^((n-delta)/2) x average.   Here n = 3.</text>
+  <text x="60" y="686" font-size="12" fill="#777">Schematic: the black curve stands for an actual flow; its log-log graph settles onto a line as the scale shrinks, and delta is read off that line's slope.</text>
+  <text x="60" y="704" font-size="12" fill="#777">Which line it settles onto here is illustrative only: measurements put real 3D turbulence at delta &#8776; 2.7, so it settles onto a flatter line than drawn.</text>
+  <text x="60" y="722" font-size="12" fill="#777">The delta = 0 line is the Fourier concentration barrier of Pillar A (Cascade/ConcentrationBarrier.lean; Criticality/Heisenberg.lean) &#8212; a ceiling on concentration, not the Pauli exclusion principle.</text>
+</svg>

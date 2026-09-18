@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="700" fill="#ffffff"/>
+
+  <text x="60" y="44" font-size="22" font-weight="bold" fill="#111">The jitter for each dimension: the MEAN crosses the critical line between 4 and 5</text>
+  <text x="60" y="72" font-size="14" fill="#444">Left: one realisation per dimension of the local log-log exponent against octave &#8212; the wobble is simulated, but each curve's mean is the exact value (n - delta)/2 at delta = 2.7.</text>
+  <text x="60" y="92" font-size="14" fill="#444">Right: those means. The critical line is slope 1, because the rate comparison is 1 + (n - delta)/2 against the dissipation exponent 2.</text>
+
+  <!-- ===================== PANEL L ===================== -->
+  <text x="100" y="116" font-size="15" font-weight="bold" fill="#111">the jitter, per dimension</text>
+
+  <!-- danger shading: slope > 1 -->
+  <rect x="100" y="120" width="520" height="120" fill="#fdecea"/>
+  <text x="112" y="138" font-size="12" fill="#c0392b">above slope 1: the nonlinearity wins at small scales</text>
+
+  <line x1="100" y1="480" x2="626" y2="480" stroke="#222" stroke-width="1.6"/>
+  <line x1="100" y1="480" x2="100" y2="114" stroke="#222" stroke-width="1.6"/>
+  <polygon points="626,480 616,475 616,485" fill="#222"/>
+  <polygon points="100,114 95,124 105,124" fill="#222"/>
+
+  <g font-size="12" fill="#555" text-anchor="middle">
+    <line x1="100" y1="480" x2="100" y2="485" stroke="#222"/><text x="100" y="500">1</text>
+    <line x1="273" y1="480" x2="273" y2="485" stroke="#222"/><text x="273" y="500">6</text>
+    <line x1="447" y1="480" x2="447" y2="485" stroke="#222"/><text x="447" y="500">11</text>
+    <line x1="620" y1="480" x2="620" y2="485" stroke="#222"/><text x="620" y="500">16</text>
+  </g>
+  <g font-size="12" fill="#555" text-anchor="end">
+    <line x1="95" y1="120" x2="100" y2="120" stroke="#222"/><text x="92" y="124">2</text>
+    <line x1="95" y1="240" x2="100" y2="240" stroke="#222"/><text x="92" y="244">1</text>
+    <line x1="95" y1="360" x2="100" y2="360" stroke="#222"/><text x="92" y="364">0</text>
+    <line x1="95" y1="480" x2="100" y2="480" stroke="#222"/><text x="92" y="484">-1</text>
+  </g>
+
+  <!-- critical line -->
+  <line x1="100" y1="240" x2="620" y2="240" stroke="#c0392b" stroke-width="2.4"/>
+
+  <!-- jitter curves -->
+  <polyline fill="none" stroke="#2980b9" stroke-width="2" points="100,418 135,406 169,393 204,403 239,419 273,413 308,402 343,389 377,410 412,422 447,405 481,398 516,382 551,380 585,391 620,400"/>
+  <polyline fill="none" stroke="#16a085" stroke-width="2" points="100,312 135,329 169,345 204,357 239,349 273,345 308,348 343,346 377,341 412,334 447,324 481,330 516,357 551,342 585,359 620,354"/>
+  <polyline fill="none" stroke="#f1c40f" stroke-width="2" points="100,301 135,293 169,298 204,289 239,247 273,264 308,262 343,287 377,289 412,278 447,282 481,278 516,279 551,293 585,282 620,292"/>
+  <polyline fill="none" stroke="#e67e22" stroke-width="2" points="100,211 135,227 169,221 204,227 239,218 273,232 308,220 343,228 377,215 412,216 447,222 481,236 516,226 551,223 585,208 620,224"/>
+  <polyline fill="none" stroke="#c0392b" stroke-width="2" points="100,165 135,161 169,162 204,164 239,165 273,175 308,185 343,184 377,171 412,153 447,149 481,147 516,148 551,150 585,157 620,154"/>
+
+  <text x="628" y="404" font-size="13" font-weight="bold" fill="#2980b9">n = 2</text>
+  <text x="628" y="358" font-size="13" font-weight="bold" fill="#16a085">n = 3</text>
+  <text x="628" y="296" font-size="13" font-weight="bold" fill="#f1c40f">n = 4</text>
+  <text x="628" y="228" font-size="13" font-weight="bold" fill="#e67e22">n = 5</text>
+  <text x="628" y="158" font-size="13" font-weight="bold" fill="#c0392b">n = 6</text>
+
+  <text x="360" y="520" font-size="13.5" text-anchor="middle" fill="#333">octave  &#8594;  smaller scales</text>
+  <text x="46" y="300" font-size="13.5" text-anchor="middle" fill="#333" transform="rotate(-90 46 300)">local exponent (slope)</text>
+
+  <!-- ===================== PANEL R ===================== -->
+  <text x="740" y="116" font-size="15" font-weight="bold" fill="#111">the means, and where they cross</text>
+
+  <rect x="740" y="120" width="400" height="120" fill="#fdecea"/>
+  <line x1="740" y1="240" x2="1140" y2="240" stroke="#c0392b" stroke-width="2.4"/>
+
+  <line x1="740" y1="480" x2="1146" y2="480" stroke="#222" stroke-width="1.6"/>
+  <line x1="740" y1="480" x2="740" y2="114" stroke="#222" stroke-width="1.6"/>
+  <polygon points="1146,480 1136,475 1136,485" fill="#222"/>
+  <polygon points="740,114 735,124 745,124" fill="#222"/>
+
+  <g font-size="12" fill="#555" text-anchor="middle">
+    <line x1="780" y1="480" x2="780" y2="485" stroke="#222"/><text x="780" y="500">2</text>
+    <line x1="860" y1="480" x2="860" y2="485" stroke="#222"/><text x="860" y="500">3</text>
+    <line x1="940" y1="480" x2="940" y2="485" stroke="#222"/><text x="940" y="500">4</text>
+    <line x1="1020" y1="480" x2="1020" y2="485" stroke="#222"/><text x="1020" y="500">5</text>
+    <line x1="1100" y1="480" x2="1100" y2="485" stroke="#222"/><text x="1100" y="500">6</text>
+  </g>
+  <g font-size="12" fill="#555" text-anchor="end">
+    <line x1="735" y1="120" x2="740" y2="120" stroke="#222"/><text x="732" y="124">2</text>
+    <line x1="735" y1="240" x2="740" y2="240" stroke="#222"/><text x="732" y="244">1</text>
+    <line x1="735" y1="360" x2="740" y2="360" stroke="#222"/><text x="732" y="364">0</text>
+    <line x1="735" y1="480" x2="740" y2="480" stroke="#222"/><text x="732" y="484">-1</text>
+  </g>
+
+  <polyline fill="none" stroke="#333" stroke-width="2.2" points="780,402 860,342 940,282 1020,222 1100,162"/>
+  <g fill="#333">
+    <circle cx="780" cy="402" r="4"/><circle cx="860" cy="342" r="4"/><circle cx="940" cy="282" r="4"/>
+    <circle cx="1020" cy="222" r="4"/><circle cx="1100" cy="162" r="4"/>
+  </g>
+  <circle cx="996" cy="240" r="6" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+  <line x1="996" y1="240" x2="996" y2="330" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+
+  <text x="1004" y="330" font-size="12.5" font-weight="bold" fill="#c0392b">crosses at n = 2 + delta = 4.7</text>
+  <text x="1004" y="348" font-size="11.5" fill="#666">(so the integer crossover is 5)</text>
+  <text x="748" y="196" font-size="12" fill="#666">means: -0.35, 0.15, 0.65, 1.15, 1.65</text>
+  <text x="748" y="214" font-size="12" fill="#666">for n = 2,...,6</text>
+  <text x="748" y="440" font-size="12" fill="#666">n = 4 peaks at 0.95, n = 5 dips to 1.03</text>
+  <text x="748" y="458" font-size="12" fill="#666">&#8212; the two bands nearly touch the line</text>
+
+  <text x="940" y="520" font-size="13.5" text-anchor="middle" fill="#333">spatial dimension n</text>
+  <text x="686" y="300" font-size="13.5" text-anchor="middle" fill="#333" transform="rotate(-90 686 300)">mean exponent (slope)</text>
+
+  <!-- ===================== FOOTNOTES ===================== -->
+  <text x="60" y="556" font-size="11.5" fill="#777">The critical line is slope 1: the nonlinearity competes against the dissipation exponent 2 with one extra power of N from the derivative, so it wins at small scales exactly when (n - delta)/2 exceeds 1.</text>
+  <text x="60" y="575" font-size="11.5" fill="#777">The classification uses the MEAN, not any single octave. The means cross 1 at n = 2 + delta; at the measured delta &#8776; 2.7 that is 4.7, giving the integer crossover at 5.</text>
+  <text x="60" y="594" font-size="11.5" fill="#777">Honesty: the wobble here is simulated &#8212; the real jitter's statistics are not known to me. What is exact is each curve's mean, and the mean-crossing at 2 + delta.</text>
+  <text x="60" y="613" font-size="11.5" fill="#777">And the n-dependence of the Bernstein exponent is the reported generalisation of Dai's model: n = 3 is the first-hand-verified case, where the exponent is (5 - delta)/2.</text>
+</svg>

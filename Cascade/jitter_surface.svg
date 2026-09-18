@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+<rect width="1200" height="700" fill="#ffffff"/>
+<text x="60" y="44" font-size="22" font-weight="bold" fill="#111">Why delta = 2.7, in 3-D: the jitter depth on the Z axis</text>
+<text x="60" y="72" font-size="14" fill="#444">Z is the local exponent. Each ribbon is one spatial dimension: its straight grey line is the mean (n - delta)/2 at delta = 2.7, and the wiggly curve is what is actually realised at that scale.</text>
+<text x="60" y="92" font-size="14" fill="#444">The vertical gap between a grey line and its curve is the jitter DEPTH. The ribbon at n = 4.7 = 2 + delta has mean exactly 1, the critical slope, so its wiggles straddle the boundary.</text>
+<rect x="0" y="0" width="0" height="0" fill="none"/>
+<polygon points="210.0,375.4 580.0,430.4 820.0,300.4 450.0,245.4" fill="#f2f2f2" opacity="0.65"/>
+<line x1="210.0" y1="375.4" x2="450.0" y2="245.4" stroke="#bbb" stroke-width="0.9"/>
+<line x1="210.0" y1="375.4" x2="580.0" y2="430.4" stroke="#bbb" stroke-width="0.9"/>
+<line x1="302.5" y1="389.1" x2="542.5" y2="259.1" stroke="#bbb" stroke-width="0.9"/>
+<line x1="270.0" y1="342.9" x2="640.0" y2="397.9" stroke="#bbb" stroke-width="0.9"/>
+<line x1="395.0" y1="402.9" x2="635.0" y2="272.9" stroke="#bbb" stroke-width="0.9"/>
+<line x1="330.0" y1="310.4" x2="700.0" y2="365.4" stroke="#bbb" stroke-width="0.9"/>
+<line x1="487.5" y1="416.6" x2="727.5" y2="286.6" stroke="#bbb" stroke-width="0.9"/>
+<line x1="390.0" y1="277.9" x2="760.0" y2="332.9" stroke="#bbb" stroke-width="0.9"/>
+<line x1="580.0" y1="430.4" x2="820.0" y2="300.4" stroke="#bbb" stroke-width="0.9"/>
+<line x1="450.0" y1="245.4" x2="820.0" y2="300.4" stroke="#bbb" stroke-width="0.9"/>
+<line x1="450.0" y1="170.4" x2="820.0" y2="225.4" stroke="#888" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="414.0" y1="224.5" x2="784.0" y2="279.5" stroke="#888" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="372.0" y1="287.6" x2="742.0" y2="342.6" stroke="#888" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="336.0" y1="341.8" x2="706.0" y2="396.8" stroke="#888" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="294.0" y1="404.9" x2="664.0" y2="459.9" stroke="#888" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="252.0" y1="468.0" x2="622.0" y2="523.0" stroke="#888" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="210.0" y1="531.2" x2="580.0" y2="586.2" stroke="#888" stroke-width="1.6" stroke-dasharray="6,4"/>
+<polyline fill="none" stroke="#b2182b" stroke-width="2.6" points="450.0,199.0 459.2,198.7 468.5,190.3 477.8,175.3 487.0,159.3 496.2,149.4 505.5,150.2 514.8,160.7 524.0,174.4 533.2,183.6 542.5,183.7 551.8,176.3 561.0,168.3 570.2,167.6 579.5,178.4 588.8,197.9 598.0,218.2 607.2,230.3 616.5,229.0 625.8,215.4 635.0,196.0 644.2,178.8 653.5,169.1 662.8,167.7 672.0,171.8 681.2,177.6 690.5,183.1 699.8,188.7 709.0,195.4 718.2,203.9 727.5,213.0 736.8,220.9 746.0,226.8 755.2,231.8 764.5,238.4 773.8,248.1 783.0,259.3 792.2,267.4 801.5,266.6 810.8,254.3 820.0,233.2"/>
+<text x="828.0" y="237.2" font-size="12.5" font-weight="bold" fill="#b2182b">n = 6.0</text>
+<polyline fill="none" stroke="#d07681" stroke-width="2.6" points="414.0,256.1 423.2,271.1 432.5,273.5 441.8,261.6 451.0,240.9 460.2,220.8 469.5,210.2 478.8,212.4 488.0,223.7 497.2,236.2 506.5,242.4 515.8,239.4 525.0,230.9 534.2,223.7 543.5,224.2 552.8,234.3 562.0,250.5 571.2,266.7 580.5,277.4 589.8,280.3 599.0,276.3 608.2,268.3 617.5,258.5 626.8,247.5 636.0,235.6 645.2,224.0 654.5,215.4 663.8,213.3 673.0,219.6 682.2,232.8 691.5,248.1 700.8,260.2 710.0,266.1 719.2,267.8 728.5,270.5 737.8,279.6 747.0,296.9 756.2,317.9 765.5,334.6 774.8,339.1 784.0,328.5"/>
+<polyline fill="none" stroke="#fafafa" stroke-width="2.6" points="372.0,280.5 381.2,305.1 390.5,323.4 399.8,328.3 409.0,319.5 418.2,303.1 427.5,288.1 436.8,281.3 446.0,284.5 455.2,294.2 464.5,304.7 473.8,311.6 483.0,313.9 492.2,313.3 501.5,312.6 510.8,313.0 520.0,314.0 529.2,314.6 538.5,314.8 547.8,316.4 557.0,321.3 566.2,329.8 575.5,339.1 584.8,344.1 594.0,340.3 603.2,326.7 612.5,307.5 621.8,289.9 631.0,280.8 640.2,282.6 649.5,292.0 658.8,302.4 668.0,308.0 677.2,307.5 686.5,305.0 695.8,307.3 705.0,319.3 714.2,340.4 723.5,364.7 732.8,384.0 742.0,392.5"/>
+<text x="750.0" y="396.5" font-size="12.5" font-weight="bold" fill="#fafafa">n = 4.7</text>
+<polyline fill="none" stroke="#8db0d3" stroke-width="2.6" points="336.0,323.8 345.2,339.4 354.5,355.0 363.8,363.5 373.0,362.1 382.2,352.8 391.5,341.1 400.8,332.3 410.0,329.4 419.2,332.1 428.5,338.6 437.8,347.4 447.0,358.4 456.2,371.4 465.5,385.3 474.8,396.8 484.0,401.5 493.2,397.1 502.5,385.0 511.8,371.0 521.0,362.1 530.2,363.2 539.5,373.6 548.8,387.7 558.0,397.5 567.2,397.6 576.5,387.9 585.8,373.6 595.0,361.9 604.2,357.2 613.5,359.2 622.8,363.3 632.0,363.9 641.2,359.3 650.5,352.0 659.8,348.1 669.0,352.7 678.2,366.6 687.5,385.6 696.8,402.9 706.0,413.3"/>
+<polyline fill="none" stroke="#2166ac" stroke-width="2.6" points="294.0,403.2 303.2,414.6 312.5,424.6 321.8,428.9 331.0,425.7 340.2,416.9 349.5,406.1 358.8,396.2 368.0,388.0 377.2,381.1 386.5,375.2 395.8,372.5 405.0,376.8 414.2,391.4 423.5,416.0 432.8,445.6 442.0,471.4 451.2,485.5 460.5,484.4 469.8,471.4 479.0,454.5 488.2,442.2 497.5,438.9 506.8,443.3 516.0,449.7 525.2,452.6 534.5,449.7 543.8,443.5 553.0,438.8 562.2,438.9 571.5,443.4 580.8,447.9 590.0,447.4 599.2,440.0 608.5,428.6 617.8,419.5 627.0,418.5 636.2,427.3 645.5,442.1 654.8,455.8 664.0,462.1"/>
+<polyline fill="none" stroke="#2166ac" stroke-width="2.6" points="252.0,456.6 261.2,475.5 270.5,493.0 279.8,503.7 289.0,505.5 298.2,500.5 307.5,492.4 316.8,483.7 326.0,474.4 335.2,462.4 344.5,446.7 353.8,429.4 363.0,416.4 372.2,414.7 381.5,427.9 390.8,454.1 400.0,485.7 409.2,513.0 418.5,529.0 427.8,532.8 437.0,528.9 446.2,524.3 455.5,523.6 464.8,526.7 474.0,529.8 483.2,528.4 492.5,521.3 501.8,511.5 511.0,504.4 520.2,504.2 529.5,510.6 538.8,518.9 548.0,522.7 557.2,518.3 566.5,506.9 575.8,494.7 585.0,488.9 594.2,493.7 603.5,507.5 612.8,524.3 622.0,536.7"/>
+<polyline fill="none" stroke="#2166ac" stroke-width="2.6" points="210.0,509.3 219.2,520.7 228.5,536.7 237.8,551.1 247.0,560.6 256.2,565.4 265.5,567.8 274.8,569.1 284.0,567.9 293.2,560.9 302.5,545.4 311.8,523.0 321.0,499.6 330.2,483.8 339.5,482.0 348.8,494.9 358.0,517.1 367.2,539.4 376.5,554.3 385.8,559.5 395.0,558.5 404.2,558.2 413.5,563.4 422.8,574.6 432.0,587.5 441.2,594.4 450.5,595.8 459.8,591.6 469.0,584.6 478.2,581.6 487.5,584.4 496.8,590.6 506.0,594.9 515.2,592.8 524.5,583.6 533.8,571.0 543.0,560.9 552.2,558.2 561.5,564.0 570.8,575.6 580.0,588.9"/>
+<text x="588.0" y="592.9" font-size="12.5" font-weight="bold" fill="#2166ac">n = 2.0</text>
+<line x1="427.5" y1="295.9" x2="427.5" y2="288.1" stroke="#111" stroke-width="2"/>
+<circle cx="427.5" cy="288.1" r="2.6" fill="#111"/>
+<line x1="520.0" y1="309.6" x2="520.0" y2="314.0" stroke="#111" stroke-width="2"/>
+<circle cx="520.0" cy="314.0" r="2.6" fill="#111"/>
+<line x1="612.5" y1="323.4" x2="612.5" y2="307.5" stroke="#111" stroke-width="2"/>
+<circle cx="612.5" cy="307.5" r="2.6" fill="#111"/>
+<line x1="705.0" y1="337.1" x2="705.0" y2="319.3" stroke="#111" stroke-width="2"/>
+<circle cx="705.0" cy="319.3" r="2.6" fill="#111"/>
+<line x1="60" y1="632" x2="60" y2="612" stroke="#111" stroke-width="2"/>
+<text x="72" y="628" font-size="12.5" fill="#111">the short dark stalks on the n = 4.7 ribbon mark the jitter depth at sample octaves</text>
+<line x1="210.0" y1="560.0" x2="580.0" y2="615.0" stroke="#222" stroke-width="2"/>
+<line x1="210.0" y1="560.0" x2="450.0" y2="430.0" stroke="#222" stroke-width="2"/>
+<line x1="210.0" y1="560.0" x2="210.0" y2="260.0" stroke="#222" stroke-width="2"/>
+<text x="594.0" y="621.0" font-size="13.5" fill="#333">octave &#8594; smaller scales</text>
+<text x="458.0" y="424.0" font-size="13.5" fill="#333">spatial dimension n &#8594;</text>
+<text x="204.0" y="246.0" font-size="13.5" fill="#333">local exponent (slope) &#8593;</text>
+<line x1="202.0" y1="490.8" x2="210.0" y2="490.8" stroke="#222" stroke-width="1.5"/>
+<text x="198.0" y="494.8" font-size="12" fill="#555" text-anchor="end">0</text>
+<line x1="202.0" y1="375.4" x2="210.0" y2="375.4" stroke="#222" stroke-width="1.5"/>
+<text x="198.0" y="379.4" font-size="12" fill="#555" text-anchor="end">1</text>
+<line x1="202.0" y1="260.0" x2="210.0" y2="260.0" stroke="#222" stroke-width="1.5"/>
+<text x="198.0" y="264.0" font-size="12" fill="#555" text-anchor="end">2</text>
+<text x="456.0" y="259.4" font-size="12" fill="#666">the grey floor is slope = 1, the critical level</text>
+<text x="60" y="652" font-size="11.5" fill="#777">The ribbon at n = 4.7 = 2 + delta has mean exactly the critical slope 1, so its wiggles cross the critical floor both ways: that dimension is marginal octave by octave, while the mean still classifies it.</text>
+<text x="60" y="671" font-size="11.5" fill="#777">The roughness is synthetic &#8212; the real jitter statistics are not known to me. Exact: the mean plane (n - delta)/2, its crossing of slope 1 at n = 2 + delta, and the reading of the depth as the vertical gap.</text>
+</svg>
