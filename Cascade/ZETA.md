@@ -523,6 +523,25 @@ it by exactly `2σ³r²`, which is the term a **phantom father `X_{−1} = σr`*
 > of the model.** In particular the "blow-up for `α > α̃`" reported below in the earlier version was
 > an artefact of dropping the root, and is withdrawn with it.
 
+> **Resolution (added later): the coefficient was right, the frame was wrong.** `4^α − b` is
+> nevertheless **correct**, in a frame the withdrawal did not have — the isotropic **periodic**
+> subspace. There the isotropy parameter is forced to `μ = 2^α`, the two chain coefficients
+> `A_n = 2^{αn}μ^{2−n}` and `B_n = b·2^{α(n+1)}μ^{−(n+1)}` collapse to the constants `4^α` and `b`, and
+> the tree closes onto the finite system
+>
+> ```
+> Ṙ_n = 4^α R_{n−1}² − b R_n R_{n+1}     on ℤ/N ,
+> ```
+>
+> whose constant mode is `ċ = (4^α − b)c²` — marginal exactly at `4^α = b`, i.e. `α = α̃`. So the
+> marginality `α̃` is a property of a **legitimate closed system**, not an artefact.
+>
+> What was wrong was the **frame**, not the coefficient. The profile is not a solution of the *rooted
+> unforced* model; in the tree frame the closing edge (`N−1 → 0`) is missing and must be supplied as
+> `f = 2^{αN}X_{N−1}`. The **chain** closes unforced, because `ℤ` has no root and that edge is already
+> in the lattice. See `CLOSURE.md` §4.2 (corrigendum) and `zeta_checks.py` section K.
+> **[proved — exact computation]**
+
 **(b″) The one case that IS a solution.** In the **forced** model with `r² = b` and the alias set to
 the consistent phantom value `f = σr`, both the root equation and every interior equation vanish, so
 the profile is stationary. Its exponent is then the paper's stationary exponent: `r² = b` says
