@@ -317,8 +317,26 @@ The exact-rational computation gives `K < 0` in **every** case computed:
 
 The chain's `+3c²` requires **exactly the cyclic closure** — the identification `q_{k+N} = q_k` on
 `ℤ/N` — which the tree cannot have (§3.2). The tree's isotropic chain is the same recurrence
-evaluated on a non-cyclic path, and there the sign flips to decay. Blow-up would require
-`K > 0`, i.e. `μ³ > b·2^α`; no computed case satisfies this. **[derived]**
+evaluated on a non-cyclic path. **[derived]**
+
+> **Corrigendum (added later; supersedes the `K > 0` criterion below).**
+> The analysis above is of the **constant** mode `R_n ≡ c`, i.e. `ρ = 1`, and the quantity
+> `K = A_n − B_n` **contains the gauge parameter `μ`** of the ansatz `X_j = μ^{−|j|}R_{|j|}`. That `μ`
+> is chosen by the analyst and cancels from physical quantities — the physical isotropic profile is
+> `X_n = σ(t)·2^{−αn}`, which is `μ`-free — so `μ³ > b·2^α` is not a property of the model, and
+> `ρ = 1` is not the self-similar mode. Substituting the physical profile directly into eq. (1) gives,
+> exactly, **`σ̇ = (4^α − N_*)σ²`**, with multiplier `Λ = 2^α/√N_* = 2^{α−α̃} = 2^β` and criticality
+> `4^α = N_*`, i.e. **`α = α̃`** — Barbato's threshold. So the tree's isotropic direction is **stable
+> below `α̃` and unstable above it**, and the threshold is reproduced rather than missed. The `b = 1`
+> identity, the ratios `B_n/A_n` and `A_{n+1}/A_n`, and §4.4's lift are unaffected.
+> **[proved — exact computation, `Cascade/zeta_checks.py` section I; see `Cascade/ZETA.md` §6.6]**
+
+The original text follows, retained only as the record of what was written and **superseded** by the
+corrigendum above:
+
+> The tree's isotropic chain is the same recurrence evaluated on a non-cyclic path, and there the sign
+> flips to decay. Blow-up would require `K > 0`, i.e. `μ³ > b·2^α`; no computed case satisfies this.
+> **[derived — superseded]**
 
 ### 4.4 The source fact: the tree's self-similar solutions are lifts of the chain's
 

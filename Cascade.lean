@@ -30,3 +30,4 @@ import Cascade.IntermittencyThreshold
 import Cascade.SelfSimilarSolution
 import Cascade.SignEquivariance
 import Cascade.SelfSimilarClosure
+import Cascade.IsotropicReduction

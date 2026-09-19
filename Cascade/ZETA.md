@@ -28,6 +28,13 @@ The result, up front:
   prescribed viscosity law) and `0` (preservation of the periodic self-similar ansatz) — and they do
   not converge. Selection, where it exists, is by an imposed requirement, not by the dynamics; the
   zeta's `β` is downstream of that choice. **[proved] + [sourced]**
+* **The renormalisation route was attempted and fails for a structural reason** (§6). The tree's
+  isotropic profile `X_n = σ(t)2^{−αn}` reduces the model **exactly** to `σ̇ = (4^α − N_*)σ²`, whose
+  multiplier is `Λ = 2^{α−α̃} = 2^β` — so the cascade's threshold *is* a renormalisation eigenvalue, and
+  the `½` is explained (energy is quadratic in the amplitude, the level count linear). But the
+  Jiang–Wu exponent `d = log_p(Σ_a w_a)` lives in the **space/digit** direction and is independent of
+  `α`, while `α̃` lives in the **level/time** direction. The two are different objects, so the bridge
+  stays empty. **[proved — exact computation] + [inference]**
 
 **Nothing here is a discovery about turbulence.** What is new is one small, checkable lemma about
 rank-one zeta functions (§4) and the removal of a hope. Read this beside `OUTCOME.md` and
@@ -278,17 +285,26 @@ criterion `E[W log W] < log ℓ` is satisfied identically in `α` (§2.4) and ca
 is not a technicality to be circumvented; it is evidence that the cascade's criticality is not a
 disorder threshold, and so not the kind of thing a topological zeta would see. **[derived]**
 
-**Obstacle 2 — the non-Archimedean Ruelle theory does not apply to the shift at all.** This is sharper
-than the earlier notes had it. Jiang–Wu's determinant formula,
-[arXiv:2508.19374](https://arxiv.org/abs/2508.19374) Thm 4.8, requires `f` **hyperbolic** and carries a
-denominator `1 − ((fⁿ)′)⁻¹`. For the shift's inverse branches `(fⁿ)′ ≡ p^{−n}`, so that denominator is
-`1 − pⁿ` — a `p`-adic **unit**, not a small quantity. The low-temperature expansion that justifies the
-formula does not converge, and the theorem does not cover a `|·|`-nonexpanding map. So the framework
-`ζ(T) = 1/det(I − TL)` cannot be borrowed for this object; §2.2's computation uses the Artin–Mazur
-definition directly, which is legitimate. Jiang–Wu's own Remark 4.9 states there is no
-Ruelle–Perron–Frobenius theorem over `ℂ_p`. **This strengthens the negative**: there is no applicable
-non-Archimedean Ruelle theory to appeal to for this map. **[sourced — arXiv:2508.19374 Def. 4.6,
-Thm 4.8, Remark 4.9; the inapplicability was found by the verification pass]**
+**Obstacle 2 — the theorem excludes the shift, but for a different reason than was first recorded, and
+the *mechanism* applies.** Jiang–Wu's determinant formula ([arXiv:2508.19374](https://arxiv.org/abs/2508.19374)
+Thm 4.8) is stated for a **hyperbolic rational map on `ℙ¹(ℚ_p)`**. The full shift `σ` is not a rational
+map, so the theorem may not be cited for it — that is the whole of the exclusion. Two reasons given in
+an earlier draft were **wrong** and are corrected here:
+
+* `σ` is **expanding**, not nonexpanding. On the ball `{a₀ = a}` it is the affine bijection
+  `x ↦ (x − a)/p` with `|σ′|_p = p > 1`; what is locally constant is the *digit* function `a₀`, not `σ`.
+* the denominator `1 − ((σⁿ)′)⁻¹ = 1 − pⁿ` is a `p`-adic **unit** (`|pⁿ|_p = p^{−n}`), and the geometric
+  series `Σ_m p^{nm}` **converges**. There is no convergence obstruction; the earlier claim that the
+  expansion fails was an arithmetic error.
+
+And the *mechanism* of §5 — weight constant on Markov blocks, hence a finite transfer matrix — survives
+the transplant, because its proof uses only a finite Markov partition into discs on which `f` is a
+uniform scaling. For `σ` that partition is the `p` residue balls, explicitly. So while the **theorem**
+must not be cited for `σ`, the **determinant** can be computed, and §6.3 does compute it. Jiang–Wu's
+Remark 4.9 is *not* a convergence statement: it records that there is no Ruelle–Perron–Frobenius
+theorem over `ℂ_p`, i.e. possibly several leading eigenvalues. **[sourced — arXiv:2508.19374 Thm 4.8,
+Prop. 2.4, §4.3, §5; independent extraction from the v2 LaTeX source. The two corrections are this
+document's.]**
 
 **Also relevant, as the one place a zeta *does* encode an exponent over `ℚ_p`:** Jiang–Wu Thm 5.1,
 verbatim — *"When `f` is a subhyperbolic rational map on `P¹(ℚ_p)`, and `0 < α < 1` such that
@@ -418,7 +434,140 @@ re-read them rather than trusting this list.
 
 ---
 
-## 6. What is *not* claimed
+## 6. The renormalisation attempt, and why the bridge is empty
+
+This is a record of *attempting* the one route that would have been new mathematics rather than a
+restatement: build the renormalisation transfer operator of the cascade and read the critical exponent
+off its spectrum, in the shape of Jiang–Wu's `d = log λ / log α`. It fails, and §6.5 says exactly why.
+
+### 6.1 What was to be shown
+
+> For a p-adic/dyadic cascade, is there a renormalisation map whose transfer-operator determinant is
+> finite-dimensional and whose leading eigenvalue `λ` satisfies `d = log λ / log α` for the cascade's
+> critical exponent?
+
+### 6.2 What the sources actually permit
+
+* **Barbato defines no renormalisation operator.** Verified against the arXiv LaTeX source: the string
+  "renormali" occurs **zero** times, as do any `R`, iteration map on solution space, or fixed-point
+  problem. The two operators the paper *does* contain are a **lift** (Prop. 4.1, an embedding of the
+  classic chain's solutions into the tree, not an endomorphism) and a **dynamical rescaling**
+  `X ↦ ϑX(ϑt+τ)` used inside the proof of Thm 2.1, which rescales time and amplitude but **never
+  generation**. So "the spectrum of the paper's renormalisation operator" has no referent, and the
+  honest first finding of the attempt is a documented absence. **[sourced — arXiv:1207.2846 LaTeX
+  source, `bozza8.tex`; zero occurrences of "renormali"]**
+* **The threshold is never derived in the paper.** `α̃ := ½ log₂ N_*` is introduced as a bare definition
+  ("To this end we set also…"), and `α > α̃` appears only as a *hypothesis* — in Thms 2.1, 2.3, 5.2,
+  Lemma 5.3, Prop. 6.1. The paper's logical route is *transfer from the classic dyadic model* via the
+  lift, not a tree computation. The one exact on-tree computation is Prop. 6.1's proof, where the
+  level-`n` energy is `2^{2α̃n}f²2^{−(n+1)(4α̃+2α)/3} = C·2^{(2/3)(α̃−α)n}`, summable iff `α > α̃`.
+  **[sourced]** Where the `½` enters the paper is the lift amplitude `N_*^{−(|j|+2)/2}`: **each
+  generation costs `N_*^{−1/2}` in amplitude, because amplitude is quadratic in energy while the level
+  count is linear.** **[sourced — Prop. 4.1 and its proof]**
+* **Jiang–Wu's theorems need rationality; their mechanism does not** (§5, Obstacle 2). So there are two
+  computable objects, and §6.3 computes both.
+
+### 6.3 The two multipliers, computed
+
+**(a) The digit/space direction — the Jiang–Wu shape.** With blocks `B_a = {a₀ = a}` and weight
+`w(a)`, the transfer operator on functions constant on the blocks is the `p × p` matrix
+`M_{ca} = w(a)·α^β` with `α = |p|_p = 1/p`. For the full shift it is **rank one**, so
+`det(I − tM) = 1 − t·α^β Σ_a w_a` and the exponent is
+
+```
+d = log(Σ_a w_a) / log p .
+```
+
+Unit weights give `Σ_a w_a = p`, `d = 1 = dim_H ℤ_p`, which is the correct check. This is exact and
+cutoff-free, and it agrees with the rank-one computation of §2.2. **[derived — exact; the matrix and
+the mechanism are the extraction's, cross-checked against §2.2]**
+
+**(b) The level/time direction — the cascade's own.** Barbato's eq. (1)/(7) is
+`dX_j/dt = c_j X_{j̄}² − Σ_{k∈𝒪_j} c_k X_j X_k` with `c_j = 2^{α|j|}` and `♯𝒪_j = b`. The isotropic
+profile `X_n(t) = σ(t)·r^{−n}` with `r = 2^α` reduces it **exactly** to a single scalar ODE:
+
+```
+σ̇ = (r² − b) σ² = (4^α − b) σ² .
+```
+
+**[proved — `Cascade.isotropic_reduction` in `Cascade/IsotropicReduction.lean`, plus
+`Cascade.isotropic_multiplier` for the `Λ` form; axiom-clean. Also [proved — exact computation,
+`zeta_checks.py` section I: the substitution is verified symbolically over 5 `(r, b)` pairs ×
+`n = 0..8`, and confirmed numerically by RK4 on the truncated tree, whose interior columns reproduce
+the closed form `σ(t) = σ₀/(1 − (4^α − b)σ₀t)`.]** Consequences:
+
+```
+4^α > b  ⟺  2^{2α} > N_*  ⟺  α > ½log₂N_* = α̃   →  σ blows up in finite time
+4^α < b  ⟺  α < α̃                                →  σ ~ 1/t, so E ~ 1/t²
+4^α = b                                           →  marginally critical
+```
+
+**This is Barbato's threshold, reproduced — and it is μ-free, unlike the record's earlier criterion
+(§6.6).** Reparametrising, `4^α − b = b(Λ² − 1)` with
+
+```
+Λ = 2^α / √N_* = 2^{α − α̃} = 2^β ,
+```
+
+**which is Barbato's own `β`** (their Remark after Prop. 4.1: `β = α − α̃`). So the renormalisation
+multiplier is `Λ = 2^β` and criticality is `Λ = 1` — a genuine renormalisation eigenvalue, extracted
+from the model rather than inserted.
+
+### 6.4 The `½`, explained rather than inserted
+
+`4^α = (2^α)²`, and the square is there because the model is **quadratic in the amplitude** while the
+level count enters **linearly** — the same reason the paper's own lift carries `N_*^{−|j|/2}`. So the
+renormalisation route does not smuggle the `½` in: `α̃` comes out as the marginal value of `Λ`, and the
+`½` is the reflection of the quadratic nonlinearity. **[derived; the same explanation appears in
+arXiv:1207.2846 Prop. 4.1]**
+
+### 6.5 Why the bridge is nonetheless empty
+
+The two multipliers of §6.3 are **different objects, in different directions, built from different
+data**:
+
+| | built from | direction | depends on `α`? |
+|---|---|---|---|
+| `d = log_p(Σ_a w_a)` | the branch **weights** `w_a` | space / digit | no |
+| `Λ = 2^{α − α̃}` | the time-scale exponent **`α`** and the branching | level / time | yes |
+
+The cascade's critical exponent is a **time-scale** threshold; the Jiang–Wu exponent is a **Hausdorff
+dimension of the tree boundary** — for uniform weights it is `1`, whatever `α` is. Matching them would
+require an identification that neither source contains. **So the cascade's `α̃` is not a Jiang–Wu
+dimension of the tree, and no zeta of the tree encodes it.** This is not a technicality: it is the same
+failure mode this whole thread has hit repeatedly — **two quantities of different kinds being compared
+because they share a symbol.** **[inference]**
+
+### 6.6 A correction to `CLOSURE.md` §4.3
+
+§4.3 analyses the **constant** mode `R_n ≡ c` of the isotropic chain and reports
+`K = A_n − B_n = 2^αμ(1 − b·2^αμ^{−3})`, concluding that "blow-up would require `K > 0`, i.e.
+`μ³ > b·2^α`; no computed case satisfies this". **`μ` is the gauge parameter of the ansatz
+`X_j = μ^{−|j|}R_{|j|}`** — it is chosen by the analyst and cancels from physical quantities (the
+physical profile is `X_n = σ·2^{−αn}`, which is μ-free). A criterion containing `μ` is therefore not a
+property of the model, and `K` is the coefficient of the **wrong mode**: the constant mode `ρ = 1` is
+not the self-similar mode. The gauge-invariant statement is `σ̇ = (4^α − b)σ²` (§6.3b), whose
+criticality is `4^α = N_*`, i.e. `α = α̃` — Barbato's threshold exactly, where §4.3's μ-dependent
+condition gave no such thing. §4.3's *other* content (the exact ratios `B_n/A_n` and `A_{n+1}/A_n`, the
+`b = 1` identity, the lift) is unaffected. **[proved — exact computation; this document's correction]**
+
+### 6.7 Verdict on the attempt
+
+* A finite-dimensional, cutoff-free transfer operator exists in the **digit** direction; its determinant
+  is rank one and its exponent `log_p(Σ_a w_a)` says nothing about `α` (§6.3a).
+* The cascade's renormalisation is in the **level** direction; there the exact isotropic reduction gives
+  `Λ = 2^{α−α̃}` with criticality at `α̃` (§6.3b) — a real renormalisation eigenvalue, and an
+  explanation of the `½` (§6.4).
+* The two are independent, so the bridge stays empty (§6.5).
+* Gained: the `½` is explained; the correct mode is identified, **correcting `CLOSURE.md` §4.3**
+  (§6.6); and the Jiang–Wu exclusion is narrowed to its true reason — rationality, not convergence
+  (§5, Obstacle 2).
+
+**Status of the attempt: negative, with a positive by-product.** **[inference]**
+
+---
+
+## 7. What is *not* claimed
 
 The negative is narrow and should be quoted narrowly:
 
@@ -440,7 +589,7 @@ The negative is narrow and should be quoted narrowly:
 
 ---
 
-## 7. Verdict
+## 8. Verdict
 
 * The Artin–Mazur zeta of the full `p`-adic shift is `1/(1 − pT)`: one pole, no zeros, content `= p`.
   **[proved — exact computation, and `PAdicZeta/`]**
@@ -490,6 +639,15 @@ arithmetic harness that reduced numerator and denominator separately, invalid wh
 9. **The Jiang–Wu determinant** was quoted without its hyperbolicity hypothesis, its `J(f)`
    restriction, and its `1 − ((fⁿ)′)⁻¹` denominator; with the denominator restored the theorem
    *excludes* the shift. This correction strengthens the negative.
+10. **Obstacle 2 was wrong on two counts, and is rewritten in §5.** The shift is **expanding**
+    (`|σ′|_p = p > 1` on each residue ball), and the geometric series with ratio `p^{−n}` **converges**,
+    with `1 − pⁿ` a `p`-adic unit. The theorem excludes the shift because `σ` is not a *rational* map —
+    that, and only that. The *mechanism* does apply, and §6.3a uses it. The error came from an
+    independent verification pass that this document had relied on; the relayed claim was not re-derived
+    before being written down, which is precisely the discipline this file exists to enforce.
+11. **`CLOSURE.md` §4.3 analysed the wrong mode and used a gauge-dependent criterion.** Its `K`
+    contains the free ansatz parameter `μ`, which cancels from physical quantities; the gauge-invariant
+    reduction is `σ̇ = (4^α − N_*)σ²` (§6.6), and *that* reproduces Barbato's threshold.
 
 ---
 

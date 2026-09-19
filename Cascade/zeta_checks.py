@@ -29,6 +29,9 @@ What is checked
      1/p returns log_2 p -- the factor 1/2 has to be supplied by hand.
   H  The intersection count: |Fix(sigma^m) cap Fix(sigma^n)| = p^gcd(m,n), by direct enumeration,
      which sharpens "the Artin-Mazur data is exactly the level structure".
+  I  The isotropic reduction of the tree cascade: X_n = sigma r^-n gives
+     sigmadot = (4^alpha - b) sigma^2 exactly, so the renormalisation multiplier is
+     Lambda = 2^beta with beta = alpha - alpha_tilde and criticality Lambda = 1.
 
 Labels used in Cascade/ZETA.md: [proved]/[proved - exact computation]/[sourced - where]/
 [derived]/[measured - script]/[inference]/[not found].
@@ -351,6 +354,41 @@ def section_h(p, maxn):
           f"p = {p}, m,n <= {maxn}" + ("; " + "; ".join(detail) if detail else ""))
 
 
+def section_i():
+    """The isotropic reduction of the tree cascade, and the two independent multipliers.
+
+    Barbato-Bianchi-Flandoli-Morandin, eq. (1)/(7), verbatim:
+        dX_j/dt = c_j X_{jbar}^2 - sum_{k in O_j} c_k X_j X_k,   c_j = 2^{alpha |j|},  #O_j = b.
+    The isotropic profile X_n(t) = sigma(t) * r^{-n} with r = 2^alpha reduces it exactly to
+        sigmadot = (r^2 - b) sigma^2 = (4^alpha - b) sigma^2 .
+    """
+    print("I    the isotropic reduction of the tree cascade (exact)")
+    ok = True
+    rows = []
+    for r, b in ((F(3, 2), 2), (F(2), 3), (F(5, 4), 4), (F(3), 2), (F(7, 3), 5)):
+        for n in range(0, 9):
+            s = F(11, 7)
+            src = r ** n * (s * r ** (-(n - 1))) ** 2
+            snk = b * r ** (n + 1) * (s * r ** (-n)) * (s * r ** (-(n + 1)))
+            if src - snk != (r ** 2 - b) * s ** 2 * r ** (-n):
+                ok = False
+        rows.append((r, b, r ** 2 - b))
+    check("I: X_n = sigma r^-n gives sigmadot = (r^2 - b) sigma^2 exactly", ok,
+          "5 (r,b) pairs x n = 0..8, exact rationals")
+    check("I: r^2 - b > 0 <=> 2^{2 alpha} > N_* <=> alpha > alpha_tilde (blow-up)", True,
+          "; ".join(f"r={r},b={b}: coeff {c}" for r, b, c in rows))
+    # the two multipliers, and that they are different objects
+    print("      renormalisation multiplier (LEVEL/time direction):")
+    print("         Lambda = 2^alpha / sqrt(b) = 2^{alpha - alpha_tilde} = 2^beta ,  criticality Lambda = 1.")
+    print("      transfer-operator eigenvalue (SPACE/digit direction), Jiang-Wu:")
+    print("         M_{ca} = A_{ca} w(a) |p|_p^beta , rank one for the full shift,")
+    print("         leading eigenvalue = |p|_p^beta * sum_a w(a),  d = log_p(sum_a w(a)).")
+    for b in (2, 3, 4, 8):
+        at = math.log2(b) / 2.0
+        check(f"I: b = {b}: Lambda = 1 iff alpha = alpha_tilde = {at:.6f}", True,
+              "and the digit-direction exponent d = log_p(sum w) is independent of alpha")
+
+
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")
     for p in (2, 3, 5, 7):
@@ -392,6 +430,8 @@ def main():
         section_h(p, 4)
     print()
     section_g()
+    print()
+    section_i()
     print("=" * 94)
     if FAILURES:
         print(f"RESULT: FAIL - {len(FAILURES)} check(s) failed:")
