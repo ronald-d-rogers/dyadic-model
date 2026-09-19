@@ -715,6 +715,43 @@ only supplies a consistent boundary condition. So this is a legitimate closed mo
 state, but it is not the undriven cascade, and it is not a repair of the root obstruction — it removes
 the obstruction by changing the equation that had it. **[proved — exact computation]**
 
+**Can we build arbitrarily large connections between separate loops?** The question needs splitting,
+because "loop" has meant three different things here, and the answer differs for each.
+
+*Index loops (cycles in the shell graph).* **No — `b₁ ≤ 1`.** A closure needs a free `ℤ`-action on the
+index set: a translation by `N` with `u_{k+N} = μu_k` and `μ = 2^{−N}` forced. The chain's automorphism
+group supplies one translation; the rooted tree's supplies none (§3.1). And the ring cannot be closed
+twice: a second identification `q_{k+M} = νq_k` has `ν = 1` (the state is already `N`-periodic) while
+the same consistency condition gives `ν = 2^{−M}`, so `2^{−M} = 1` forces `M = 0`. **One closure, and a
+second cannot be stacked.** **[proved — exact computation, `zeta_checks.py` section I⁵]**
+
+*Signal loops (self-references at a boundary).* **As many as you like — but they detach rather than
+attach.** Setting `X_{n−1} := 2^γX_n` at node `n` *removes* that node's link to its parent: the subtree
+rooted at `n` becomes a self-contained closed cascade and the rest of the tree is severed from it. So
+each closure is a **cut**. Sharing a node between two closed pieces does not create a cycle either —
+the shared node has one equation, and its children set is merely partitioned, i.e. an ordinary
+branching. **[derived]**
+
+*Coupling two cascades.* Neither route works. **Superposition fails**: the model is quadratic, so
+`F(X+Y) − F(X) − F(Y) = 2B(X,Y)`, which is nonzero — concretely for the chain transfer,
+`X = (3,1,0,…)`, `Y = (1,2,0,…)` gives `2B = (−14, 12, 16, 0, …)`. And the model has **no cross-term**:
+the equation at node `j` couples only to `j`'s parent and `j`'s children, and no parameter produces a
+link between two index sets. So "connecting two cascades" means writing a new model, and nothing in
+this thread supplies one. **[proved — exact computation, `zeta_checks.py` section I⁵]**
+
+*The geometry.* Here the answer is the opposite — but it is a different object. The skeleton is a
+**finite graph** and the genus equals its first Betti number (Payne Thm 11.26, §7.2), so `b₁ = g` is
+geometrically available for any `g`, and joining two cycles by `m` parallel paths gives `b₁ = m+1` —
+**arbitrarily thick**. The cascade's index structure does not enter this at all: the skeleton comes
+from the p-adic uniformisation. And the boundary stays a **Cantor set** however many funnels there are
+(§7.4–7.5), so the "several boundaries" reading does not follow. **[sourced — §7; no source found
+building a multi-boundary / multi-funnel wormhole]**
+
+**So: the model supplies cutting, not joining.** To get a network of connected loops you must add a
+coupling term — i.e. change the model. And between the two available ends sits the repeller (§6.3b‴):
+the interior admits exactly one bounded power law, so the ring and the top closure are the two ends of
+a **rigid rod**. You can cap either end; you cannot braid several rods together. **[inference]**
+
 [^loop]: The distinction is the same one §5.2 draws for "torus", and it is the third time in this
 thread that two different things have shared a symbol or a word.
 

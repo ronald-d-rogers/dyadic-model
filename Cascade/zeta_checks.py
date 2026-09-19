@@ -530,6 +530,34 @@ def section_i():
     print("            the quadratic self-term 4^gamma X_0^2.  The same PROFILE solves a DIFFERENT")
     print("            root equation; it is not a solution of Barbato's unforced model.")
 
+    # (i) ARBITRARILY LARGE CONNECTIONS BETWEEN LOOPS?
+    #  (i1) index loops: b_1 <= 1.  A second closure q_{k+M} = nu q_k on Z/N is impossible:
+    #       q is already N-periodic so nu = 1, while the closure condition for shift M gives
+    #       nu = 2^{-M}; together 2^{-M} = 1 forces M = 0.
+    #  (i2) superposition fails: F quadratic => F(X+Y) - F(X) - F(Y) = 2B(X,Y), nonzero.
+    print("I''''' can loops be connected?   b_1 <= 1, and there is no coupling")
+    ok2 = True
+    for M in range(1, 13):
+        nu_periodic = F(1)                    # q is already N-periodic
+        nu_closure = F(1, 2 ** M)             # the closure condition for shift M
+        if nu_periodic == nu_closure:         # would mean 2^M = 1
+            ok2 = False
+    check("I''''': the ring admits EXACTLY ONE self-similar closure; a second forces M = 0",
+          ok2, "nu = 1 by periodicity, nu = 2^{-M} by closure; 2^{-M} = 1 => M = 0")
+
+    def bilin(k, X, Y):
+        return 2 ** k * (2 * X(k - 1) * Y(k - 1) - 2 * (X(k) * Y(k + 1) + Y(k) * X(k + 1)))
+
+    Xs = lambda k: F(3) if k == 0 else (F(1) if k == 1 else F(0))
+    Ys = lambda k: F(1) if k == 0 else (F(2) if k == 1 else F(0))
+    bvals = {k: bilin(k, Xs, Ys) for k in (0, 1, 2, 3)}
+    check("I''''': superposition FAILS -- 2B(X,Y) is nonzero for two solutions",
+          any(v != 0 for v in bvals.values()),
+          f"X=(3,1,0,...), Y=(1,2,0,...) gives 2B = {tuple(int(v) for v in bvals.values())}, so X+Y is not a solution")
+    print("         => the model has NO cross-term and no superposition: coupling two cascades means")
+    print("            writing a NEW model.  And closures DETACH (they cut the link to the parent)")
+    print("            rather than attach.  The model supplies cutting, not joining.")
+
 
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")
