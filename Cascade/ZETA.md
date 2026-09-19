@@ -28,18 +28,20 @@ The result, up front:
   prescribed viscosity law) and `0` (preservation of the periodic self-similar ansatz) — and they do
   not converge. Selection, where it exists, is by an imposed requirement, not by the dynamics; the
   zeta's `β` is downstream of that choice. **[proved] + [sourced]**
-* **The renormalisation route was attempted and fails for a structural reason** (§6). The tree's
-  isotropic profile `X_n = σ(t)2^{−αn}` reduces the model **exactly** to `σ̇ = (4^α − N_*)σ²`, whose
-  multiplier is `Λ = 2^{α−α̃} = 2^β` — so the cascade's threshold *is* a renormalisation eigenvalue, and
-  the `½` is explained (energy is quadratic in the amplitude, the level count linear). But the
-  Jiang–Wu exponent `d = log_p(Σ_a w_a)` lives in the **space/digit** direction and is independent of
-  `α`, while `α̃` lives in the **level/time** direction. The two are different objects, so the bridge
-  stays empty. **[proved — exact computation] + [inference]**
+* **The renormalisation route was attempted and fails** (§6). The tree's isotropic profile
+  `X_n = σ(t)2^{−αn}` reduces the **bulk recursion** — the translation-invariant part of the model,
+  away from the root — to the marginal coefficient `4^α − N_*`, vanishing exactly at `α̃`. But the root
+  has no father, so the profile is **not** a solution of the unforced rooted model; an earlier claim in
+  this very file that it "reduces the whole tree" is **withdrawn** (§6.3b′). The Jiang–Wu exponent
+  `d = log_p(Σ_a w_a)` lives in the **space/digit** direction and is independent of `α`; `α̃` lives in
+  the **level/time** direction. Different objects, so the bridge stays empty.
+  **[proved — exact computation] + [inference]**
 
-**Nothing here is a discovery about turbulence.** What is new is one small, checkable lemma about
-rank-one zeta functions (§4) and the removal of a hope. Read this beside `OUTCOME.md` and
-`CLOSURE.md`: the exercise's answer is negative and this document exists so the reasoning, and its
-corrections, are on the record rather than only in a `/tmp` directory.
+**Nothing here is a discovery.** What the thread produced is a *verified negative* with its mechanisms,
+one small checkable lemma about rank-one zeta functions (§4), one hope removed, and — on the
+renormalisation attempt — one of this document's own claims **withdrawn after checking** (§6.3b′). Read
+this beside `OUTCOME.md` and `CLOSURE.md`: the exercise's answer is negative and this document exists so
+the reasoning, and its corrections, are on the record rather than only in a `/tmp` directory.
 
 ## How to read the labels
 
@@ -482,88 +484,112 @@ Unit weights give `Σ_a w_a = p`, `d = 1 = dim_H ℤ_p`, which is the correct ch
 cutoff-free, and it agrees with the rank-one computation of §2.2. **[derived — exact; the matrix and
 the mechanism are the extraction's, cross-checked against §2.2]**
 
-**(b) The level/time direction — the cascade's own.** Barbato's eq. (1)/(7) is
+**(b) The level/time direction — the bulk recursion.** Barbato's eq. (1)/(7) is
 `dX_j/dt = c_j X_{j̄}² − Σ_{k∈𝒪_j} c_k X_j X_k` with `c_j = 2^{α|j|}` and `♯𝒪_j = b`. The isotropic
-profile `X_n(t) = σ(t)·r^{−n}` with `r = 2^α` reduces it **exactly** to a single scalar ODE:
+profile `X_n(t) = σ(t)·r^{−n}` with `r = 2^α` makes the generation dependence of the per-node
+right-hand side cancel **at every node that has a father**:
 
 ```
-σ̇ = (r² − b) σ² = (4^α − b) σ² .
+at n ≥ 1:   c_n X_{n−1}² − b·c_{n+1} X_n X_{n+1} = σ² r^{−n} (r² − b)
 ```
 
-**[proved — `Cascade.isotropic_reduction` in `Cascade/IsotropicReduction.lean`, plus
-`Cascade.isotropic_multiplier` for the `Λ` form; axiom-clean. Also [proved — exact computation,
-`zeta_checks.py` section I: the substitution is verified symbolically over 5 `(r, b)` pairs ×
-`n = 0..8`, and confirmed numerically by RK4 on the truncated tree, whose interior columns reproduce
-the closed form `σ(t) = σ₀/(1 − (4^α − b)σ₀t)`.]** Consequences:
+**[proved — `Cascade.isotropic_reduction` in `Cascade/IsotropicReduction.lean`; also [proved — exact
+computation, `zeta_checks.py` section I, 5 `(r, b)` pairs × `n = 1..8`]]** So the **bulk recursion** —
+the translation-invariant part of the model, away from the root — has the generation-independent
+coefficient `r² − b = 4^α − N_*`, vanishing at
 
 ```
-4^α > b  ⟺  2^{2α} > N_*  ⟺  α > ½log₂N_* = α̃   →  σ blows up in finite time
-4^α < b  ⟺  α < α̃                                →  σ ~ 1/t, so E ~ 1/t²
-4^α = b                                           →  marginally critical
+4^α = N_*   ⟺   2^{2α} = N_*   ⟺   α = ½log₂N_* = α̃ ,
 ```
 
-**This is Barbato's threshold, reproduced — and it is μ-free, unlike the record's earlier criterion
-(§6.6).** Reparametrising, `4^α − b = b(Λ² − 1)` with
+equivalently `Λ = r/√N_* = 2^{α−α̃} = 2^β` with `Λ = 1`. **[proved —
+`Cascade.isotropic_coefficient_vanishes`, `Cascade.isotropic_multiplier`]**
 
-```
-Λ = 2^α / √N_* = 2^{α − α̃} = 2^β ,
-```
+**(b′) The root, where the profile FAILS — and a withdrawal.** The root has no father: `X_{0̄} ≡ f`,
+and in the unforced model `f = 0`, so the root's source term is absent. There the model gives
+`−bσ²`, while the bulk recursion predicts `σ²(r² − b)`; the two agree only at `r = 0`. So **the
+isotropic profile is not a solution of the unforced rooted model at any `α`.** The independent check
+is the energy balance, eq. (9) with `f = ν = 0`, `dℰ_n/dt = 2c₀X_{0̄}²X₀ − Π_n`: the profile violates
+it by exactly `2σ³r²`, which is the term a **phantom father `X_{−1} = σr`** would contribute.
+**[proved — `Cascade.isotropic_root_obstruction`; exact computation, `zeta_checks.py` section I]**
 
-**which is Barbato's own `β`** (their Remark after Prop. 4.1: `β = α − α̃`). So the renormalisation
-multiplier is `Λ = 2^β` and criticality is `Λ = 1` — a genuine renormalisation eigenvalue, extracted
-from the model rather than inserted.
+> **Withdrawal.** An earlier version of this section claimed that "the isotropic manifold reduces the
+> whole tree to the single scalar ODE `σ̇ = (4^α − N_*)σ²`", and that this "reproduces Barbato's
+> threshold" as a renormalisation eigenvalue. **The bulk identity is real; the reductive claim is
+> wrong**, because the root breaks the translation invariance. The earlier claim rested on an
+> exact-arithmetic check that had the same bug — it supplied a phantom father at `n = 0`, so it
+> verified the translation-invariant recursion while the model has no source there. **The corrected
+> statement is the one above: the *bulk* recursion is marginal at `α̃`; the profile is not a solution
+> of the model.** In particular the "blow-up for `α > α̃`" reported below in the earlier version was
+> an artefact of dropping the root, and is withdrawn with it.
 
-### 6.4 The `½`, explained rather than inserted
+**(b″) The one case that IS a solution.** In the **forced** model with `r² = b` and the alias set to
+the consistent phantom value `f = σr`, both the root equation and every interior equation vanish, so
+the profile is stationary. Its exponent is then the paper's stationary exponent: `r² = b` says
+`log₂b = 2α`, and `(2α̃+α)/3 = (2α+α)/3 = α`. **[proved — `Cascade.isotropic_stationary_forced`]**
+That is a consistency check on the identification, not a new solution: the paper's stationary profile
+`X_j = f·2^{−(|j|+1)(2α̃+α)/3}` specialises to this at `4^α = b`.
 
-`4^α = (2^α)²`, and the square is there because the model is **quadratic in the amplitude** while the
-level count enters **linearly** — the same reason the paper's own lift carries `N_*^{−|j|/2}`. So the
-renormalisation route does not smuggle the `½` in: `α̃` comes out as the marginal value of `Λ`, and the
-`½` is the reflection of the quadratic nonlinearity. **[derived; the same explanation appears in
-arXiv:1207.2846 Prop. 4.1]**
+### 6.4 The `½`, and what is left of it
+
+`4^α = (2^α)²`, and the square reflects that the model is **quadratic in the amplitude** while the
+level count enters **linearly** — the same reason the paper's own lift carries `N_*^{−|j|/2}`.
+**[sourced — arXiv:1207.2846 Prop. 4.1 and its proof]** With §6.3b′ in hand this cannot be presented
+as *this document's* explanation of the `½`: the paper's lift already contains it, and the bulk
+reduction adds no independent measurement. What survives is only that the `½` is not mysterious — it
+is the reciprocal of the homogeneity degree of the nonlinearity.
 
 ### 6.5 Why the bridge is nonetheless empty
 
-The two multipliers of §6.3 are **different objects, in different directions, built from different
-data**:
+The two multipliers are **different objects, in different directions, built from different data**:
 
 | | built from | direction | depends on `α`? |
 |---|---|---|---|
 | `d = log_p(Σ_a w_a)` | the branch **weights** `w_a` | space / digit | no |
-| `Λ = 2^{α − α̃}` | the time-scale exponent **`α`** and the branching | level / time | yes |
+| `r² − N_*`, marginal at `α̃` | the time-scale exponent **`α`** and the branching | level / time | yes |
 
-The cascade's critical exponent is a **time-scale** threshold; the Jiang–Wu exponent is a **Hausdorff
-dimension of the tree boundary** — for uniform weights it is `1`, whatever `α` is. Matching them would
-require an identification that neither source contains. **So the cascade's `α̃` is not a Jiang–Wu
-dimension of the tree, and no zeta of the tree encodes it.** This is not a technicality: it is the same
-failure mode this whole thread has hit repeatedly — **two quantities of different kinds being compared
-because they share a symbol.** **[inference]**
+And with §6.3b′ the second row is weaker than it first appeared: it is the marginality of the
+**bulk recursion**, and since `α̃ := ½log₂N_*` is a definition, reading `α̃` off `4^α = N_*` is close
+to reading it off `N_* = 2^{2α̃}` — a restatement, not a derivation. What is *not* a restatement is the
+direction: the zeta exponent `d` is a **Hausdorff dimension of the tree boundary** (for uniform
+weights, `1`, whatever `α` is), while `α̃` is a **time-scale** threshold. **The cascade's `α̃` is not a
+Jiang–Wu dimension of the tree, and no zeta of the tree encodes it.** This is the same failure mode
+this thread has hit repeatedly: two quantities of different kinds compared because they share a
+symbol. **[inference]**
 
 ### 6.6 A correction to `CLOSURE.md` §4.3
 
 §4.3 analyses the **constant** mode `R_n ≡ c` of the isotropic chain and reports
 `K = A_n − B_n = 2^αμ(1 − b·2^αμ^{−3})`, concluding that "blow-up would require `K > 0`, i.e.
-`μ³ > b·2^α`; no computed case satisfies this". **`μ` is the gauge parameter of the ansatz
-`X_j = μ^{−|j|}R_{|j|}`** — it is chosen by the analyst and cancels from physical quantities (the
-physical profile is `X_n = σ·2^{−αn}`, which is μ-free). A criterion containing `μ` is therefore not a
-property of the model, and `K` is the coefficient of the **wrong mode**: the constant mode `ρ = 1` is
-not the self-similar mode. The gauge-invariant statement is `σ̇ = (4^α − b)σ²` (§6.3b), whose
-criticality is `4^α = N_*`, i.e. `α = α̃` — Barbato's threshold exactly, where §4.3's μ-dependent
-condition gave no such thing. §4.3's *other* content (the exact ratios `B_n/A_n` and `A_{n+1}/A_n`, the
-`b = 1` identity, the lift) is unaffected. **[proved — exact computation; this document's correction]**
+`μ³ > b·2^α`; no computed case satisfies this".
+
+* **The gauge criticism stands.** `μ` is the parameter of the ansatz `X_j = μ^{−|j|}R_{|j|}`, chosen
+  by the analyst, and it cancels from physical quantities. A criterion containing `μ` is therefore
+  not a property of the model, and `ρ = 1` is not the self-similar mode.
+* **The replacement first offered here is withdrawn.** It asserted the gauge-invariant criterion is
+  `σ̇ = (4^α − N_*)σ²` with criticality `α = α̃`. Per §6.3b′ that is the **bulk** recursion, not the
+  model, so it does not supply the criterion §4.3 lacked either.
+* **What should be said instead:** the unforced rooted model has no isotropic solution of this shape
+  at all (the root obstruction, §6.3b′), so *no* criterion of the form "the isotropic mode blows up
+  iff …" is available. Barbato's own threshold is reached differently — through the stationary
+  profile and its ℓ² condition, `α > α̃` (Prop. 6.1) — and that is where the record should point.
+
+**[proved — exact computation; this document's correction, itself corrected]**
 
 ### 6.7 Verdict on the attempt
 
-* A finite-dimensional, cutoff-free transfer operator exists in the **digit** direction; its determinant
-  is rank one and its exponent `log_p(Σ_a w_a)` says nothing about `α` (§6.3a).
-* The cascade's renormalisation is in the **level** direction; there the exact isotropic reduction gives
-  `Λ = 2^{α−α̃}` with criticality at `α̃` (§6.3b) — a real renormalisation eigenvalue, and an
-  explanation of the `½` (§6.4).
-* The two are independent, so the bridge stays empty (§6.5).
-* Gained: the `½` is explained; the correct mode is identified, **correcting `CLOSURE.md` §4.3**
-  (§6.6); and the Jiang–Wu exclusion is narrowed to its true reason — rationality, not convergence
-  (§5, Obstacle 2).
+* A finite-dimensional, cutoff-free transfer operator exists in the **digit** direction; its
+  determinant is rank one and its exponent `log_p(Σ_a w_a)` says nothing about `α` (§6.3a).
+* The cascade's **bulk** recursion has the marginal coefficient `4^α − N_*`, vanishing exactly at
+  Barbato's `α̃` — but the isotropic profile is not a solution of the unforced rooted model, so this
+  is a statement about the translation-invariant part only (§6.3b′, withdrawal).
+* The two directions are independent, so the bridge stays empty (§6.5).
+* Gained, and it is little: the Jiang–Wu exclusion is narrowed to its true reason (rationality, not
+  convergence — §5, Obstacle 2); `CLOSURE.md` §4.3's criterion is shown to be gauge-dependent and its
+  mode wrong (§6.6); and one over-claim of this document's own is withdrawn (§6.3b′).
 
-**Status of the attempt: negative, with a positive by-product.** **[inference]**
+**Status of the attempt: negative.** The first version of this section reported "negative, with a
+positive by-product"; the by-product did not survive checking. **[inference]**
 
 ---
 
@@ -646,8 +672,19 @@ arithmetic harness that reduced numerator and denominator separately, invalid wh
     independent verification pass that this document had relied on; the relayed claim was not re-derived
     before being written down, which is precisely the discipline this file exists to enforce.
 11. **`CLOSURE.md` §4.3 analysed the wrong mode and used a gauge-dependent criterion.** Its `K`
-    contains the free ansatz parameter `μ`, which cancels from physical quantities; the gauge-invariant
-    reduction is `σ̇ = (4^α − N_*)σ²` (§6.6), and *that* reproduces Barbato's threshold.
+    contains the free ansatz parameter `μ`, which cancels from physical quantities, so `μ³ > b·2^α` is
+    not a property of the model and `ρ = 1` is not the self-similar mode (§6.6).
+12. **And then this document's own replacement was withdrawn.** Having (correctly) criticised §4.3,
+    this file first proposed the gauge-invariant criterion `σ̇ = (4^α − N_*)σ²` and claimed it
+    "reproduces Barbato's threshold". **False**: that identity holds at nodes that have a father, and
+    the root has none, so the profile is not a solution of the unforced rooted model; the energy
+    balance is violated by exactly the phantom-father term `2σ³r²` (§6.3b′). The check that had
+    "verified" the claim contained the same bug — it supplied a phantom father at `n = 0`. `ZETA.md`
+    §6.3b/§6.4/§6.6/§6.7, `CLOSURE.md`'s corrigendum, `Cascade/IsotropicReduction.lean` and
+    `zeta_checks.py` section I are all corrected, and the withdrawn claim is marked as such rather
+    than deleted. **This is the third time in this thread that a claim of this document's own has had
+    to be retracted, and the second time the retraction was found by checking a *consequence* rather
+    than the claim itself** — the energy balance, not the per-node identity.
 
 ---
 

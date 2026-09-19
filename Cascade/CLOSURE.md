@@ -322,14 +322,21 @@ evaluated on a non-cyclic path. **[derived]**
 > **Corrigendum (added later; supersedes the `K > 0` criterion below).**
 > The analysis above is of the **constant** mode `R_n ≡ c`, i.e. `ρ = 1`, and the quantity
 > `K = A_n − B_n` **contains the gauge parameter `μ`** of the ansatz `X_j = μ^{−|j|}R_{|j|}`. That `μ`
-> is chosen by the analyst and cancels from physical quantities — the physical isotropic profile is
-> `X_n = σ(t)·2^{−αn}`, which is `μ`-free — so `μ³ > b·2^α` is not a property of the model, and
-> `ρ = 1` is not the self-similar mode. Substituting the physical profile directly into eq. (1) gives,
-> exactly, **`σ̇ = (4^α − N_*)σ²`**, with multiplier `Λ = 2^α/√N_* = 2^{α−α̃} = 2^β` and criticality
-> `4^α = N_*`, i.e. **`α = α̃`** — Barbato's threshold. So the tree's isotropic direction is **stable
-> below `α̃` and unstable above it**, and the threshold is reproduced rather than missed. The `b = 1`
-> identity, the ratios `B_n/A_n` and `A_{n+1}/A_n`, and §4.4's lift are unaffected.
-> **[proved — exact computation, `Cascade/zeta_checks.py` section I; see `Cascade/ZETA.md` §6.6]**
+> is chosen by the analyst and cancels from physical quantities, so `μ³ > b·2^α` is not a property of
+> the model, and `ρ = 1` is not the self-similar mode. **The criterion below is therefore withdrawn.**
+>
+> A replacement was attempted and also **withdrawn**: substituting the profile `X_n = σ·r^{−n}`
+> (`r = 2^α`) into eq. (1) does make the generation dependence cancel, giving the bulk coefficient
+> `r² − b` — but only **at nodes that have a father**. The root has no father (`X_{0̄} ≡ f`, and `f = 0`
+> when unforced), so the profile is **not** a solution of the unforced rooted model at any `α`; the
+> energy balance is violated by exactly the phantom-father term `2σ³r²`. So no criterion of the form
+> "the isotropic mode blows up iff …" is available here.
+>
+> The threshold `α̃` is reached in the paper differently: through the **stationary** profile
+> `X_j = f·2^{−(|j|+1)(2α̃+α)/3}` and its ℓ² condition `α > α̃` (Prop. 6.1), which is exact. The
+> `b = 1` identity, the ratios `B_n/A_n` and `A_{n+1}/A_n`, and §4.4's lift are unaffected.
+> **[proved — exact computation, `Cascade/IsotropicReduction.lean` and `Cascade/zeta_checks.py`
+> section I; see `Cascade/ZETA.md` §6.6]**
 
 The original text follows, retained only as the record of what was written and **superseded** by the
 corrigendum above:

@@ -355,38 +355,71 @@ def section_h(p, maxn):
 
 
 def section_i():
-    """The isotropic reduction of the tree cascade, and the two independent multipliers.
+    """The isotropic profile of the tree cascade -- and the ROOT, where it fails.
 
     Barbato-Bianchi-Flandoli-Morandin, eq. (1)/(7), verbatim:
-        dX_j/dt = c_j X_{jbar}^2 - sum_{k in O_j} c_k X_j X_k,   c_j = 2^{alpha |j|},  #O_j = b.
-    The isotropic profile X_n(t) = sigma(t) * r^{-n} with r = 2^alpha reduces it exactly to
-        sigmadot = (r^2 - b) sigma^2 = (4^alpha - b) sigma^2 .
+        dX_j/dt = c_j X_jbar^2 - sum_{k in O_j} c_k X_j X_k,   c_j = 2^{alpha |j|},  #O_j = b,
+    with X_{0bar}(t) = f a forcing ALIAS: the root has no father, so in the unforced model its
+    source term is absent.  The isotropic profile X_n = sigma * r^{-n} (r = 2^alpha) makes the
+    generation dependence cancel -- at every node that HAS a father.  The root is an obstruction,
+    and the earlier version of this section missed it by supplying a phantom father at n = 0.
     """
-    print("I    the isotropic reduction of the tree cascade (exact)")
-    ok = True
-    rows = []
-    for r, b in ((F(3, 2), 2), (F(2), 3), (F(5, 4), 4), (F(3), 2), (F(7, 3), 5)):
-        for n in range(0, 9):
-            s = F(11, 7)
-            src = r ** n * (s * r ** (-(n - 1))) ** 2
-            snk = b * r ** (n + 1) * (s * r ** (-n)) * (s * r ** (-(n + 1)))
-            if src - snk != (r ** 2 - b) * s ** 2 * r ** (-n):
-                ok = False
-        rows.append((r, b, r ** 2 - b))
-    check("I: X_n = sigma r^-n gives sigmadot = (r^2 - b) sigma^2 exactly", ok,
-          "5 (r,b) pairs x n = 0..8, exact rationals")
-    check("I: r^2 - b > 0 <=> 2^{2 alpha} > N_* <=> alpha > alpha_tilde (blow-up)", True,
-          "; ".join(f"r={r},b={b}: coeff {c}" for r, b, c in rows))
-    # the two multipliers, and that they are different objects
-    print("      renormalisation multiplier (LEVEL/time direction):")
-    print("         Lambda = 2^alpha / sqrt(b) = 2^{alpha - alpha_tilde} = 2^beta ,  criticality Lambda = 1.")
-    print("      transfer-operator eigenvalue (SPACE/digit direction), Jiang-Wu:")
-    print("         M_{ca} = A_{ca} w(a) |p|_p^beta , rank one for the full shift,")
-    print("         leading eigenvalue = |p|_p^beta * sum_a w(a),  d = log_p(sum_a w(a)).")
-    for b in (2, 3, 4, 8):
-        at = math.log2(b) / 2.0
-        check(f"I: b = {b}: Lambda = 1 iff alpha = alpha_tilde = {at:.6f}", True,
-              "and the digit-direction exponent d = log_p(sum w) is independent of alpha")
+    print("I    the isotropic profile of the tree cascade: bulk identity, and the root obstruction")
+    b, r, s = F(2), F(2), F(1)
+
+    def c(n):
+        return r ** n
+
+    def X(n):
+        return s * r ** (-n)
+
+    # (a) the BULK identity, for every node with a father (n >= 1)
+    bulk_ok = True
+    for rr, bb in ((F(3, 2), 2), (F(2), 3), (F(5, 4), 4), (F(3), 2), (F(7, 3), 5)):
+        for n in range(1, 9):
+            src = rr ** n * (s * rr ** (-(n - 1))) ** 2
+            snk = bb * rr ** (n + 1) * (s * rr ** (-n)) * (s * rr ** (-(n + 1)))
+            if src - snk != s ** 2 * rr ** (-n) * (rr ** 2 - bb):
+                bulk_ok = False
+    check("I: at every node WITH a father, X_n = sigma r^-n gives RHS = sigma^2 r^-n (r^2 - b)",
+          bulk_ok, "5 (r,b) pairs x n = 1..8, exact rationals")
+
+    # (b) the ROOT fails: model RHS = -b sigma^2, bulk predicts sigma^2 (r^2 - b)
+    root_model = -b * s ** 2
+    root_bulk = s ** 2 * (r ** 2 - b)
+    check("I: the root (no father, f = 0) gives -b sigma^2, NOT sigma^2 (r^2 - b)",
+          root_model != root_bulk, f"model {root_model} vs bulk {root_bulk}")
+    check("I: they agree only when r = 0, so the profile solves the unforced rooted model at no r != 0",
+          all((-(bb * s ** 2) == s ** 2 * (rr ** 2 - bb)) == (rr == 0)
+              for rr in (F(1, 2), F(1), F(2), F(3)) for bb in (2, 3)))
+
+    # (c) the independent check: the energy balance, whose residual is the phantom father
+    q = b / r ** 2
+    e_ok, res_ok = True, True
+    for n in (1, 2, 3, 4):
+        lhs = 2 * s ** 3 * (r ** 2 - b) * sum(q ** m for m in range(n + 1))
+        Pi = 2 * b ** (n + 1) * c(n + 1) * X(n) ** 2 * X(n + 1)
+        if lhs + Pi != 2 * (s * r) ** 2 * s:
+            e_ok = False
+        if not (lhs + Pi == 2 * s ** 3 * r ** 2):
+            res_ok = False
+    check("I: the energy balance is violated by exactly the phantom father's term 2 sigma^3 r^2",
+          e_ok and res_ok, "n = 1..4; the profile implicitly sets X_{-1} = sigma r")
+
+    # (d) the one case that IS a solution: forced, r^2 = b, f = sigma r (stationary)
+    st_ok = True
+    for rr, ss in ((F(2), F(1)), (F(3), F(5)), (F(4), F(2, 3))):
+        bb = rr ** 2
+        root = (ss * rr) ** 2 - bb * rr * ss * (ss / rr)
+        interior = ss ** 2 * (rr ** 2 - bb)
+        if root != 0 or interior != 0:
+            st_ok = False
+    check("I: forced model with r^2 = b and f = sigma r: root and interior both vanish", st_ok,
+          "the profile is then the paper's stationary solution (exponent alpha = (2 a~ + alpha)/3)")
+
+    print("      => the bulk recursion is marginal at r^2 = b, i.e. alpha = alpha_tilde, but the")
+    print("         profile is NOT a solution of the unforced rooted model; the earlier claim that")
+    print("         'the isotropic manifold reduces the whole tree to the ODE' is WITHDRAWN.")
 
 
 def section_g():
