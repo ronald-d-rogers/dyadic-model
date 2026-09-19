@@ -38,7 +38,7 @@ anything about the Navier–Stokes equations.
 
 | path | what |
 |---|---|
-| `Cascade.lean` | root, importing all 29 modules |
+| `Cascade.lean` | root, importing all 32 modules |
 | `Cascade/*.lean` | the model, its estimates and its theorems |
 | `Cascade/OUTCOME.md` | **the one-page verdict** — read this first |
 | `Cascade/PROGRESS.md` | the full chronological record, including a `WITHDRAWN` block |

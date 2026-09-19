@@ -28,3 +28,5 @@ import Cascade.BernsteinTransfer
 import Cascade.DimensionBlind
 import Cascade.IntermittencyThreshold
 import Cascade.SelfSimilarSolution
+import Cascade.SignEquivariance
+import Cascade.SelfSimilarClosure
