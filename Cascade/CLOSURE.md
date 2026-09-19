@@ -532,6 +532,55 @@ on the ring — has no support here.** The clamped chain is different but still 
 invariant, so its flow lies on spheres and never on tori. And the "torus" of the geometry is only a
 homonym: it is the p-adic Tate curve `K*/q^ℤ` of §7, not an invariant manifold of this ODE (§5.2).
 
+### 5.10 The clamped-chain enstrophy excursion, measured in this repo
+
+The companion figure `Cascade/ring_invariants.svg` draws an enstrophy excursion of the
+**clamped** chain and labels it a measurement. That computation is recorded here, and its script
+is `Cascade/clamped_enstrophy.py` — standard library only, deterministic, and **in this
+repository**, unlike the scratch scripts named elsewhere in this file.
+
+**Setup and bound.** Clamped chain of §5.1 at `N = 3`, inviscid and unforced,
+`u_k' = 2^k(u_{k−1}² − 2u_ku_{k+1})` with `u_{−1} = u_3 = 0`, from `u(0) = (1,2,3)`:
+
+```
+E = u_0² + u_1² + u_2² = 14 ,      H = u_0² + 4u_1² + 16u_2² = 161 ,
+weight bound   H ≤ 4^{N−1}E = 16·14 = 224 .
+```
+
+`E` is the clamp's one invariant (§5.4); `H` is not conserved. The bound is attained **exactly**
+only when all the energy sits on the top shell, `u = (0,0,±√14)`, where `E = 14` and
+`H = 16·14 = 224` — so the ceiling measures **concentration of energy onto the smallest resolved
+scale**. **[derived — `4^k ≤ 4^{N−1}` for `k < N`; the top-shell datum is the equality case]**
+
+**The measurement.** RK4 at `dt = 1e−4` over `[0,2000]`, with a convergence check at `dt = 2e−5`
+over `[0,50]` (the two `H(50)` values agree to `1.3e−11`, so the value is not a step-size
+artifact):
+
+| `t` | `H` | `E` | deficit `224 − H` | `2E/t = 28/t` | ratio |
+|---|---|---|---|---|---|
+| 50 | 223.477305 | 14 | 0.522695 | 0.560000 | 0.933 |
+| 100 | 223.729587 | 14 | 0.270413 | 0.280000 | 0.966 |
+| 200 | 223.862349 | 14 | 0.137651 | 0.140000 | 0.983 |
+| 500 | 223.944319 | 14 | 0.055681 | 0.056000 | 0.994 |
+| 1000 | 223.972052 | 14 | 0.027948 | 0.028000 | 0.998 |
+| 2000 | 223.985998 | 14 | 0.014002 | 0.014000 | 1.000 |
+
+`H` increases **monotonically** (smallest one-step increment `≈ 7e−10`) and approaches the
+ceiling **asymptotically, never crossing it**; `E` is conserved to about `1e−12` over the run.
+Across the sampled range the deficit is fit by `4^{N−1}E − H ≃ 2E/t = 28/t` to about three
+digits. That fit is an **empirical observation over the six sampled times, not a proved
+asymptotic law**. **[measured — clamped_enstrophy.py, in this repo]**
+
+**Interpretation, carefully.** This is the *clamped* chain, where the ceiling `H ≤ 4^{N−1}E` is a
+theorem; the `1/t` approach to saturation is the concentration mechanism made visible, and it is
+what the ceiling catches — `E` is invariant and `H` cannot escape the box `E` puts it in. It is
+**not a blow-up**, and it says nothing about `N = ∞`: the bound `4^{N−1}E` itself diverges as `N`
+grows, so no uniform-in-`N` enstrophy bound follows. **[inference]**
+
+**Provenance.** This supersedes the figure label that calls `223.48` a "max": `223.48` is the
+value at `t = 50` (rounded), **not a maximum**, because `H` is still rising there. The numbers
+are RK4 numerics, **[measured]**, not **[proved]**.
+
 ---
 
 ## 6. The corresponding geometry, and where the chain is special
