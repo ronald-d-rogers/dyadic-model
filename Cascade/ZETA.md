@@ -597,6 +597,35 @@ self-reference degenerates into a genuine constant forcing — Barbato's station
 "self-similar drive" described *how it scaled*; the loop is *what it was*. They looked alike because
 only the scaling was checked.
 
+**Where the rigidity actually sits — the drive is free, the *shape* is not.** `f` in Barbato's model
+is a free input; nothing requires it to be self-referential. What is forced is the decay rate, and
+there are exactly two forcing power-law shapes:
+
+| demand | decay rate `γ` in `X_n = A·2^{−γn}` | the drive `f` |
+|---|---|---|
+| time-dependent amplitude `A(t)` | **`γ = α`** forced | **forced**: `f = ±A·2^α` — the loop |
+| stationary (`A` constant) | **`γ = (2α̃+α)/3`** forced | **free** — any `f > 0` |
+
+The two forced exponents coincide exactly at `α = α̃`. **[proved — exact exponent arithmetic,
+`zeta_checks.py` section I″]** So **the loop was a consequence of the ansatz, not a fact about
+cascades**: I demanded a pure power law with a time-dependent amplitude, that shape is rigid at
+`γ = α`, and at that exponent the interior closes on itself, leaving the self-reference as the only
+drive consistent with the root. The self-reference was downstream of the shape choice.
+
+**A genuinely external drive requires the stationary shape.** There `f` is free, a larger drive gives
+a proportionally larger state with the *same* shape, and the flux scales as `f³`. (This is scoped to
+pure power laws: the model's other exact solutions, the lifted self-similar ones
+`X_j = a_j/(t−t₀)`, are unforced and not power laws.) **[proved — exact computation]**
+
+**The non-locality, which is the real content of the "drive from outside" question.** For a *steady*
+state the drive must equal the flux escaping to infinity, `f²X₀ = lim_n Π_n`. That is a **global**
+condition: the required drive depends on the *tail* of the profile, not on anything local — the
+boundary condition "knows about" the far end. And energy leaves the resolved range through that
+channel **with no viscous mechanism at all**: that is *anomalous dissipation*, the phenomenon
+Barbato's Theorem 2.1 is about and the dyadic model's whole point as a caricature of turbulence.
+`α̃` is exactly where the channel opens — above it a steady state can carry flux to infinity, below it
+cannot. **[derived; Thm 2.1 sourced]**
+
 **Not to be confused with the ring.** The dyad ring was a loop in the **index** (`k ≡ k + N`), a
 genuinely closed chain — a topological circle. This is a loop in the **signal** (the root's parent set
 to the root's own value times `r`), a self-reference at the boundary. Different objects that would

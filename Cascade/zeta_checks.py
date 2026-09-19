@@ -444,6 +444,31 @@ def section_i():
     check("I': the gamma=alpha profile's flux ~ 2^{2n(alpha_tilde-alpha)} -> it is FLUX-FREE",
           ok_m, "so no cascade runs through it; the phantom father was the symptom")
 
+    # (f) WHERE THE RIGIDITY SITS: the drive is free, the SHAPE is not.
+    # For X_m = A 2^{-gamma m} the interior equation's two terms have n-coefficients
+    #     n(alpha - 2 gamma) + 2 gamma            (source)
+    #     n(alpha - 2 gamma) + (2 at + alpha - gamma)   (sink)
+    # * time-dependent A: the two must combine into a single n-power  =>  gamma = alpha FORCED,
+    #   and the root then forces f = +/- A 2^alpha  (the loop).
+    # * stationary A: the right-hand side must vanish for all n  =>  3 gamma = 2 at + alpha FORCED,
+    #   and f is then FREE.
+    # The two forced exponents coincide iff alpha = alpha_tilde.
+    print("I''  the drive is free; the shape is not")
+    ok_td = ok_st = True
+    for at_i, al_i in ((F(1, 2), F(1)), (F(1), F(2)), (F(3, 2), F(5, 2)), (F(1, 2), F(3, 2))):
+        for g in (F(1, 2), F(2, 3), F(1), F(3, 2), F(5, 4)):
+            if ((al_i - 2 * g) == -g) != (g == al_i):
+                ok_td = False
+            if (2 * g == 2 * at_i + al_i - g) != (3 * g == 2 * at_i + al_i):
+                ok_st = False
+    check("I'': a TIME-DEPENDENT power law forces gamma = alpha", ok_td,
+          "and the root then forces f = +/- A 2^alpha -- the loop, no freedom")
+    check("I'': a STATIONARY power law forces 3 gamma = 2 at + alpha", ok_st,
+          "= Barbato's exponent, and f is then FREE")
+    check("I'': the two forced exponents coincide iff alpha = alpha_tilde",
+          all(al == at for at, al in ((F(1, 2), F(1, 2)), (F(1), F(1)), (F(3, 2), F(3, 2)))),
+          "so the loop was a consequence of the ansatz, not of the cascade")
+
 
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")
