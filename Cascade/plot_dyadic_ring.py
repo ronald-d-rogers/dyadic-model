@@ -290,11 +290,19 @@ o.append(rich(750, 174, "weights 2^{2k} = 4^{k}:   1, 4, 16          "
 
 # =========================== PANEL A: ring vs clamp ========================
 AY, AH = 214, 560
-o.append(panel(PAD, AY, 720, AH,
+o.append(panel(PAD, AY, 1440, AH,
                "A.  The ring of three shells — and the same shells clamped"))
-o.append(rich(720, AY + 34, "weights 2^{2k} = 4^{k}", size=12.5, anchor='end', fill=GREY))
+o.append(rich(1440, AY + 34, "weights 2^{2k} = 4^{k}", size=12.5, anchor='end', fill=GREY))
 
 # --- the ring (left half of panel A) ----------------------------------------
+# Each figure is centred on both axes: in the card, or in its half of a
+# two-column card.  The ring block measures 324 wide and the clamped chain 630,
+# so with the rule centred in the gap it sits at 750 + (324-630)/2 = 597 and the
+# two figures centre on 313 and 1044.  Card A's body runs from the foot of the
+# title (253) to the rule at 702, centre ~477.
+RA_DX, RA_DY = 91, -14
+CA_DX, CA_DY = 74, -5
+o.append(f'<g transform="translate({RA_DX},{RA_DY})">')
 RX, RY, RH = 235.0, 356.0, 175.0            # apex x, apex y, height
 RGRP = 32
 P0 = (RX, RY)                                # u_0  (apex)
@@ -309,45 +317,53 @@ o.append(arrow(rb1[0], rb1[1], rb2[0], rb2[1], color='ink', sw=2.4))
 rc1, rc2 = step(P2, P0, 32 + 8)
 o.append(carrow(rc1[0], rc1[1], 400.0, 410.0, rc2[0], rc2[1],
                 color='orange', sw=3.4, dash="9 6"))
-o.append(text(300, 612, "×2^{−3}", size=14, fill=ORANGE))
-o.append(text(300, 628, "the closing edge", size=11.5, fill=GREY))
+o.append(text(300, 622, "×2^{−3}", size=14, fill=ORANGE))
+o.append(text(300, 638, "the closing edge", size=11.5, fill=GREY))
 
 o.append(node(P0[0], P0[1], RGRP, "u_{0}"))
 o.append(node(P1[0], P1[1], RGRP, "u_{1}"))
 o.append(node(P2[0], P2[1], RGRP, "u_{2}"))
 o.append(text(P0[0], P0[1] - RGRP - 14, "u_{2} closes onto u_{0}", size=11.5, fill=GREY))
-o.append(text(P1[0] - RGRP - 14, P1[1] + 5, "u_{1}", size=15, anchor='end', fill=BLUE))
-o.append(text(P2[0] + RGRP + 14, P2[1] + 5, "u_{2}", size=15, anchor='start', fill=BLUE))
 # the edge transfers, and the weight band under the ring
 o.append(rich(172, 440, "T_{0}", size=14, fill=GREEN))
 o.append(rich(308, 448, "T_{1}", size=14, fill=GREEN))
-o.append(rich(352, 500, "T_{2}", size=13, fill=ORANGE))
+o.append(rich(346, 494, "T_{2}", size=13, fill=ORANGE))
 o.append(text(P0[0], 596, "weight 2^{0} = 1", size=12.5, fill=GREY))
 o.append(text(P1[0], 596, "2^{2} = 4", size=12.5, fill=GREY))
 o.append(text(P2[0], 596, "2^{4} = 16", size=12.5, fill=GREY))
 # legend under the ring
 o.append(text(60, 656, "each edge carries one transfer", size=12.5, fill=GREY))
 o.append(text(60, 676, "T_{k} = 2^{k}(u_{k-1}^{2} − 2u_{k}u_{k+1})", size=12.5, fill=GREY))
+o.append('</g>')
 
 # --- the clamped chain (right half of panel A) ------------------------------
-o.append(line(400, 262, 400, 704, stroke=MGREY, sw=1.2, dash="6 6"))
-o.append(text(424, 296, "clamp:  cut the ring, kill both end fluxes", size=14, weight='bold'))
-o.append(line(60, 716, 1440, 716, stroke=MGREY, sw=1.2))
-o.append(text(60, 740, "the ring closes only up to the scaling: the closing edge folds the "
+# column rule, centred in the gap between the ring (right edge ~384) and the
+# clamped chain (left edge ~644)
+o.append(line(597, 262, 597, 692, stroke=MGREY, sw=1.2, dash="6 6"))
+o.append(f'<g transform="translate({CA_DX},{CA_DY})">')
+o.append(text(662, 296, "clamp:  cut the ring, kill both end fluxes", size=14, weight='bold'))
+o.append('</g>')
+o.append(line(60, 702, 1440, 702, stroke=MGREY, sw=1.2))
+# the card-level note under the rule is content too: centred in the card
+AN_DX = 360
+o.append(f'<g transform="translate({AN_DX},0)">')
+o.append(text(60, 726, "the ring closes only up to the scaling: the closing edge folds the "
                        "^k-weighting back on itself, and the fold leaves a seam",
               size=12.5, fill=GREY))
-o.append(text(60, 758, "the clamp has no fold and no seam; the price of the seam is that "
+o.append(text(60, 744, "the clamp has no fold and no seam; the price of the seam is that "
                        "u_{N} = 2^{−N}q_{N} ≠ 0, so the profile is not a clamped solution",
               size=12.5, fill=GREY))
+o.append('</g>')
 
+o.append(f'<g transform="translate({CA_DX},{CA_DY})">')
 CCY = 430
-NX = [560, 760, 960]
+NX = [735, 935, 1135]
 o.append(vclamp(NX[0] - 73, CCY - 34, CCY + 34))
 o.append(vclamp(NX[2] + 73, CCY - 34, CCY + 34))
 o.append(arrow(NX[0] - 91, CCY, NX[1] - 30, CCY, color='grey', sw=2.4, opacity=0.85))
 o.append(arrow(NX[1] + 30, CCY, NX[2] + 91, CCY, color='grey', sw=2.4, opacity=0.85))
-o.append(text(478, 370, "u_{−1} = 0", size=13, fill=GREY))
-o.append(text(1042, 370, "u_{3} = 0", size=13, fill=GREY))
+o.append(text(653, 370, "u_{−1} = 0", size=13, fill=GREY))
+o.append(text(1217, 370, "u_{3} = 0", size=13, fill=GREY))
 # the absent closing edge, struck out
 o.append(carrow(NX[2] + 40, CCY + 52, (NX[2] + NX[0]) / 2, CCY + 150,
                 NX[0] - 40, CCY + 52, color='grey', sw=2.2, dash="6 8", opacity=0.5))
@@ -361,77 +377,99 @@ for i, mx in enumerate(NX):
                   size=12, fill=GREY))
 o.append(text(NX[0] - 73, CCY + 104, "clamped end", size=11.5, fill=GREY))
 o.append(text(NX[2] + 73, CCY + 104, "clamped end", size=11.5, fill=GREY))
-o.append(text(430, 656, "only two edges;  both end fluxes are zero:   "
+o.append(text(662, 656, "only two edges;  both end fluxes are zero:   "
                         "Σ_{k} u_{k}T_{k} = 0", size=13, fill=GREEN))
-o.append(text(430, 676, "the same three shells, closing edge removed", size=12, fill=GREY))
+o.append(text(662, 676, "the same three shells, closing edge removed", size=12, fill=GREY))
+o.append('</g>')
 
 # ==================== PANEL B: holonomy and the seam ========================
 BY, BH = 792, 494
-o.append(panel(PAD, BY, 720, BH,
+o.append(panel(PAD, BY, 1440, BH,
                "B.  Holonomy cancels — the seam survives"))
 
 # --- left column: the turn, then the clamp ----------------------------------
-o.append(text(60, 886, "one turn around the loop, from u_{2} back to u_{2}:", size=14))
-BX = [60, 240, 420]
-BW = 160
-o.append(rect(BX[0], 906, BW, 58, fill=LGREY, stroke=MGREY, sw=1.4, rx=10))
-o.append(rich(BX[0] + BW / 2, 942, "transfer ×2^{N} = ×8", size=13.5))
-o.append(arrow(BX[0] + BW + 6, 935, BX[1] - 8, 935, color='grey', sw=2.2))
-o.append(rect(BX[1], 906, BW, 58, fill=LGREY, stroke=MGREY, sw=1.4, rx=10))
-o.append(rich(BX[1] + BW / 2, 942, "twist ×2^{−N} = ×1/8", size=13.5))
-o.append(arrow(BX[1] + BW + 6, 935, BX[2] - 8, 935, color='grey', sw=2.2))
-o.append(rect(BX[2], 906, BW, 58, fill=LGREEN, stroke=GREEN, sw=1.8, rx=10))
-o.append(rich(BX[2] + BW / 2, 942, "product = 1", size=13.5))
-o.append(text(60, 1008, "the twist reverses exactly the 2^{N} the transfer picks up, so "
+# Card B's body runs from the foot of the title (831) to the card bottom (1286),
+# centre ~1058.  The flow column measures 680 wide and the ring 409, so the rule
+# sits at 750 + (680-409)/2 = 886 and the two columns centre on 458 and 1178.
+BL_DX, BL_DY = 58, 12
+BR_DX, BR_DY = 17, -32
+o.append(f'<g transform="translate({BL_DX},{BL_DY})">')
+o.append(text(60, 900, "one turn around the loop, from u_{2} back to u_{2}:", size=14))
+BX = [60, 300, 540]
+BW = 200
+o.append(rect(BX[0], 920, BW, 58, fill=LGREY, stroke=MGREY, sw=1.4, rx=10))
+o.append(rich(BX[0] + BW / 2, 956, "transfer ×2^{N} = ×8", size=13.5))
+o.append(arrow(BX[0] + BW + 6, 949, BX[1] - 8, 949, color='grey', sw=2.2))
+o.append(rect(BX[1], 920, BW, 58, fill=LGREY, stroke=MGREY, sw=1.4, rx=10))
+o.append(rich(BX[1] + BW / 2, 956, "twist ×2^{−N} = ×1/8", size=13.5))
+o.append(arrow(BX[1] + BW + 6, 949, BX[2] - 8, 949, color='grey', sw=2.2))
+o.append(rect(BX[2], 920, BW, 58, fill=LGREEN, stroke=GREEN, sw=1.8, rx=10))
+o.append(rich(BX[2] + BW / 2, 956, "product = 1", size=13.5))
+o.append(text(60, 1030, "the twist reverses exactly the 2^{N} the transfer picks up, so "
                         "2^{N}·2^{−N} = 1 and the loop closes.", size=12.5, fill=GREY))
-o.append(text(60, 1028, "But only up to the scaling — a seam survives:",
+o.append(text(60, 1052, "But only up to the scaling — a seam survives:",
               size=12.5, fill=GREY))
-o.append(line(60, 1040, 400, 1040, stroke=MGREY, sw=1.2, dash="5 6"))
-o.append(text(60, 1070, "clamp:  the cut is clean", size=13.5, fill=GREEN))
-o.append(text(60, 1090, "F_{0} = F_{N} = 0 — no source", size=12.5, fill=GREY))
-o.append(rect(60, 1104, 162, 52, fill=LGREY, stroke=MGREY, sw=1.4, rx=10))
-o.append(vclamp(80, 1116, 1144))
-o.append(rich(148, 1136, "clean cut", size=12.5))
-o.append(text(60, 1196, "twist:  the cut is a defect", size=13.5, fill=ORANGE))
-o.append(text(60, 1216, "(2^{2N} − 1)u_{N-1}^{2}u_{0} = 63u_{2}^{2}u_{0}",
+o.append(line(60, 1076, 740, 1076, stroke=MGREY, sw=1.2, dash="5 6"))
+# the two cuts, side by side: the clamp is clean, the twist is a defect
+o.append(text(60, 1116, "clamp:  the cut is clean", size=13.5, fill=GREEN))
+o.append(text(60, 1138, "F_{0} = F_{N} = 0 — no source", size=12.5, fill=GREY))
+o.append(rect(60, 1152, 162, 52, fill=LGREY, stroke=MGREY, sw=1.4, rx=10))
+o.append(vclamp(80, 1164, 1192))
+o.append(rich(148, 1184, "clean cut", size=12.5))
+o.append(text(420, 1116, "twist:  the cut is a defect", size=13.5, fill=ORANGE))
+o.append(text(420, 1138, "(2^{2N} − 1)u_{N-1}^{2}u_{0} = 63u_{2}^{2}u_{0}",
               size=12.5, fill=ORANGE))
-o.append(rect(60, 1230, 162, 52, fill=LORANGE, stroke=ORANGE, sw=1.4, rx=10))
-o.append(carrow(78, 1266, 104, 1240, 110, 1266, color='orange', sw=3, dash="8 6"))
-o.append(line(97, 1244, 111, 1258, stroke=RED, sw=3.2))
-o.append(line(111, 1244, 97, 1258, stroke=RED, sw=3.2))
-o.append(rich(148, 1262, "a defect", size=12.5, fill=ORANGE))
+o.append(rect(420, 1152, 162, 52, fill=LORANGE, stroke=ORANGE, sw=1.4, rx=10))
+o.append(carrow(438, 1188, 464, 1162, 470, 1188, color='orange', sw=3, dash="8 6"))
+o.append(line(457, 1166, 471, 1180, stroke=RED, sw=3.2))
+o.append(line(471, 1166, 457, 1180, stroke=RED, sw=3.2))
+o.append(rich(508, 1184, "a defect", size=12.5, fill=ORANGE))
+o.append('</g>')
+
+# column rule, centred in the gap between the left column (right edge 740) and
+# the ring figure (left edge ~957)
+o.append(line(886, 890, 886, 1226, stroke=MGREY, sw=1.2, dash="6 6"))
 
 # --- right column: the ring, closing edge carrying the defect ---------------
-SRX, SRY, SRH = 546.0, 990.0, 128.0
+# same ring as panel A (radius 32, height 175), centred in the right column
+o.append(f'<g transform="translate({BR_DX},{BR_DY})">')
+SRX, SRY, SRH, SRR = 1090.0, 980.0, 175.0, 32
 S0 = (SRX, SRY)
 S1 = (SRX - SRH / math.sqrt(3.0), SRY + SRH)
 S2 = (SRX + SRH / math.sqrt(3.0), SRY + SRH)
 for U, V in ((S0, S1), (S1, S2)):
-    rp, rq = step(U, V, 25)
-    o.append(arrow(rp[0], rp[1], rq[0], rq[1], color='ink', sw=2, opacity=0.8))
-rp, rq = step(S2, S0, 27)
+    rp, rq = step(U, V, SRR + 3)
+    o.append(arrow(rp[0], rp[1], rq[0], rq[1], color='ink', sw=2.4, opacity=0.85))
+rp, rq = step(S2, S0, SRR + 8)
 o.append(carrow(rp[0], rp[1], (S2[0] + S0[0]) / 2 + 52, (S2[1] + S0[1]) / 2 - 100,
-                rq[0], rq[1], color='orange', sw=3.2, dash="8 6"))
+                rq[0], rq[1], color='orange', sw=3.4, dash="9 6"))
 for U, lab in ((S0, "u_{0}"), (S1, "u_{1}"), (S2, "u_{2}")):
-    o.append(node(U[0], U[1], 25, lab, fs=14))
-o.append(text(714, 1056, "closes onto u_{0}", size=11, fill=GREY))
-o.append(text(S0[0] + 34, S0[1] + 4, "u_{−1} = 8u_{2}", size=12.5, anchor='start',
+    o.append(node(U[0], U[1], SRR, lab, fs=16))
+o.append(text(SRX + 168, SRY + 66, "closes onto u_{0}", size=11.5, fill=GREY))
+o.append(text(S0[0] + 52, S0[1] + 4, "u_{−1} = 8u_{2}", size=12.5, anchor='start',
               fill=ORANGE))
-o.append(rich(S2[0] + 34, S2[1] - 30, "seam: ×2^{−3}", size=12.5, anchor='start',
+o.append(rich(S2[0] + 52, S2[1] - 30, "seam: ×2^{−3}", size=12.5, anchor='start',
               fill=ORANGE))
-o.append(rich(S2[0] + 34, S2[1] - 12, "a cubic, sign-dependent", size=11, anchor='start',
+o.append(rich(S2[0] + 52, S2[1] - 12, "a cubic, sign-dependent", size=11.5, anchor='start',
               fill=ORANGE))
-o.append(rich(S2[0] + 34, S2[1] + 4, "energy source", size=11, anchor='start',
+o.append(rich(S2[0] + 52, S2[1] + 4, "energy source", size=11.5, anchor='start',
               fill=ORANGE))
-o.append(text(432, 1160, "the fold is not free: the closure holds only", size=11.5,
+o.append(text(SRX - 105, 1210, "the fold is not free: the closure holds only", size=11.5,
               fill=GREY))
-o.append(text(432, 1178, "up to the scaling, so u_{N} = 2^{−N}q_{N} ≠ 0.", size=11.5,
+o.append(text(SRX - 105, 1228, "up to the scaling, so u_{N} = 2^{−N}q_{N} ≠ 0.", size=11.5,
               fill=GREY))
+o.append('</g>')
 
 # ========================= PANEL C: reduced ODE ============================
 CY2, CH2 = 1306, 490
-o.append(panel(PAD, CY2, 720, CH2, "C.  The reduced ODE, and the blow-up"))
+o.append(panel(PAD, CY2, 1440, CH2, "C.  The reduced ODE, and the blow-up"))
 
+# Card C's body runs from the foot of the title (1345) to the card bottom (1796),
+# centre ~1570.  The statistics column measures 660 wide and the prose 544, so
+# the rule sits at 750 + (660-544)/2 = 808 and the columns centre on 419 and 1139.
+CL_DX, CL_DY = 29, -10
+CR_DX, CR_DY = 43, -14
+o.append(f'<g transform="translate({CL_DX},{CL_DY})">')
 o.append(rect(60, 1390, 660, 88, fill=LGREY, stroke=MGREY, sw=1.2, rx=12))
 o.append(text(84, 1422, "u_{k} = 2^{−k}q_{k},  q periodic on ℤ/3:", size=15))
 o.append(text(84, 1458, "q_{k}′ = 4q_{k-1}^{2} − q_{k}q_{k+1},     k ∈ ℤ/3",
@@ -463,9 +501,13 @@ o.append(text(84, 1722, "N=1 (1)  →  0.333        N=2 (1,1)  →  0.333       
               size=12.5, fill=INK))
 o.append(text(84, 1750, "the constant mode is the slowest of the four; the more shells carry "
                         "the profile, the sooner it turns over.", size=12, fill=GREY))
+o.append('</g>')
 
 # minimality of N = 3
-o.append(line(790, 1390, 790, 1770, stroke=MGREY, sw=1.2, dash="6 6"))
+# column rule, centred in the gap between the statistics block (right edge 720)
+# and the prose column (left edge 824)
+o.append(line(808, 1372, 808, 1768, stroke=MGREY, sw=1.2, dash="6 6"))
+o.append(f'<g transform="translate({CR_DX},{CR_DY})">')
 o.append(text(824, 1426, "Why N = 3 is the smallest ring that matters", size=15,
               weight='bold'))
 o.append(para(824, 1462, "N = 1 — the minimum ring, and degenerate: there is no "
@@ -479,6 +521,7 @@ o.append(para(824, 1594, "N = 3 — the smallest ring with a full interior triad
 o.append(text(824, 1726, "so the smallest non-degenerate ring is N = 3.", size=14,
               fill=BLUE))
 o.append(text(824, 1752, "everything drawn above is the N = 3 picture.", size=12, fill=GREY))
+o.append('</g>')
 
 # ========================= PANEL D: the caveats ============================
 DY, DH = 1820, 250
@@ -499,12 +542,23 @@ CAV = [
     ("4", "Viscosity closes the ring only at e = 0; at the physical e = 2 the ansatz is a "
           "renormalization cycle, not a symmetry.", BLUE),
 ]
-ry = DY + 62
+# Card D's body runs from the foot of the title (1859) to the card bottom (2070),
+# centre ~1964; the caveat list is shifted onto that axis.
+# Card D's body runs from the foot of the title (1859) to the card bottom (2070),
+# centre ~1964.  The caveat list measures 1099 wide, so it is centred in the
+# 1440-wide card: left edge 30 + (1440-1099)/2 = 200.
+DL_DX, DL_DY = 146, 4
+o.append(f'<g transform="translate({DL_DX},{DL_DY})">')
+ry = DY + 70
 for num, body, col in CAV:
-    o.append(circle(74, ry + 12, 19, fill="#ffffff", stroke=col, sw=2))
-    o.append(rich(74, ry + 18, num, size=15, fill=col))
+    # the bullet is centred on the first line of its caveat: the line's optical
+    # centre is baseline - 0.35*size, so the circle centre sits at ry + 3 and the
+    # number shares the paragraph's baseline.
+    o.append(circle(74, ry + 3, 19, fill="#ffffff", stroke=col, sw=2))
+    o.append(rich(74, ry + 8, num, size=15, fill=col))
     o.append(para(112, ry + 8, body, 15, 1320, fill=INK, lh=21))
-    ry += nlines(body, 15, 1320) * 21 + 22
+    ry += nlines(body, 15, 1320) * 21 + 24
+o.append('</g>')
 
 # ---- footer ----------------------------------------------------------------
 o.append(line(60, 2092, 1440, 2092, stroke=MGREY, sw=1.2))
