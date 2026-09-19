@@ -722,6 +722,38 @@ to `X_{N−1} = 2^{−α(N−1)}R_{N−1}`. **[proved — exact computation]**
 **branching number**: `α` can be moved relative to it, but `α̃` is determined by the tree, and to
 change it you must change the tree. **[derived]**
 
+**Can the loop be *growing* while the flow runs — and is that a separate state?** Yes to the first,
+no to the second, and the reason is a symmetry worth stating. **[proved — exact computation]**
+
+*The size is not a degree of freedom.* The closed system — **including the driven root** — is
+**homogeneous of degree 2** in `R`. At the root that is because the drive is *tied* to the state,
+`f = 2^αR_{N−1}`, so `f² = 4^αR_{N−1}²` is degree 2 like every other term. Hence
+
+```
+R ↦ λR ,   t ↦ t/λ      maps solutions to solutions ,
+```
+
+and the overall magnitude is the **scaling orbit**, not an independent coordinate. Two cycles of
+different size are the same *shape*; what distinguishes states is the **ray** `{λR}`. The drive is
+simply the coordinate *along* that orbit — which is the precise sense in which "the drive sets the
+amplitude, not the shape".
+
+*So a growing cycle is the same orbit, reparameterised.* The constant mode has
+`c(t) = c₀/(1 − (4^α − b)c₀t)`, growing iff `α > α̃` and blowing up at `t★ = 1/((4^α − b)c₀)`; and
+`t★(λc₀) = t★(c₀)/λ`, confirming one orbit rather than a family of distinct states.
+
+*And it is not hidden.* Two reasons. (i) The closure does **not** quotient by the overall size: it
+identifies generation `n+N` with generation `n` up to the **forced** per-turn factor `μ^{−N}` — a
+fixed constant, not a free scale — so different sizes are different points of the state space.
+(ii) The **drive betrays it**: `f = 2^αR_{N−1}` grows with `R` and **diverges at `t★`**. A growing
+cycle cannot be sustained by a steady drive.
+
+*And it is nothing new.* Substituting `σ := c` makes it identical to the earlier **self-similar
+drive**, `f(t) = σ(t)·2^α` with `σ̇ = (4^α − b)σ²` — the third row of the forcing table above, now
+dressed as a cyclic closure. **So there are two different scales here and they must not be
+confused:** the per-turn factor `μ^{−N}` is *forced* and constant, part of the identification; the
+overall scale is *dynamical*, moving along the scaling orbit.
+
 **Can the shim itself be a steady loop? Yes — and it is the mirror image of the ring.** Closing the
 loop at the *top* rather than supplying a constant means replacing the root's forcing by a feedback
 `f := g·X_0`:
