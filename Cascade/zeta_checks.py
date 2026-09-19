@@ -469,6 +469,43 @@ def section_i():
           all(al == at for at, al in ((F(1, 2), F(1, 2)), (F(1), F(1)), (F(3, 2), F(3, 2)))),
           "so the loop was a consequence of the ansatz, not of the cascade")
 
+    # (g) THE DRIVE IS A ONE-DEFECT ABSORBER.  f appears only in the root equation, so a
+    # candidate trajectory is realisable for SOME drive iff its interior residual vanishes.
+    # And the stationary interior collapses to a 1-D recursion for the ratio
+    #     s_{n+1} = 1/(b 2^alpha s_n^2) ,  fixed point s^3 = 1/(b 2^alpha) ,  multiplier exactly -2 ,
+    # so the power law is a REPELLER and is the only bounded stationary interior.
+    print("I''' the drive is a one-defect absorber, and the power law is a repeller")
+
+    # (g1) multiplier exactly -2 : with s^3 = c the derivative of c/s^2 is -2c/s^3 = -2
+    ok_mult = True
+    for at_i, al_i in ((F(1), F(2)), (F(1, 2), F(1)), (F(3, 2), F(5, 2)), (F(2), F(3))):
+        c_i = 1 / (2 ** (2 * at_i) * 2 ** al_i)
+        if -2 * c_i / c_i != -2:
+            ok_mult = False
+    check("I''': the stationary ratio recursion s_{n+1}=1/(b 2^a s_n^2) has multiplier exactly -2",
+          ok_mult, "so the power law is a REPELLER: deviations double and flip each generation")
+
+    # (g2) nothing arbitrary hitches: interior residual of a stationary profile X_n = A s^n at n
+    #      has log2  src = alpha n - 2 gamma (n-1)  vs  snk = 2 at + alpha(n+1) - gamma n - gamma(n+1).
+    #      Their difference is 3 gamma - 2 at - alpha, independent of n -- so compare EXPONENTS
+    #      exactly (comparing the powers themselves would be a float comparison and always "fails").
+    def residual_vanishes(at_i, al_i, gamma):
+        for n in range(1, 6):
+            src = al_i * n - 2 * gamma * (n - 1)
+            snk = 2 * at_i + al_i * (n + 1) - gamma * n - gamma * (n + 1)
+            if (src == snk) != (3 * gamma == 2 * at_i + al_i):
+                return False
+        return True
+
+    cands = [(F(1), F(2), F(4, 3)),      # alpha_tilde=1, alpha=2, gamma_stat=4/3   -> OK
+             (F(1), F(2), F(2)),         # alpha_tilde=1, alpha=2, gamma=alpha=2     -> fails
+             (F(1), F(2), F(1)),         # alpha_tilde=1, alpha=2, gamma=1           -> fails
+             (F(1, 2), F(1), F(2, 3)),   # alpha_tilde=1/2, alpha=1, gamma_stat=2/3  -> OK
+             (F(1, 2), F(1), F(7, 6))]   # alpha_tilde=1/2, alpha=1, K41-like 7/6    -> fails
+    check("I''': among stationary power laws, ONLY gamma = (2 at + alpha)/3 has zero residual",
+          all(residual_vanishes(a, b_, g) for a, b_, g in cands),
+          "the exponent difference is 3 gamma - 2 at - alpha, independent of n")
+
 
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")

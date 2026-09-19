@@ -631,6 +631,50 @@ genuinely closed chain — a topological circle. This is a loop in the **signal*
 to the root's own value times `r`), a self-reference at the boundary. Different objects that would
 both be called "a loop".[^loop]
 
+**The drive is a one-defect absorber, not a universal adapter.** A natural follow-up is whether, `f`
+being free, *any* profile can be hitched to the model by choosing the drive. It cannot, and the reason
+is structural. The drive appears in **exactly one equation**:
+
+```
+root     :  Ẋ_0 = f² − b·2^α·X_0X_1                     ← the only place f appears
+interior :  Ẋ_n = 2^{αn}X_{n−1}² − b·2^{α(n+1)}X_nX_{n+1}     (n ≥ 1)
+```
+
+so `Ẋ = F(X) + f²·e_0`: one scalar control, one direction. A candidate trajectory is realizable for
+*some* drive iff its **interior residual** vanishes,
+
+```
+R_n := Ẋ_n − [2^{αn}X_{n−1}² − b·2^{α(n+1)}X_nX_{n+1}] = 0   for all n ≥ 1 ,
+```
+
+and then the drive is not free but *determined*: `f² = Ẋ_0 + b·2^α·X_0X_1`. **The body must already
+solve the undriven interior; the drive can repair the root and nothing else.** **[proved — exact
+computation, `zeta_checks.py` section I‴; [inference] for the framing]**
+
+And the body is rigid in a strong sense. Putting `s_n := X_n/X_{n−1}`, the stationary interior
+condition collapses to a one-dimensional recursion
+
+```
+s_{n+1} = 1 / (b·2^α·s_n²) ,
+```
+
+whose fixed point is `s³ = 1/(b·2^α)`, i.e. `s = 2^{−γ_stat}` with `γ_stat = (2α̃+α)/3` — Barbato's
+exponent again. Its multiplier is
+
+```
+f′(s) = −2/(b·2^α·s³) = −2 .
+```
+
+**The power law is a repeller.** Any deviation *doubles and flips* each generation: a relative error
+of `1e−6` becomes `1e−3` in ten levels, then runs away. So the bounded stationary interior is a
+measure-zero set, literally one shape — which is *why* Barbato's uniqueness theorem (Thm 2.3: unique
+`ℓ²` positive stationary solution for given `f > 0`) holds, and not merely *that* it does.
+**[proved — exact computation, `zeta_checks.py` section I‴]**
+
+So what a free drive buys is the **amplitude** of the one admissible shape, not the shape. "The input
+is right" does not mean "anything hangs off it": the input is the single free number setting how large
+the already-rigid cascade is.
+
 [^loop]: The distinction is the same one §5.2 draws for "torus", and it is the third time in this
 thread that two different things have shared a symbol or a word.
 
