@@ -717,9 +717,17 @@ curves. **[not found]**
   skeleton a loop, quotient a cycle of length `w` with infinite trees (the funnels). RT works there;
   nothing builds a multi-boundary version. The chain's ring is the degree-2 exception.
 
-**Status: negative, and a record rather than a discovery.** No Lean file was added for the tree or
-the p-adic material; the only machine-checked content is the chain closure of
-`Cascade/SelfSimilarClosure.lean`, which itself declares its blow-up a re-derivation.
+**Status: negative, and a record rather than a discovery.** For the tree and the p-adic *geometry*, no
+Lean file was added: the only machine-checked content of the closure itself is
+`Cascade/SelfSimilarClosure.lean`, which declares its own blow-up a re-derivation. (The companion
+question — whether a **zeta** attached to the cascade's tree can carry the critical exponent — is
+recorded in `Cascade/ZETA.md`, and its combinatorial core is machine-checked in `PAdicZeta/`.)
+
+**See also `Cascade/ZETA.md`**, the sibling record. Its result: a single Artin–Mazur/Ruelle zeta of the
+full `p`-adic shift carries the branching number `p = N_*` and nothing else; the critical exponent
+`α̃ = ½ log₂ N_*` needs exactly **one** external ingredient, the factor `½` (`N_* = p` is a definition);
+and the one hoped-for escape — a self-dual functional equation with symmetry axis `α̃` — exists, is
+unique, and is **forced by the pole**, so it selects nothing.
 
 ---
 
