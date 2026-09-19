@@ -27,6 +27,7 @@ therefore carries one of these labels, and the citation is given with the label.
 | label | means |
 |---|---|
 | **[proved]** | machine-checked in the named Lean file; the theorem name is given. |
+| **[proved — exact computation]** | established for the stated finite cases by exact integer/`Fraction` arithmetic in the named scratch script (no floating point), cross-checked in `sympy` over `ℚ` and certified by full rank modulo two large primes. Exact, but **not** Lean-checked, and bounded by the stated degrees and `N`. |
 | **[sourced — …]** | quoted from the named source, with the location in that source. |
 | **[derived]** | follows by elementary algebra or a short argument from a [proved] or [sourced] statement; the step is written out where it is not immediate. |
 | **[measured — script]** | a numerical check in a scratch script, named; exact-rational where said, floating-point otherwise. **Not a proof.** |
@@ -341,7 +342,199 @@ new result**. This is the same "no new blow-up" verdict as §2.1, now at the lev
 
 ---
 
-## 5. The corresponding geometry, and where the chain is special
+## 5. Integrability of the reduced ring: no conserved quantity
+
+The reduced cyclic ODE of §1.3 is a finite quadratic system, and the thread left one obvious question
+about it unasked: is it integrable? This section records the answer, computed in exact arithmetic in
+`/tmp/ring_invariants/` — outside this repository, like the other scratch named in this document —
+and cross-checked there. The answer is negative, and it is consistent with the rest of the file: the
+ring's finite-time blow-up (§1.4) is unobstructed because there is nothing conserved to obstruct it.
+The computation is exact but scratch, not Lean; the labels below say which statements it proves and
+which are inferred.
+
+### 5.1 The verdict, and the contrast
+
+> **The reduced self-similar ring `q_k' = 4q_{k−1}² − q_kq_{k+1}` on `ℤ/N` is not Liouville–Arnold
+> integrable — and stronger than that, it has no conserved quantity at all beyond constants.**
+> **[proved — exact computation for the degrees and `N` of §5.4; inference at all degrees]**
+
+The clearest statement is a contrast with three outcomes — none, exactly one, and `N−1`:
+
+| system | independent invariants | invariant set the flow lies on |
+|---|---|---|
+| clamped chain | exactly one — the energy `E = Σ_k4^{−k}q_k² = Σ_ku_k²` | a sphere |
+| the ring | **none** | nothing; it explores the whole space |
+
+The **clamped chain** is the same recurrence with Dirichlet ends `q_{−1} = q_N = 0` (the clamp of
+§2.3): `q_0' = −q_0q_1`, `q_k' = 4q_{k−1}² − q_kq_{k+1}` for `1 ≤ k ≤ N−2`, `q_{N−1}' = 4q_{N−2}²`.
+It carries exactly one independent invariant, the weighted energy `E = Σ_k4^{−k}q_k² = Σ_ku_k²`;
+that is `N−1` only at `N = 2`, so for `N ≥ 3` the clamped chain is **not** Liouville–Arnold
+integrable either. The **ring** is strictly worse: it conserves nothing. A Liouville–Arnold
+integrable `N`-degree-of-freedom system would carry `N−1` commuting invariants together with a
+Poisson structure; the clamped chain reaches 1 and the ring 0. The third point of comparison is the
+Volterra/Kac–van Moerbeke family of §5.6, which the ring cannot be mapped to.
+
+### 5.2 Three different things called "invariant", and two called "torus"
+
+This document uses "invariant" and "torus" in unrelated senses, and the integrability result only
+makes sense if they are kept apart:
+
+1. **A forward-invariant manifold** — a *set* mapped into itself by the flow. The isotropic
+   submanifold `X_j = μ^{−|j|}R_{|j|}` of §4.1 is forward invariant. This is not a conserved quantity
+   and does not confine the flow to the level set of a function.
+2. **A conserved quantity (first integral)** — a *function* `F` with `L_V F = 0`, constant along
+   orbits. This is what §5.3–§5.8 are about: the ring has none beyond constants; the clamped chain
+   has one.
+3. **The p-adic Tate torus** — the rigid-analytic quotient `K*/q^ℤ` of §7.1, a genus-1 curve. It is
+   unrelated to the Liouville–Arnold tori of item 2: it is not the level set of any invariant of this
+   ODE, and no integrable-system torus enters its construction.
+
+So "the ring has no invariant torus" (no `N−1` commuting invariants) and "the geometry is a Tate
+torus" (§7) are statements about different objects that happen to share a word. Likewise the
+forward-invariance of §4.1 is compatible with the non-integrability here: a manifold can be forward
+invariant while the flow on it conserves nothing. **[inference — a disambiguation, not a
+mathematical claim]**
+
+### 5.3 The method, and why the negatives are not a solver artifact
+
+Let `V_k = 4q_{k−1}² − q_kq_{k+1}` and `L_V F = Σ_k (∂F/∂q_k)V_k`. The Lie derivative maps
+homogeneous polynomials of degree `d` **linearly** to homogeneous polynomials of degree `d+1`,
+because the field is quadratic with no linear or constant part. For each `(N,d)` the kernel of that
+linear map is exactly the space of homogeneous degree-`d` invariants, and it was computed:
+
+* kernel by exact `Fraction` RREF over `ℚ`;
+* nullities cross-checked independently in `sympy` over `ℚ`;
+* non-existence certified by full rank modulo two large primes, `p = 2147483647` and
+  `p = 1000000007`; full rank mod `p` gives independence over `ℚ`, hence a trivial kernel. The two
+  primes agreed in every case.
+
+No floating point is used anywhere. A bug in the exact RREF (pivot normalisation) was caught by a
+mandatory back-substitution check, not by inspection.
+
+**The engine was validated by recovering known invariants**, so the negatives are not an artifact of
+a broken solver: run on the Volterra ring `q_k' = q_k(q_{k+1} − q_{k−1})` it recovers `Σ_kq_k`
+(degree 1, all `N`), the extra quadratics (`q_0q_2`, `q_1q_3` at `N = 4`; the `N = 5` quadratic;
+`(Σq)²`), and it recovers the clamped chain's `E` below. **[proved — exact computation; the Volterra
+invariants are standard, recovered as a check]**
+
+### 5.4 Results: the ring has none, the clamped chain has exactly one
+
+**The ring.** The dimension of the space of homogeneous polynomial invariants is **0 in every degree
+computed**: `d = 1..9` for `N = 2..6`, `d = 1..8` for `N = 7`, and `d = 1..5` for `N = 8..12`. In
+particular there is **no linear invariant**, **no degree-2 invariant** (no quadratic form is
+conserved) and **no degree-4 invariant** (the other natural candidate for a quadratic system). Since
+a polynomial first integral splits into homogeneous parts and `L_V` raises the degree, each
+homogeneous part is again a first integral; the degree-by-degree kernel is therefore exhaustive for
+*polynomial* invariants. **[proved — exact computation]**
+
+**The clamped chain.** Exactly **one** independent invariant: the dimension is 1 in every even
+degree, with basis `E^{d/2}` (e.g. at `N = 3, d = 4` the basis is `E²`), and 0 in every odd degree;
+the invariant algebra is `ℚ[E]` through degree 8. The clamp conserves energy but does **not** make the
+chain Liouville–Arnold integrable: one invariant is not `N−1` for `N ≥ 3`. **[proved — exact
+computation, through degree 8]**
+
+### 5.5 The seam: the ring conserves no energy, confirmed independently
+
+The energy the clamp conserves is not conserved on the ring. Differentiating
+`E_u = ½Σ_k4^{−k}q_k² = ½Σ_ku_k²` along the ring gives, exactly, for every `N ≥ 2`,
+
+```
+d/dt E_u = (2^{2N} − 1)/4^{N−1} · q_0 q_{N−1}² = (2^{2N} − 1) · u_0 u_{N−1}² ,
+```
+
+verified identically (sympy, residual exactly 0) for `N = 2..6`. At `N = 3` this is
+`(63/16)·q_0q_2² = 63u_0u_2²`, the nonzero cubic source the thread's earlier hand computation
+flagged. **This is an independent confirmation and is worth saying so**: the earlier statement was
+made by hand, this is a second, exact machine differentiation of the same seam. The two forms
+recorded in this file are different sums — the weighted energy here, and the unweighted per-period
+`H = Σ_{k<N}q_k²` of §1.3, where the same phenomenon appears as `H' = 6Σ_{k<N}q_k²q_{k+1}` — but both
+are nonzero cubics, which is the content of "the cubic survives". It is also the exact ring analogue
+of the Dirichlet telescoping `transfer_pairing_eq_zero` of §1.3: the same `E` has derivative exactly
+`0` on the clamped chain, because the two sums telescope, and the single seam term above on the ring.
+**[proved — exact computation]**
+
+### 5.6 Why it is not a Volterra / Kac–van Moerbeke lattice
+
+The integrable quadratic lattices satisfy `x_k | V_k` — each component is divisible by its own
+coordinate. Equivalently all `N` coordinate hyperplanes `{x_k = 0}` are invariant, and the system is
+Hamiltonian for the log-canonical structure `{x_i, x_j} = c_{ij}x_ix_j`. **[derived — from the
+defining form `x_k' = x_k(x_{k+1} − x_{k−1})`; the family identification is quoted from the standard
+integrable-lattice literature as recorded in the scratch `REPORT.md` §5]** The ring fails this at
+every level:
+
+* **No invariant hyperplane.** An exact Gröbner computation over all projective charts of
+  `L = Σa_kq_k` with `L | L_V L` finds **zero** invariant hyperplanes for `N ≥ 3`; the only case with
+  one is `N = 2`, where it is the diagonal `q_0 = q_1`. A Volterra/KvM lattice in any linear
+  coordinates has exactly `N`, so **no invertible linear change of variables carries the ring to a
+  Volterra/KvM/Bogoyavlenskij lattice**. **[proved — exact computation]**
+* **A pure square can never become a product.** Under `q_k = c_kx_k` with `c_k ≠ 0`,
+
+  ```
+  x_k' = (4c_{k−1}²/c_k) x_{k−1}² − c_{k+1} x_kx_{k+1} .
+  ```
+
+  The source term is a pure square `x_{k−1}²`, while the Volterra form needs `x_{k−1}x_k`
+  (equivalently `V_k` divisible by `q_k`). No choice of the `c_k` turns a square into a product; the
+  `4q_{k−1}²` term is exactly what is fatal. **[derived]**
+* **No log-canonical structure.** A log-canonical Hamiltonian has `(A∇H)_k` divisible by `q_k`;
+  `V_k` is not, so the ring is not Hamiltonian for any log-canonical structure. **[derived]**
+* **No constant Poisson structure.** Solving `d(AV)` symmetric for a constant antisymmetric `A`
+  gives `A = 0` only, for `N = 2..6`. **[proved — exact computation]** Consequently there is no
+  Hamiltonian at all for these `N` via a constant structure. More generally, if `V = A∇H` with `A`
+  antisymmetric, then `dH/dt = ∇H^{T}A∇H ≡ 0`, so `H` is itself a first integral — and §5.4 excludes
+  polynomial first integrals in every degree `≤ 9`.
+
+A general invertible transformation (not merely linear or diagonal) is not ruled out; that is the
+conjecture of §5.8. **[inference]**
+
+### 5.7 What does survive
+
+* **Scaling symmetry.** `q_k(t) ↦ λq_k(λt)` maps solutions to solutions — the field is homogeneous of
+  degree 2. This is what makes the degree-by-degree search exhaustive. **[proved — exact
+  computation]**
+* **The invariant diagonal.** The diagonal `q_k = q` is invariant and reduces to `q' = 3q²`, i.e.
+  `q(t) = a/(1 − 3at)`, blowing up at `t = 1/(3a)` for `a > 0`. This is the finite-time blow-up of
+  §1.4, and **no invariant constrains it**. **[proved — exact computation; the reduction itself is
+  §1.4 and the Lean statements cited there]**
+* **No polynomial Hamiltonian of degree `≤ 9`.** Any `V = A∇H` with `A` antisymmetric forces `H` to
+  be a first integral, and there is none of degree `≤ 9`. **[proved — exact computation]**
+* **No invariant measure with polynomial density of degree `≤ 3`.** `div V = −Σ_kq_k ≠ 0`; solving
+  `div(ρV) = 0` for polynomial `ρ` of degree 0–3 gives `ρ = 0` only, `N = 2..6`. **[proved — exact
+  computation]**
+* **No rational invariant of low bidegree.** There is no nonzero Darboux polynomial
+  (`L_V g = λg` with `λ` linear, `λ ≠ 0`) of degree 1–2 for `N = 3..7`, and none of degree 3 for
+  `N = 3`. A homogeneous rational first integral `P/Q` would force `P` and `Q` to be Darboux with the
+  same cofactor, so there is **no rational first integral of bidegree (1,1), (2,2), or (3,3) at
+  `N = 3`**. **[proved — exact computation]**
+* **A general Lax pair is left open.** The absence of polynomial invariants up to degree 9 obstructs
+  any Lax representation whose `tr L^j` land in those degrees, but a Lax pair with non-polynomial or
+  gauge-dependent `L` is neither found nor ruled out, and no claim is made there.
+
+### 5.8 Caveats, stated explicitly
+
+* "No polynomial invariant of degree `≤ 9` for the computed `N`", and the Darboux statements of
+  §5.7, are **proved** (exact computation, §5.3).
+* "No invariant at any degree, for all `N`" is a **conjecture**: the pattern `dim = 0` is uniform in
+  every computed `(N,d)` and the modular ranks are exactly full in every case, but no structural
+  proof is offered. **[inference]**
+* **Non-polynomial `C¹` first integrals are not excluded.** Locally every nonvanishing vector field
+  has one; the result is about polynomial (and low-bidegree rational) invariants, the meaningful
+  class for a polynomial ODE.
+* `N = 1` is degenerate: the "ring" is the single node `q' = 3q²`, with no polynomial invariant
+  beyond constants and no meaningful notion of integrability. It is reported only for completeness.
+
+### 5.9 Consequence for the rest of this file
+
+On the ring there are **no tori** and **not even one** invariant sphere: the flow is unconstrained by
+any conserved quantity, which is consistent with the unobstructed finite-time blow-up of §1.4. **Any
+argument in this document that rests on a blow-up confined to a subtorus — or on a conserved energy
+on the ring — has no support here.** The clamped chain is different but still weak: exactly one
+invariant, so its flow lies on spheres and never on tori. And the "torus" of the geometry is only a
+homonym: it is the p-adic Tate curve `K*/q^ℤ` of §7, not an invariant manifold of this ODE (§5.2).
+
+---
+
+## 6. The corresponding geometry, and where the chain is special
 
 The chain is **2-regular**: `b = 1`, each generation is one node, and a single shift is cocompact.
 Its quotient is the cycle `ℤ/N` — **the ring**. A single shift already closes the whole lattice into
@@ -368,12 +561,12 @@ geometric one (a cyclic group is not cocompact above degree 2) are the same fact
 
 ---
 
-## 6. The genus-1 case, with the corrections that were needed
+## 7. The genus-1 case, with the corrections that were needed
 
 All of the following was checked against the sources read for this thread. The bold "corrections"
 are the places where the thread's first reading was wrong and was repaired.
 
-### 6.1 What the Tate curve is
+### 7.1 What the Tate curve is
 
 * The Tate curve is `K*/q^ℤ`. It is the p-adic analogue of the complex torus `ℂ*/q^ℤ`, and it has
   **genus 1**. Tate's theorem: there is a surjective homomorphism `φ : K* → E_q(K)` with kernel
@@ -385,7 +578,7 @@ are the places where the thread's first reading was wrong and was repaired.
   special fibre that is a loop of `n` copies of `ℙ¹`, so the skeleton is a **loop**.
   **[sourced — type `I_n` loop: Berkovich-skeleton notes read, Example 9; split multiplicative: Schottky notes §5]**
 
-### 6.2 The skeleton is the finite core, not the whole quotient
+### 7.2 The skeleton is the finite core, not the whole quotient
 
 * The **skeleton** is the finite **minimal / convex-core** graph, not the full quotient.
   **[sourced — Mumford, "An analytic construction of degenerating curves over complete local rings", Compositio Math. 24 (1972) 129–174, Thms 1.23 and 3.3; Heydeman–Marcolli–Saberi–Stoica, arXiv:1605.07639 ("the quotient `T_k/Γ` consists of a finite graph `T_Γ/Γ` with infinite trees appended at the vertices"); Li–Matheus–Pan–Tao, arXiv:2412.20754 Remark 2.15 ("This skeleton `Σ_X` is the analogue of the convex core …")]**
@@ -395,7 +588,7 @@ are the places where the thread's first reading was wrong and was repaired.
 * The genus of the curve is the first Betti number of the skeleton.
   **[sourced — Payne, "Tropical Brill–Noether Theory 11: Berkovich Analytification and Skeletons of Curves", Thm 11.26: `g(X) = g(Σ(X,V(X))) + Σ_{x∈V(X)} g(x)`, where `g(Σ(X,V(X)))` is the first Betti number of the skeleton]**
 
-### 6.3 Funnels are NOT cusps, and in characteristic zero there are no cusps
+### 7.3 Funnels are NOT cusps, and in characteristic zero there are no cusps
 
 * Funnels and cusps are **distinct** notions, defined separately.
   **[sourced — Arends–Peterson–Weich, arXiv:2603.26443, Def. 2.1 (orbifold funnel) and Def. 2.2 (cusp)]**
@@ -408,7 +601,7 @@ are the places where the thread's first reading was wrong and was repaired.
   with infinite rooted trees attached: the funnels.
   **[sourced — Huang–Jepsen, "Finite Temperature at Finite Places", arXiv:2408.04199 (thermal cycle, `w` edges)]**
 
-### 6.4 The boundary: a correction
+### 7.4 The boundary: a correction
 
 * The quotient's boundary is **`Ω_Γ/Γ`**, the Mumford curve's `K`-points — the set of ends of the
   quotient graph — **not** the limit set `Λ_Γ`. Mumford: *"C(K), the set of K-rational points of C,
@@ -418,7 +611,7 @@ are the places where the thread's first reading was wrong and was repaired.
   but the earlier **identification was wrong**. This is a correction, not a retraction.
   **[sourced for both being Cantor sets; the correction is the thread's]**
 
-### 6.5 Consequence for any "n-boundary" reading
+### 7.5 Consequence for any "n-boundary" reading
 
 * There **is** a discrete count of funnels, so the statement *"the p-adic side has no discrete `n`"*
   is **too strong**. **[inference]**
@@ -428,7 +621,7 @@ are the places where the thread's first reading was wrong and was repaired.
 * The funnel count `w(q−1)` is **the analysing agent's inference, stated in no source**. It is
   recorded here only as such. **[inference]**
 
-### 6.6 RT does work here
+### 7.6 RT does work here
 
 * Heydeman–Marcolli–Parikh–Saberi, arXiv:1812.04057 §5: the bulk dual of boundary entanglement is
   *"the lengths of minimal geodesics homologous to the boundary intervals in the black hole
@@ -440,7 +633,7 @@ are the places where the thread's first reading was wrong and was repaired.
 * Assembling these: the funnel width = the translation length = the thermal-cycle length = the p-adic
   analogue of a **cuff length**. **[derived — identification across arXiv:2603.26443, arXiv:2408.04199, arXiv:1812.04057]**
 
-### 6.7 The p-adic analogue of a pair of pants
+### 7.7 The p-adic analogue of a pair of pants
 
 * A `ℙ¹` with three marked points. Brosnan–Fakhruddin: *"Any trivalent graph Γ with 2g−2 vertices
   gives rise to a unique totally degenerate stable curve `C_Γ` of genus g … We choose a copy of
@@ -450,7 +643,7 @@ are the places where the thread's first reading was wrong and was repaired.
 * The literal phrase **"p-adic pants decomposition" was not found**.
   **[not found]**
 
-### 6.8 Nothing builds a multi-funnel wormhole
+### 7.8 Nothing builds a multi-funnel wormhole
 
 No source read builds a p-adic multiboundary / multi-funnel wormhole. The existing p-adic holography
 corpus is **single-boundary**: the genus-0 tree, the genus-1 Tate curve, and higher-genus Mumford
@@ -458,7 +651,7 @@ curves. **[not found]**
 
 ---
 
-## 7. Verdict
+## 8. Verdict
 
 * The **chain closes**: the self-similar twist `u_{k+N} = 2^{−N}u_k` is the consistent matching, the
   reduced system is the finite cyclic ODE `q_k' = 4q_{k−1}² − q_kq_{k+1}` on `ℤ/N`, and its constant
@@ -559,6 +752,7 @@ re-checking. The first is load-bearing; the rest are wording or asides.
 | Berkovich-skeleton seminar notes (Castillejo, *Skeleton of Berkovich spaces*) | Example 9, type `I_n` ⇒ loop of `n` copies of `ℙ¹` |
 | Schottky/Mumford-curve notes read for this thread (Tate curve, Thms 0.1/4.4, Def. 4.2, §5) | Tate's theorem, kernel `q^ℤ`, the Weierstrass cubic, split multiplicative reduction |
 | scratch: `CMFINAL.py`, `cm2.py`, `CONSOLIDATED.py`, `check7.py`, `handcheck.py` (in `/tmp/tree_closure/`, not in this repo) | the exact-rational fits and the numerical checks of §3, §4 |
+| scratch: `inv.py`, `run_all.py`, `more.py`, `structure.py`, `darboux.py`, `extras.py` (in `/tmp/ring_invariants/`, not in this repo) | the exact invariant computation of §5: Lie-derivative kernels and modular certificates, the energy seam, the hyperplane / Hamiltonian / Darboux searches. The `x_k | V_k` property of the Volterra/KvM family is quoted there from the standard integrable-lattice literature |
 
 ## What could not be verified
 
@@ -576,3 +770,14 @@ re-checking. The first is load-bearing; the rest are wording or asides.
   verified coefficients come from `CMFINAL.py` and from the hand derivation in §4.2. The
   forward-invariance of the isotropic manifold (as opposed to the exact coefficients) is unaffected,
   since the right-hand side depends on the generation alone.
+* **The all-degree / all-`N` absence of invariants for the ring.** Proved only for the degrees and
+  `N` tabulated in §5.4; the extension to every degree is the analysing agent's **conjecture**, not a
+  computation. **[inference]**
+* **A general Lax pair for the ring.** Neither exhibited nor ruled out; only polynomial Lax
+  invariants up to degree 9 are obstructed (§5.7).
+* **A nonlinear equivalence to an integrable lattice.** Only linear (and diagonal) changes of
+  variables are excluded (§5.6); a general invertible transformation is not.
+* **The §5 integrability scripts are outside this repository** (`/tmp/ring_invariants/`) and will
+  not survive it; they are named only so the computation is findable while the scratch lasts. The
+  ring's negative results rest on the modular full-rank certificate together with the `sympy`
+  over-`ℚ` cross-check, and the engine was validated against known invariants (§5.3).
