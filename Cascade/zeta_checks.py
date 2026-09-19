@@ -421,6 +421,29 @@ def section_i():
     print("         profile is NOT a solution of the unforced rooted model; the earlier claim that")
     print("         'the isotropic manifold reduces the whole tree to the ODE' is WITHDRAWN.")
 
+    # (e) WHY it was the wrong object: the two profiles carry different flux.
+    # Flux across level n for a power profile X_m = A 2^{-gamma m}:
+    #   log2(Pi_n / A^3) = n(2 at + alpha - 3 gamma) + (2 at + alpha - gamma)
+    # Barbato's gamma = (2 at + alpha)/3 makes it CONSTANT and equal to the injection f^2 X_0;
+    # my gamma = alpha makes it ~ 2^{2n(at-alpha)}, which vanishes for alpha > alpha_tilde.
+    print("I'   the flux: why the gamma=alpha profile was the wrong object")
+
+    def flux2(al, at, gamma, n):
+        return 2 * at * (n + 1) + al * (n + 1) - 2 * gamma * n - gamma * (n + 1)
+
+    ok_b = ok_m = True
+    for at_i, al_i in ((F(1, 2), F(1)), (F(1), F(2)), (F(3, 2), F(5, 2)), (F(1, 2), F(3, 2))):
+        gA = (2 * at_i + al_i) / 3
+        for n in range(0, 7):
+            if flux2(al_i, at_i, gA, n) != 2 * gA:
+                ok_b = False
+            if flux2(al_i, at_i, al_i, n) != 2 * at_i + 2 * n * (at_i - al_i):
+                ok_m = False
+    check("I': Barbato's stationary gamma=(2 at+alpha)/3 carries CONSTANT flux = the injection",
+          ok_b, "4 (alpha_tilde, alpha) pairs x n = 0..6, exact")
+    check("I': the gamma=alpha profile's flux ~ 2^{2n(alpha_tilde-alpha)} -> it is FLUX-FREE",
+          ok_m, "so no cascade runs through it; the phantom father was the symptom")
+
 
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")

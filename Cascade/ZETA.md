@@ -530,6 +530,63 @@ the profile is stationary. Its exponent is then the paper's stationary exponent:
 That is a consistency check on the identification, not a new solution: the paper's stationary profile
 `X_j = f·2^{−(|j|+1)(2α̃+α)/3}` specialises to this at `4^α = b`.
 
+**(b‴) What the phantom father *is*, and why the profile was the wrong object.** The question "what
+if we just supply the father?" has a clean answer, and it turns the withdrawal into a diagnosis.
+
+*It is not a phantom; it is the **driving**.* Three exact cases:
+
+| forcing | is the profile a solution? |
+|---|---|
+| `f = 0` (unforced) | **no**, at any `α` — the root always drains |
+| `f` constant | only at `r² = b`, i.e. `α = α̃`, where the profile is **stationary** |
+| `f(t) = σ(t)·r` (time-dependent) | **yes, for every `α`** |
+
+The third case is the content: with a drive that is itself self-similar, the profile is an exact
+self-similar response. **[proved — exact computation; the root and interior both reduce to
+`σ²(r²−b)`]**
+
+And the root's balance `f² − b·r·X₀X₁ = σ²(r² − b)` is **the same expression as the bulk
+coefficient**. So the threshold has a reading: `r² > b` means the influx from above the resolved
+range exceeds the outflux to below; `r² < b` means the root drains; `r² = b` means
+`r = √b = N_*^{1/2} = 2^{α̃}`. **`α̃` is a top-of-cascade flux balance, and the `½` in it is the
+square root because energy is quadratic in the amplitude while the level count is linear** — the same
+`½`, now at a physical balance rather than in a definition.
+
+*But the profiles are not merely shifted copies of each other — they differ **qualitatively**.* For a
+power profile `X_m = A·2^{−γm}` the flux across level `n` is
+
+```
+Π_n / A³ = 2^{ n(2α̃ + α − 3γ) + (2α̃ + α − γ) } .
+```
+
+* **Barbato's stationary profile** has `γ = (2α̃+α)/3`: the `n`-coefficient vanishes, `Π_n` is
+  **constant**, and with `f = A2^{γ}` it equals the injection `f²X₀ = A³2^{−γ}` **exactly**. A steady
+  drive in, a steady flux out. That is a genuine cascade, and it is the paper's *conservative* case.
+* **The profile used here** has `γ = α`: then `Π_n ∝ 2^{2n(α̃−α)}`, which for `α > α̃` **vanishes as
+  `n → ∞`**. It carries **no flux to infinity at all**.
+
+So the earlier profile was **flux-free**: it has no cascade running through it, which is why it could
+not balance any drive, and why the root had to invent a father. The two exponents agree only at
+`α = α̃`, which is exactly where the profile became stationary and the phantom father became a
+legitimate constant drive. **[proved — exact computation, `zeta_checks.py` section I]**
+
+The flux-constancy condition `3γ = 2α̃ + α` is the same algebra as the paper's stationarity relation
+`μ³ = b·2^α = 2^{2α̃+α}`. So the error was not a sign or a boundary convention: **`γ = α` is the
+exponent of a flux-free profile, and `(2α̃+α)/3` is the exponent of a flux-carrying one.** The
+phantom father was the symptom, not the disease.
+
+*What this does not buy.* The drive was reverse-engineered (`f(t) = σ(t)r` is chosen to make the
+profile exact), so this **interprets** `α̃` rather than deriving it. What it does give is the correct
+statement of what `α̃` demarcates: a driven cascade whose top-scale input balances its drain. Barbato's
+`α > α̃ ⟹` anomalous dissipation is then the statement that above threshold the cascade can carry a
+steady flux out of the resolved range. **[inference]**
+
+*A numerics note, recorded because it failed.* An attempt to check numerically whether the driven
+flow relaxes to Barbato's stationary profile from the flux-free one was **abandoned**: every top
+boundary tried (Dirichlet, then a ratio-preserving ghost) destabilised the box, to the point that
+**the paper's own stationary profile "blew up" instantly** in it. That is a defect of the box, not a
+finding about the model, and no numerical claim is made here. The exact algebra above is the evidence.
+
 ### 6.4 The `½`, and what is left of it
 
 `4^α = (2^α)²`, and the square reflects that the model is **quadratic in the amplitude** while the
