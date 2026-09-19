@@ -266,6 +266,38 @@ a chain over generations, one degree of freedom per generation. It is *not* a fi
 quotient graph, because no finite cyclic quotient exists (§3.2). The branching number `b` survives
 only as a coefficient.
 
+> **Corrigendum (added later): the chain *can* be made periodic, at `μ = 2^α`.** The sentence above is
+> right that the tree has no finite **graph** quotient (§3.2 stands), but it is wrong to conclude that
+> no finite closure exists. The two coefficients collapse to **constants** at exactly one value of the
+> isotropy parameter:
+>
+> `A_n = 2^{αn}μ^{2−n}` and `B_n = b·2^{α(n+1)}μ^{−(n+1)}` are both independent of `n` **iff `μ = 2^α`**,
+> and then
+>
+> ```
+> Ṙ_n = 4^α R_{n−1}² − b R_n R_{n+1} .
+> ```
+>
+> That reduced equation is autonomous and shift-invariant, so **periodic data gives a periodic
+> solution**: with `R_{n+N} = R_n` the tree closes onto the finite system on `ℤ/N`. Verified exactly
+> against the tree equation `Ẋ_n = 2^{αn}X_{n−1}² − b·2^{α(n+1)}X_nX_{n+1}` for `(α,b,N)` in
+> `{(1,2,3),(1,3,4),(2,2,5),(1,2,2),(3,4,3),(1,1,4)}`. At `b = 1` this is *exactly* §1.3's ring
+> `q_k' = 4q_{k−1}² − q_kq_{k+1}`. **[proved — exact computation, `zeta_checks.py` section K]**
+>
+> **What this is and is not.** It is a closure of an **invariant subspace** (isotropy), not of the
+> tree as a graph — which is why §3.2 is untouched. And the *chain* closes unforced because its index
+> set `ℤ` has no root, so the cycle's closing edge (`N−1 → 0`) is already in the lattice; the *tree*
+> has a root at generation 0, so the closing edge must be supplied, and periodicity makes it
+> `f = μR_{N−1} = 2^{αN}X_{N−1}` — the **folded-around top level**. So the isotropic periodic tree is
+> a **driven** cycle: finite-dimensional and closed, but driven.
+>
+> Two consequences worth recording. (i) The constant mode of the reduced cycle is
+> `ċ = (4^α − b)c²`, so the isotropic periodic cycle is marginal exactly at `4^α = b`, i.e.
+> **`α = α̃`** — the coefficient `4^α − b` that `Cascade/ZETA.md` §6.3b′ withdrew is *correct* in this
+> frame; what was wrong there was calling the profile a solution of the **rooted unforced** model.
+> (ii) It unifies the ring and the top closure: both are one edge short in the tree and complete in
+> the chain. **[derived]**
+
 The derivation is two lines. With `X_j = μ^{−n}R_n` (`n = |j|`), the left-hand side is
 `μ^{−n}Ṙ_n`; the source term is `2^{αn}·(μ^{−(n−1)}R_{n−1})² = 2^{αn}μ^{−2(n−1)}R_{n−1}²`; and the
 sink sums over the `b` children, all at generation `n+1` with the same `R`, giving

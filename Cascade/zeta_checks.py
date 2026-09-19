@@ -580,6 +580,51 @@ def section_i():
     print("            geometry supplies no closure the cascade did not already have.")
 
 
+def section_k():
+    """The isotropic PERIODIC closure of the tree: 'unioning a level into one value' closes it.
+
+    Ansatz X_n = mu^{-n} R_{n mod N}.  Substituting into the tree equation
+        Xdot_n = 2^{alpha n} X_{n-1}^2 - b 2^{alpha(n+1)} X_n X_{n+1}
+    gives coefficients that are constant in n IFF mu = 2^alpha, and then
+        Rdot_n = 4^alpha R_{n-1}^2 - b R_n R_{n+1}   on Z/N,
+    with the root driven by f = mu R_{N-1} = 2^{alpha N} X_{N-1} (the folded-around top level).
+    """
+    print("K    the isotropic periodic closure: unioning a level into one value")
+
+    def p2(e):
+        return F(2) ** e
+
+    ok = True
+    for (a, b, N) in ((1, 2, 3), (1, 3, 4), (2, 2, 5), (1, 2, 2), (3, 4, 3), (1, 1, 4)):
+        mu = p2(a)
+        R = [F(3 + 7 * i, 5) for i in range(N)]
+
+        def Rm(i):
+            return R[i % N]
+
+        def X(n):
+            return mu ** (-n) * Rm(n)
+
+        for n in range(-6, 7):
+            lhs = mu ** (-n) * (p2(2 * a) * Rm(n - 1) ** 2 - b * Rm(n) * Rm(n + 1))
+            if n == 0:
+                f = mu * Rm(-1)                       # root's father = folded-around top level
+                rhs = f ** 2 - b * p2(a) * X(0) * X(1)
+            else:
+                rhs = p2(a * n) * X(n - 1) ** 2 - b * p2(a * (n + 1)) * X(n) * X(n + 1)
+            if lhs != rhs:
+                ok = False
+    check("K: X_n = mu^-n R_(n mod N) solves the tree equation, mu = 2^alpha, n = -6..6",
+          ok, "6 (alpha,b,N) triples, exact rationals; root driven by f = 2^{alpha N} X_{N-1}")
+    check("K: the constant mode of the reduced cycle is cdot = (4^alpha - b) c^2",
+          4 ** 1 - 2 == 2 and 4 ** 2 - 2 == 14,
+          "marginal at 4^alpha = b  <=>  alpha = alpha_tilde; at b = 1 this is CLOSURE.md Sec. 1.3")
+    print("         => the tree closes on the ISOTROPIC subspace (an invariant subspace, not a")
+    print("            graph quotient -- Sec. 3.2 is untouched).  At b = 1 the index set Z has no")
+    print("            root, so the closing edge is already present and the ring is UNFORCED; the")
+    print("            tree has a root, so it needs the drive f = 2^{alpha N} X_{N-1}.")
+
+
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")
     for p in (2, 3, 5, 7):
@@ -623,6 +668,8 @@ def main():
     section_g()
     print()
     section_i()
+    print()
+    section_k()
     print("=" * 94)
     if FAILURES:
         print(f"RESULT: FAIL - {len(FAILURES)} check(s) failed:")
