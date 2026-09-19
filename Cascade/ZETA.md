@@ -575,6 +575,36 @@ The flux-constancy condition `3γ = 2α̃ + α` is the same algebra as the paper
 exponent of a flux-free profile, and `(2α̃+α)/3` is the exponent of a flux-carrying one.** The
 phantom father was the symptom, not the disease.
 
+**Drive or loop?** Both tests say **loop**, with one exception.
+
+* *Is the forcing independent of the state, or slaved to it?* Barbato's `f` is a free constant
+  parameter, and so is `A` in their stationary profile. The forcing used here is not: `f = σr = r·X₀`
+  — the root's **own** amplitude, scaled by `r`. That is a feedback, not a source.
+* *Does anything reach the small scales?* The energy check settles it. For the `γ = α` profile with
+  `α > α̃`, the geometric sum in `dE/dt = 2σ³(r²−b)Σ_n(b/r²)^n` collapses because
+  `(1 − b/r²) = (r²−b)/r²`, giving
+
+  ```
+  dE/dt = 2σ³r² = the injection f²X₀ (doubled) ,   with flux to infinity = 0 .
+  ```
+
+  **Every drop that comes in stays in the profile.** A drive drives something *through*; a loop only
+  inflates. **[proved — exact computation]**
+
+So the trichotomy is: for `α < α̃` the profile is not `ℓ²` at all; for `α > α̃` it is a boundary
+self-reference (`f = rX₀`) with no flux through it; and at `α = α̃`, where `σ` is constant, the
+self-reference degenerates into a genuine constant forcing — Barbato's stationary state. The
+"self-similar drive" described *how it scaled*; the loop is *what it was*. They looked alike because
+only the scaling was checked.
+
+**Not to be confused with the ring.** The dyad ring was a loop in the **index** (`k ≡ k + N`), a
+genuinely closed chain — a topological circle. This is a loop in the **signal** (the root's parent set
+to the root's own value times `r`), a self-reference at the boundary. Different objects that would
+both be called "a loop".[^loop]
+
+[^loop]: The distinction is the same one §5.2 draws for "torus", and it is the third time in this
+thread that two different things have shared a symbol or a word.
+
 *What this does not buy.* The drive was reverse-engineered (`f(t) = σ(t)r` is chosen to make the
 profile exact), so this **interprets** `α̃` rather than deriving it. What it does give is the correct
 statement of what `α̃` demarcates: a driven cascade whose top-scale input balances its drain. Barbato's
