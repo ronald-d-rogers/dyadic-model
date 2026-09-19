@@ -694,6 +694,34 @@ So what a free drive buys is the **amplitude** of the one admissible shape, not 
 is right" does not mean "anything hangs off it": the input is the single free number setting how large
 the already-rigid cascade is.
 
+**How far can that be pushed?** Three scalings, all exact, and exactly one ceiling. **[proved — exact
+exponent arithmetic]**
+
+* *The shape is `f`-independent.* Barbato's stationary profile is `X_j = f·2^{−(|j|+1)γ}` with
+  `γ = (2α̃+α)/3`. The stationarity condition is `2^{αn}X_{n−1}² = b·2^{α(n+1)}X_nX_{n+1}`; the profile
+  carries `f²` on **both** sides, so `f` cancels and the condition pins `γ` alone. **The drive cannot
+  change the shape — only the size.**
+* *State `∝ f`, throughput `∝ f³`.* The state is exactly linear in `f`; the flux is
+  `Σ_{|k|=n+1}c_kX_{k̄}²X_k = f³2^{−γ}`, **constant in `n`** and exactly equal to the injection
+  `f²X_0`. So doubling the drive doubles every amplitude and multiplies the throughput by **eight**.
+* *No ceiling on the size, one ceiling on the regularity.* For `ν = 0` a unique `ℓ²` positive
+  stationary solution exists for **every `f > 0`** with no bound, and `f = 0` gives only the null state
+  — so a steady state needs `f > 0` but has no maximum. For `ν > 0` and `α − α̃ > (3/2)γ`, however,
+  Theorem 2.3 gives a `C > 0` such that for all `f > C` the invariant solution is **not regular** and
+  exhibits anomalous dissipation. **That is a ceiling on regularity, not on size.** **[sourced —
+  arXiv:1207.2846 §2 Thm 2.3]**
+
+**And the cycle can be made as long as you like — at no extra cost.** The isotropic periodic closure
+works for every period `N` at the same forced `μ = 2^α`, and the marginality `4^α = b` does not depend
+on `N`. The drive needed to tie it is `f = μR_{N−1} = 2^{αN}X_{N−1} = 2^αR_{N−1}`, whose exponent is
+`α` **for every `N`** — so **a longer knot costs no more drive.** What a longer cycle buys is not a
+different steady state but a wider *dynamic range*: the physical amplitudes run from `X_0 = R_0` down
+to `X_{N−1} = 2^{−α(N−1)}R_{N−1}`. **[proved — exact computation]**
+
+**The one thing that cannot be pushed is the threshold itself.** `α̃ = ½log₂b` is fixed by the
+**branching number**: `α` can be moved relative to it, but `α̃` is determined by the tree, and to
+change it you must change the tree. **[derived]**
+
 **Can the shim itself be a steady loop? Yes — and it is the mirror image of the ring.** Closing the
 loop at the *top* rather than supplying a constant means replacing the root's forcing by a feedback
 `f := g·X_0`:
