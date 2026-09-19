@@ -625,13 +625,37 @@ Finite quotients need a **cocompact lattice**, not a cyclic group. The non-finit
 degree ≥ 3 is established by the Švarc–Milnor lemma together with Nielsen–Schreier.
 **[derived — the standard argument as recorded in the thread]**
 
+> **Sharpening (added later).** Cocompactness alone is **not** the obstruction — cocompact lattices of
+> every rank exist for the tree (Schottky groups), and their quotients are finite graphs with any
+> `b₁ = g`. What fails is that those groups are **ungraded**: they move generation. Closing the
+> *cascade* needs a group satisfying **two** conditions, and only the second is geometric:
+>
+> **(i) it preserves the equations.** The coefficients are `c_j = 2^{α|j|}` with `α > 0`, and
+> `n ↦ 2^{αn}` is injective, so `c_{γj} = c_j` for all `j` forces `|γj| = |j|` for all `j` — i.e.
+> preserving the equations forces preserving the **level function** `|·|`.
+> **(ii) its quotient is finite.**
+>
+> If `|γj| = |j|`, the level function **descends** to `Γ\T` and still takes every value `0, 1, 2, …`,
+> so `Γ\T` has at least one vertex per level and is **infinite**. Hence (i) and (ii) are
+> incompatible: **no grading-preserving cocompact group exists.** The only escape is to *shift* levels
+> rather than preserve them — `|γj| = |j| + N`, with the coefficient scaling `2^{αN}` absorbed by the
+> twist `u_{k+N} = μu_k` — and that requires levels `n` and `n+N` to be **equinumerous**. Level sizes
+> are `1, b, b², …`, so this holds only at `b = 1`.
+>
+> So every `b₁ = g` quotient the p-adic geometry offers is **ungraded**, and using one would not
+> preserve the cascade's equations: **the geometry supplies no closure the cascade did not already
+> have.** This is what "the p-adic geometry does not make the cascade close" means.
+> **[derived — this document's sharpening; the level-descent argument is a proof, the equinumerosity
+> a trivial computation]**
+
 So the statement is:
 
 > **The chain's ring closes because degree 2 is the only degree at which one element suffices.**
 > **[derived]**
 
 This is the geometric face of the failure in §3: the algebraic obstruction (no level shift) and the
-geometric one (a cyclic group is not cocompact above degree 2) are the same fact.
+geometric one (a level-preserving group cannot be cocompact) are the same fact — and the *shift* that
+rescues the chain is exactly the one that needs equinumerous levels, which a tree does not have.
 
 ---
 

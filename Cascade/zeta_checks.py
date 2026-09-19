@@ -558,6 +558,27 @@ def section_i():
     print("            writing a NEW model.  And closures DETACH (they cut the link to the parent)")
     print("            rather than attach.  The model supplies cutting, not joining.")
 
+    # (j) WHY THE p-ADIC GEOMETRY DOES NOT CLOSE THE CASCADE.  Closure needs a group Gamma with
+    #     (i) preserving the equations and (ii) finite quotient.  Preserving c_j = 2^{alpha|j|}
+    #     forces preserving the level function (2^{alpha n} is injective), and a level-preserving
+    #     group's quotient still carries the level function, so it is INFINITE.  The only escape is
+    #     a level SHIFT, which needs equinumerous levels -- true for the chain (1,1,1,...) and
+    #     false for a tree (1,b,b^2,...).
+    print("J    why the p-adic geometry does not make the cascade close")
+    ok_inj = all((2 ** (a * n) == 2 ** (a * m)) == (n == m)
+                 for a in (1, 2, 3) for n in range(8) for m in range(8))
+    check("J: 2^{alpha n} is injective in n, so preserving c_j = 2^{alpha|j|} forces |gamma j| = |j|",
+          ok_inj, "which is what makes the level function descend to the quotient")
+    eq = {}
+    for b_ in (1, 2, 3, 5):
+        eq[b_] = all(b_ ** n == b_ ** (n + 1) for n in range(6))
+    check("J: levels are equinumerous only for the chain, so only b = 1 admits a level SHIFT",
+          eq[1] and not any(eq[b_] for b_ in (2, 3, 5)),
+          f"level sizes 1,b,b^2,...: equinumerous for b in {[b_ for b_ in eq if eq[b_]]} only")
+    print("         => the geometry's b_1 = g quotients are all UNGRADED: their groups move")
+    print("            generation, so they do not preserve the cascade's equations.  The p-adic")
+    print("            geometry supplies no closure the cascade did not already have.")
+
 
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")
