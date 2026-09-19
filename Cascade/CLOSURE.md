@@ -679,6 +679,14 @@ degree ≥ 3 is established by the Švarc–Milnor lemma together with Nielsen�
 > have.** This is what "the p-adic geometry does not make the cascade close" means.
 > **[derived — this document's sharpening; the level-descent argument is a proof, the equinumerosity
 > a trivial computation]**
+>
+> **Figures.** `Cascade/isotropic_closure.py` → `.svg`/`.png` is the record: *braid → rope → twist →
+> knot*, four panels plus the algebra and a caveats box (stdlib only, like the other figures here).
+> `Cascade/plot_isotropic_helix.py` → `.svg`/`.png` draws the one thing the record panels cannot: the
+> physical object itself, a **helix** closing up to the twist rather than a circle. That second script
+> is the repository's **only** figure needing `numpy`/`matplotlib` (a repo-local `.venv-plotting`,
+> gitignored); it is deterministic (`svg.hashsalt` pinned, no embedded date) and self-checking.
+> **[exact for the relation; the drawn periodic profile `R_n` and the parameters are illustrative]**
 
 So the statement is:
 

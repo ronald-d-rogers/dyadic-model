@@ -2,3 +2,4 @@
 .lake
 .cache
 .DS_Store
+.venv-plotting/
