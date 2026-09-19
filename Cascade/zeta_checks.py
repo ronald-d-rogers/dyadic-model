@@ -506,6 +506,30 @@ def section_i():
           all(residual_vanishes(a, b_, g) for a, b_, g in cands),
           "the exponent difference is 3 gamma - 2 at - alpha, independent of n")
 
+    # (h) CAN THE SHIM BE A STEADY LOOP?  Close the loop at the TOP: f := g X_0, so the root
+    #     becomes  Xdot_0 = (g X_0)^2 - b 2^alpha X_0 X_1 = 4^gamma X_0^2 - ... if g = 2^gamma.
+    #     Stationary: interior gives 3 gamma = 2 at + alpha; the root then FORCES g = 2^gamma.
+    #     So the phantom parent is one step up the same profile -- the mirror of the ring closure.
+    print("I'''' the shim as a steady loop: the top closure, mirror of the ring")
+    ok_loop = True
+    for at_i, al_i in ((F(1, 2), F(1)), (F(1), F(2)), (F(3, 2), F(5, 2)), (F(2), F(3))):
+        g_stat = (2 * at_i + al_i) / 3
+        # root balance with g = 2^gamma:  g^2 = 2^{2 at + alpha - gamma}
+        if 2 * g_stat != 2 * at_i + al_i - g_stat:
+            ok_loop = False
+        # interior
+        if 3 * g_stat != 2 * at_i + al_i:
+            ok_loop = False
+        # l^2: level energy ~ 2^{2n(at - gamma)}, summable iff at - gamma < 0
+        if not (at_i - g_stat < 0):
+            ok_loop = False
+    check("I'''': the top closure f = 2^gamma X_0 is consistent for every alpha > alpha_tilde",
+          ok_loop, "root balance, interior balance and l^2 all hold; gain g = 2^gamma is FORCED")
+    print("         => mirror of the ring closure u_{k+N} = 2^-N u_k, applied at the top instead")
+    print("            of the bottom.  BUT it changes the model: the constant drive f^2 becomes")
+    print("            the quadratic self-term 4^gamma X_0^2.  The same PROFILE solves a DIFFERENT")
+    print("            root equation; it is not a solution of Barbato's unforced model.")
+
 
 def section_g():
     print("G    the Barbato threshold arithmetic (float section)")

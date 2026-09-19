@@ -675,6 +675,46 @@ So what a free drive buys is the **amplitude** of the one admissible shape, not 
 is right" does not mean "anything hangs off it": the input is the single free number setting how large
 the already-rigid cascade is.
 
+**Can the shim itself be a steady loop? Yes — and it is the mirror image of the ring.** Closing the
+loop at the *top* rather than supplying a constant means replacing the root's forcing by a feedback
+`f := g·X_0`:
+
+```
+original root :  Ẋ_0 = f² − b·2^α·X_0X_1              (f constant, external)
+loop-closed   :  Ẋ_0 = (g·X_0)² − b·2^α·X_0X_1        (f := g·X_0, a feedback)
+interior      :  unchanged
+```
+
+For the stationary ansatz `X_n = A·2^{−γn}` the interior still forces `3γ = 2α̃+α`, and the root then
+requires `g² = 2^{2α̃+α−γ} = 2^{2γ}`, so
+
+```
+g = 2^γ   FORCED  —   f = 2^γ·X_0 ,
+```
+
+i.e. **the phantom parent is simply one step up the same profile**, and the loop is consistent for
+**every `α > α̃`**, with the same `ℓ²` condition as before. At the fixed point the loop reproduces the
+constant drive *exactly*: Barbato's profile has `X_0 = f·2^{−γ}`, so `g·X_0 = 2^γ·f·2^{−γ} = f`.
+**[proved — exact exponent arithmetic, `zeta_checks.py` section I⁗]**
+
+Structurally this is the *same kind of closure* that produced the dyad ring, applied at the other end:
+
+```
+bottom :  u_{k+N} = 2^{−N}·u_k     shell k+N := a scaled copy of shell k      -> the ring
+top    :  f = 2^γ·X_0              the parent := one step up the same profile -> the steady loop
+```
+
+Equivalently, the loop-closed root `Ẋ_0 = 4^γX_0² − b·2^αX_0X_1` is exactly an interior node with
+`X_{−1} := 2^γX_0`. **So the top closure *restores* the generation-translation-invariance that the
+root had broken** — and translation invariance plus stationarity is precisely the power law.
+
+**What this is not.** It is not a solution of Barbato's model. Closing the loop **changes the root
+equation**: the constant drive `f²` becomes a quadratic self-term `4^γX_0²`. The same *profile* solves
+a *different* root equation. And the loop does **not** select `γ` — the interior still does; the loop
+only supplies a consistent boundary condition. So this is a legitimate closed model with a steady
+state, but it is not the undriven cascade, and it is not a repair of the root obstruction — it removes
+the obstruction by changing the equation that had it. **[proved — exact computation]**
+
 [^loop]: The distinction is the same one §5.2 draws for "torus", and it is the third time in this
 thread that two different things have shared a symbol or a word.
 
