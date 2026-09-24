@@ -38,7 +38,8 @@ through `n = 2`).
 `Cascade/PerShellThreshold.lean`**, with the intermittency dimension `δ` playing the role the
 dissipation degree `e` plays there: `e = 1` is the critical degree there, and `δ = n − 2` is the
 critical intermittency dimension here — in particular `δ = 1` at `n = 3`.  Both compare a
-nonlinearity exponent against the dissipation exponent `2`.
+nonlinearity exponent against the dissipation exponent `2`.  (The shared object is the
+*criticality*: the bar itself is sector-specific — see `Cascade/PerShellSectorObukhov.lean`.)
 
 ## Contents
 

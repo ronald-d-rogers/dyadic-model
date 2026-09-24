@@ -20,6 +20,8 @@ import Cascade.EnstrophyBound
 import Cascade.BuoyancySign
 import Cascade.DissipationThreshold
 import Cascade.PerShellThreshold
+import Cascade.PerShellSectorObukhov
+import Cascade.StationarySectorMultiplier
 import Cascade.SignReversal
 import Cascade.TruncatedRegularity
 import Cascade.BlowupEngine

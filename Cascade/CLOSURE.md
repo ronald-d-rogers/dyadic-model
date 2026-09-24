@@ -33,6 +33,7 @@ therefore carries one of these labels, and the citation is given with the label.
 | **[measured — script]** | a numerical check in a scratch script, named; exact-rational where said, floating-point otherwise. **Not a proof.** |
 | **[inference]** | the reading of the analysing agent, stated in no source. |
 | **[not found]** | we read the corpus in front of us and found no source for the claim. |
+| **[extension — added by hand]** | **a different axis from the six above.** Those grade the *epistemic status of a claim*; this grades the *provenance of the model*. It means the structure was put in by the analyst, not forced by the scaling or by the coupling law, so **no `[proved]` or `[derived]` statement about the frozen model transfers to it without re-derivation**. Every claim made under an extension carries this tag, and the extension's own header must list, before any theorem, what it does *not* inherit. |
 
 The scratch scripts named below (`check7.py`, `CMFINAL.py`, `cm2.py`, `CONSOLIDATED.py`,
 `handcheck.py`) are in `/tmp/tree_closure/`, not in this repository, and will not survive it; the
@@ -268,8 +269,16 @@ only as a coefficient.
 
 > **Corrigendum (added later): the chain *can* be made periodic, at `μ = 2^α`.** The sentence above is
 > right that the tree has no finite **graph** quotient (§3.2 stands), but it is wrong to conclude that
-> no finite closure exists. The two coefficients collapse to **constants** at exactly one value of the
-> isotropy parameter:
+> no finite closure exists.
+>
+> **Provenance of this correction, recorded because the first entry of it was not.** The closure was
+> not found by re-reading the equations; it was **suggested by the human collaborator** in this
+> exchange — *"close it into a self similar loop"* — after this document had concluded the opposite.
+> The correction below is the working-out. An earlier version of this corrigendum was entered as
+> *"added later"* with no attribution, which would have credited the wrong party; see `PROVENANCE.md`
+> §6 for why that failure mode is systematic.
+>
+> The two coefficients collapse to **constants** at exactly one value of the isotropy parameter:
 >
 > `A_n = 2^{αn}μ^{2−n}` and `B_n = b·2^{α(n+1)}μ^{−(n+1)}` are both independent of `n` **iff `μ = 2^α`**,
 > and then

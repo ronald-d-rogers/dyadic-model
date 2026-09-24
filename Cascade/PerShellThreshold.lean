@@ -1,7 +1,7 @@
 import Cascade.DissipationThreshold
 
 /-!
-# The exact per-shell dissipation threshold of the dyadic Boussinesq model
+# The exact per-shell dissipation threshold of the Katz–Pavlović sector
 
 `Cascade/DissipationThreshold.lean` proves that the enstrophy barrier closes unconditionally iff
 the dissipation degree satisfies `e > 1`, is marginal at `e = 1`, and cannot close for `e ≤ 1` —
@@ -28,6 +28,20 @@ is scale-invariant in `j` **exactly at `e = 1`** (`bar_scale_invariant`); it str
 with `j` for `e > 1` (`bar_strictMono`) and strictly decreases for `e < 1` (`bar_strictAnti`).
 This is the criticality, made exact.
 
+## Scope: one sector of a four-parameter family
+
+The model above is `velocityRHSDegreeE ν κ 1 0` — the **Katz–Pavlović** sector, `A = 1, B = 0` of
+`boussinesqTransferU` (`Cascade/Boussinesq.lean:71`). The other named sector, `A = 0, B = 1`, is
+**Obukhov**: the model of Palasek (arXiv:2407.06179, eq. (1.2)) and of Looi's global-regularity
+theorem. **It has no per-shell bar.** Its budget carries `u_j` linearly rather than as `u_j²`, so no
+function of `(ν, e, j)` decides the sign of a shell — `Cascade/PerShellSectorObukhov.lean` proves
+both the pairing identity there and the negative (`no_obukhov_perShellBar`). See also
+`CASCADE_PALASEK_PRIOR_ART.md` Q1(b).
+
+**The bar is sector-specific; the `e = 1` criticality is not.** The factor `2^{(e−1)j}` is present
+in both sectors, so its independence of `j` is governed by `e = 1` either way. What the change of
+sector destroys is the *bar* — the reading of each shell's sign off `u_{j+1}` alone.
+
 At `e = 1` the budget collapses (`budget_degree_one`) to
 `2 Σ_{k<N} 2^{2k} u_k u_k' = Σ_{j<N} 2^{3j} u_j² (12 u_{j+1} − 2ν)`, whose **sign depends on the
 distribution of `u`, not its size**.  Concretely, at `N = 2`, `ν = 1`, `e = 1`, `u_2 = 0`, `κ = 0`,
@@ -37,7 +51,7 @@ predicate of the enstrophy alone can decide the sign of its rate at `e = 1`.
 
 ## Contents
 
-1. `perShellBar` — the exact per-shell bar `(ν/6)·2^{(e−1)j}`.
+1. `perShellBar` — this sector's exact per-shell bar `(ν/6)·2^{(e−1)j}`.
 2. `enstrophy_pairing_degree` — the exact degree-`e` enstrophy-pairing identity.
 3. `perShell_iff` — the exact per-shell threshold.
 4. `bar_scale_invariant`, `bar_strictMono`, `bar_strictAnti` — the criticality of `e = 1`.

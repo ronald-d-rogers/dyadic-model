@@ -54,7 +54,8 @@ Where we are now. The *target* is `PLAN.md`; the *why* is `VISION.md`.
 > self-perpetuating equilibrium with no growth. So the layer model does not generically blow up, and
 > what remains there is the construction of good data.
 > `Cascade/PerShellThreshold.lean` then replaces the vague "the homogeneities tie at `e = 1`" with
-> the **exact per-shell criterion** `u_{j+1} > (ν/6)·2^{(e−1)j}` — scale-invariant exactly at
+> the **exact per-shell criterion** `u_{j+1} > (ν/6)·2^{(e−1)j}` for the **Katz–Pavlović** sector —
+> scale-invariant exactly at
 > `e = 1` — and proves that **no criterion reading the enstrophy alone can decide the sign of its
 > rate at `e = 1`**, by exhibiting two nonnegative states with equal enstrophy and opposite rates.
 > That is the honest sense in which this threshold is pinnable: the criterion is exact, and the
@@ -99,7 +100,8 @@ Where we are now. The *target* is `PLAN.md`; the *why* is `VISION.md`.
 | `Cascade/ForcedModel.lean` | stage B — the forced model; forced energy and enstrophy bounds (both negative) |
 | `Cascade/BuoyancySign.lean` | stage B′ — `\|κ\|` replaces `κ`: no-blowup for **every** sign of `κ` (11 statements re-proved) |
 | `Cascade/DissipationThreshold.lean` | the dissipation threshold: no blowup for degree `e ≥ 2`; the barrier ties at `e = 1`; quadratic domination provably fails below `e = 2` |
-| `Cascade/PerShellThreshold.lean` | the **exact per-shell criterion** `u_{j+1} > (ν/6)·2^{(e−1)j}`, and the theorem that no enstrophy-only criterion decides at `e = 1` |
+| `Cascade/PerShellThreshold.lean` | the **exact per-shell criterion** `u_{j+1} > (ν/6)·2^{(e−1)j}` *in the Katz–Pavlović sector*, and the theorem that no enstrophy-only criterion decides at `e = 1` |
+| `Cascade/PerShellSectorObukhov.lean` | the Obukhov sector: the pairing identity there, and **`no_obukhov_perShellBar` — no `(ν,e,j)`-only per-shell bar; what it has instead is a state-dependent threshold** |
 | `Cascade/TruncatedRegularity.lean` | **the truncated model is trivially globally regular** — the honest statement after the predicate repair |
 | `Cascade/TruncatedRegularity.lean` | **honest replacement**: the truncated model is trivially globally regular (transfer cancellation, exact energy identity, finite-range norm domination by the energy) |
 | `Cascade/BlowupEngine.lean` | the reversed-Bernoulli engine + the inverted Hölder lemma (abstract, correct, **currently unused**) |
@@ -1245,6 +1247,27 @@ number* is a theorem. At `e > 1` the rising bar suppresses the high shells regar
 one number decides; at `e < 1` the falling bar favours them regardless of shape, so one number
 decides; only at `e = 1` does shape get a vote. That is the precise sense in which the interesting
 case is the undecidable one.
+
+### Scope — the bar belongs to one sector, not to the model
+
+Everything above is the **Katz–Pavlović** sector, `velocityRHSDegreeE ν κ 1 0` (`A = 1, B = 0` of
+`boussinesqTransferU`, `Cascade/Boussinesq.lean:71`). The other named sector is **Obukhov**
+(`A = 0, B = 1`) — the model of Palasek (arXiv:2407.06179, eq. (1.2)) and of Looi's
+global-regularity theorem. `Cascade/PerShellSectorObukhov.lean` derives the pairing identity there
+and finds that **there is no bar**: the shell summand carries `u_j` **linearly** instead of as
+`u_j²`, so two states with the same `u_{j+1}` give opposite signs (`obukhovShellTerm_sign_flip`) and
+no function of `(ν, e, j)` decides a shell (`no_obukhov_perShellBar`). The single structural
+difference is that the square sits on `u_{j+1}` rather than on `u_j`.
+
+**The bar is sector-specific; the `e = 1` criticality is not** — the factor `2^{(e−1)j}` is present
+in both sectors, so its independence of `j` is governed by `e = 1` either way.
+
+Two further facts worth recording. **Nothing in the library depends on the bar**: `perShellBar`,
+`bar_scale_invariant`, `bar_strictMono`, `bar_strictAnti`, `perShell_iff`,
+`same_enstrophy_opposite_sign` and `no_enstrophy_only_criterion` are referenced nowhere outside
+`Cascade/PerShellThreshold.lean` — it is a leaf. And the `e ≥ 2` no-blowup capstones **cannot** use
+it: they live in `DissipationThreshold.lean`, which this file *imports*. So the bar never carried
+the library's negative results; it is a sector-specific presentation of the `e = 1` criticality.
 
 ---
 

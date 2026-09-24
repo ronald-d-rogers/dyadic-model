@@ -54,6 +54,7 @@ the reasoning, and its corrections, are on the record rather than only in a `/tm
 | **[measured — script]** | a numerical check in a script, named; floating-point. **Not a proof.** |
 | **[inference]** | the reading of the analysing agent, stated in no source. |
 | **[not found]** | the corpus was read and no source was found for the claim. |
+| **[extension — added by hand]** | **a different axis from the six above.** Those grade the *epistemic status of a claim*; this grades the *provenance of the model*. It means the structure was put in by the analyst, not forced by the scaling or by the coupling law, so **no `[proved]` or `[derived]` statement about the frozen model transfers to it without re-derivation**. Every claim made under an extension carries this tag, and the extension's own header must list, before any theorem, what it does *not* inherit. See §9. |
 
 The companion script is `Cascade/zeta_checks.py` — standard library only, deterministic, **in this
 repository**, exit status 0 iff every check reproduces. The Lean library is `PAdicZeta/`.
@@ -239,13 +240,81 @@ Three consequences, in order of importance:
    `½`, exactly as in §3. The escape route is closed. **[derived]**
 2. **For a rank-one zeta the functional equation always exists**, for every `λ`. A symmetry that can be
    satisfied by every member of a family cannot select anything within it. [derived]
-3. **A genuine constraint would need rank ≥ 2.** For a finite-rank zeta `ζ(T) = ∏_i 1/(1 − λ_i T)`,
-   the same computation shows that a self-dual functional equation exists exactly when the nonzero
-   spectrum is invariant under `λ ↦ 1/(cλ)` — that is, when it splits into pairs with `λ_i λ_j = 1/c`.
-   That is a real constraint. It is not one the full `p`-shift can meet, because the full shift's
-   transfer operator is rank one (§2.2). **A proper subshift — a cascade with forbidden words — would
-   have a nontrivial transition matrix and hence a possible nontrivial functional equation; the
-   multiplicative `p`-adic cascade is not of that kind.** **[derived]**
+3. **A genuine constraint needs rank ≥ 3 — the original threshold of 2 was one too low.** For a
+   finite-rank zeta `ζ(T) = ∏_i 1/(1 − λ_i T)`, the inversion-form equation `ζ(c/T) = κ T^m ζ(T)`
+   exists **iff the root multisets agree**: `{c λ_i} = {1/λ_i}`, i.e. iff some permutation `σ` makes
+   `λ_i λ_{σ(i)}` **constant over `i`**. **Ranks 1 and 2 satisfy this automatically.** Rank 1: take
+   `c = 1/λ²`. Rank 2: take `c = 1/(λ₁λ₂)`, and `T² ∏_i(1 − λ_i c/T) = T² − (λ₁+λ₂)cT + c` is
+   proportional to `∏_i(1 − λ_i T) = λ₁λ₂T² − (λ₁+λ₂)T + 1` with ratio `c` — for *every* `(λ₁,λ₂)`.
+   "All pair-products equal" is vacuous when there is only one pair. The first rank at which the
+   condition can fail is **3**, where a transposition-plus-fixed-point assignment requires
+   `λ_a² = λ_bλ_d`: this holds for `(λ) = (2,4,8)` (`c = 1/16`) and fails for `(2,3,5)`. **So a
+   2-state subshift would demonstrate nothing.** The conclusion below is unaffected — the full shift
+   is rank one (§2.2), so it still cannot meet the condition — but the target for a proper subshift
+   is **≥ 3 states, with a non-generic spectrum**, not 2. **A proper subshift — a cascade with
+   forbidden words — would have a nontrivial transition matrix and hence a *possible* nontrivial
+   functional equation; the multiplicative `p`-adic cascade is not of that kind, and neither is a
+   2-state one.** **[derived — the rank-2 identity is the one-line computation displayed above; the
+   rank-3 dichotomy `(2,4,8)` versus `(2,3,5)` is a finite arithmetic check. Machine-checked in
+   `PAdicZeta/RankN.lean`: `functionalEquation_of_perm` (the general sufficient direction),
+   `rankTwo_automatic` (the rank-2 identity), `rankThree_admits` and `rankThree_no_functionalEquation`
+   (the dichotomy)]**
+
+**Prior art for the criterion — it is not this document's.** The statement that a rational `X` with
+`X(0) = 1` satisfies `X(1/(dz)) = K z^{−e} X(z)` iff its zero/pole multiset is invariant under
+`z ↦ 1/(dz)` is **Lemma 14, "Functional equation of a convolution"**, of A. Fel'shtyn, *Dynamical Zeta
+Functions, Nielsen Theory and Reidemeister Torsion*, Memoirs Amer. Math. Soc. **147** (2000), no. 699,
+§§2.1–2.2 (arXiv:chao-dyn/9603017). Its proof says so in words: *"if `z₀ ∈ ℂ^×` is a zero or pole of
+`X` with multiplicity `m`, then `1/(dz₀)` must be a pole or zero of `X` with multiplicity `f m`."*
+Setting `X = 1/ζ = ∏(1 − λᵢT)` gives `αᵢ = λᵢ` and the criterion in the text. The same reciprocal-pair
+structure appears for toral endomorphisms in Baake–Lau–Paškūnas, arXiv:0810.1855, Cor. 1 together with
+`P_k(1/(Dz)) = (1/β_{d−k})(−1/z)^{C(d,k)} P_{d−k}(z)`. It is **not** in Bowen–Lanford (only an
+unextractable scan), nor in Ruelle's Axiom A note (read in full: analyticity only, no functional
+equation), nor verifiably in Parry–Pollicott (also a scan). **[sourced]**
+
+**On the naming, and a correction to a tempting shorthand.** The symbolic-dynamics name for a shift
+with `T ∘ R = R ∘ T⁻¹` is **reversible** (Lee–Park–Shin, *Reversible topological Markov shifts*,
+Ergodic Theory Dynam. Systems **26** (2006) 267–280), or a **reversal / flip system** (Ryu,
+arXiv:1712.03519; Kim–Lee–Park, Pacific J. Math. **209** (2003) 289–301). But reversibility is
+**stronger** than the functional-equation condition: the criterion needs only the **eigenvalue**
+multiset to be reciprocal, whereas reversibility conjugates the shift to its inverse. So
+*"the adjacency matrix is conjugate to its inverse"* is **the wrong condition — too strong**. The
+golden-mean matrix `[[1,1],[1,0]]` shows the gap: it is symmetric, so the shift *is* reversible, and its
+eigenvalues `φ, −1/φ` have product `−1`, so the FE holds with `c = −1`; yet `tr A = 1 ≠ −1 = tr A⁻¹`,
+so `A` is **not** similar to `A⁻¹`. **[sourced + derived]**
+
+**Prior art for the subshift route: a clean null.** Searches (arXiv API, zbMATH, Semantic Scholar, and
+full-text fetch) found **no** work modelling a shell or dyadic model as a subshift of finite type or a
+sofic shift with a rank-`≥ 2` transfer matrix whose dynamical zeta carries a physical exponent. The two
+nearest neighbours are:
+
+* Y. C. Li, *Segment description of turbulence*, Dyn. Partial Differ. Equ. **4** (2007) 283–291
+  (arXiv:0707.4459, DOI 10.4310/DPDE.2007.v4.n3.a5) — builds a finite Markov partition of the turbulent
+  attractor and an SFT from its transition matrix, for **full Navier–Stokes**, with **no zeta, no
+  transfer-operator rank and no functional equation**;
+* Tuteri–Chibbaro–Alexakis, arXiv:2601.04788 — a shell model **on a dyadic tree**, branches sampled by
+  a homogeneous Markov chain, exponents read off the **spectral radius** of a Feynman–Kac operator
+  (`E[J_p^l 1] ∼ E[φ_p]R(J_p)^l`). That operator is **infinite-dimensional**, on `C(Ω)`, and there is
+  **no zeta and no FE**.
+
+On the p-adic side the SFT route is documented but for *repellers*, not cascades: *p-adic repellers in
+`ℚ_p` are subshifts of finite type* (Fan–Liao–Wang–Zhou, C. R. Acad. Sci. Paris **344** (2007)
+219–224), and sub-hyperbolic p-adic rational maps are topologically conjugate to Markov shifts
+(Fan–Liao–Nie–Wang, arXiv:2111.01579, Thm 1.4). **Berkovich** Markov partitions: null. So the
+construction sketched above is not already in the literature as far as these searches reach — and the
+nearest neighbour reaches the exponent by a *spectral radius* rather than by a zeta. **[not found — with
+the searches recorded]**
+
+**And the cascade supplies one state, not three.** This is the honest close of the subshift route.
+A p-adic *repeller* gets a Markov partition from its own expanding dynamics (Fan et al. above); a
+multiplicative cascade presents no natural finite state set at all, because its weights depend only on
+the level. That is exactly why its transfer operator is rank one (§2.2) and why every level-periodic
+quotient is trivial (`CLOSURE.md` §3.2). So reaching rank `≥ 3` would mean **adding** an internal state
+per shell — a modelling choice, not an extraction from the cascade — and that is the same missing
+ingredient the repository names elsewhere for genuine intermittency: a second, *dynamical* degree of
+freedom per scale. **The zeta route and the intermittency route need the same thing, and neither has
+it.** **[inference — the rank-one and no-quotient halves are proved; the identification of the missing
+ingredient is this document's]**
 
 **A trap worth recording, because it caught this document twice.** The *inversion* form
 `ζ(c/T) = χ(T)ζ(T)` and the *scaling* form `χ(T)ζ(aT) = ζ(T)` are **different symmetries**, and the
@@ -347,8 +416,8 @@ a numerator, and `ζ_σ`'s numerator is `1` — it is simply **inapplicable as a
 and each is the critical value of a *different imposed comparison*.**
 
 1. **Threshold / criticality — `e = 1`.** `Cascade.bar_scale_invariant`
-   (`Cascade/PerShellThreshold.lean:153`): `perShellBar ν e j = perShellBar ν e 0 ↔ e = 1` for
-   `ν ≠ 0`, `j ≠ 0`, where `perShellBar ν e j = (ν/6)·2^{(e−1)j}`. Through `perShell_iff` (`:114`)
+   (`Cascade/PerShellThreshold.lean:167`): `perShellBar ν e j = perShellBar ν e 0 ↔ e = 1` for
+   `ν ≠ 0`, `j ≠ 0`, where `perShellBar ν e j = (ν/6)·2^{(e−1)j}`. Through `perShell_iff` (`:128`)
    this reads: *the transfer-versus-dissipation comparison at shell `j` is the same comparison as at
    shell 0, for every `j`, exactly when `e = 1`*. It contains no solution, no ODE, no trajectory.
    `bar_strictMono` (`:182`, `e > 1`: the bar doubles each octave, so dissipation wins at small scales
@@ -422,7 +491,7 @@ They were found by reading the statements and the key proof steps, not the docst
    True relative to the *prescribed* law; see item 3 above for why that is an equivalence of encodings.
    (The non-vacuity note at `:289–291`, "holds nowhere else", is scoped to *the law* and is correct as
    written — an earlier draft of this erratum called it false and was wrong to.)
-4. **`Cascade/PerShellThreshold.lean:180–181, 194–195`** — "so dissipation wins at large `j`" / "the
+4. **`Cascade/PerShellThreshold.lean:194–195, 208–209`** — "so dissipation wins at large `j`" / "the
    cascade runs away". `bar_strictMono` and `bar_strictAnti` prove monotonicity of the bar and nothing
    else; no growth hypothesis on `u_{j+1}` is assumed, so the dynamical reading needs a further
    argument.
@@ -690,6 +759,43 @@ measure-zero set, literally one shape — which is *why* Barbato's uniqueness th
 `ℓ²` positive stationary solution for given `f > 0`) holds, and not merely *that* it does.
 **[proved — exact computation, `zeta_checks.py` section I‴]**
 
+**Sector caveat: the multiplier is Katz–Pavlović's, and the two sectors' recursions are inverses.**
+`−2` is the *exponent* of the recursion `s ↦ K/s²` — for a power-law recursion the fixed-point
+multiplier is exactly the exponent, independent of `K`, which is why it survives every change of `b`
+and `α`. (Not of `ν`: the recursion is the **inviscid** condition, and `ν` does not appear in it.) The
+other named sector — **Obukhov**, `A = 0, B = 1`, the model of Palasek (arXiv:2407.06179), and by
+talks only of Looi's global-regularity work — has the **same stationary ratio** (`s³ = K` either way)
+but a different functional form: a square in the *denominator* forces a square root, so
+`s_{n+1} = √(K/s_n)`, exponent and multiplier `−1/2`.
+
+`Cascade/StationarySectorMultiplier.lean` proves both exactly and algebraically (the multipliers are
+computed as exact error ratios, with no derivative and no limit) **and proves the reason**:
+`ratioStepA_comp_ratioStepB` and `ratioStepB_comp_ratioStepA` show the two maps are **exact inverses**.
+A map and its inverse share fixed points — hence the same stationary ratio — and have reciprocal
+derivatives — hence `−1/2 = 1/(−2)`. **The whole "flip" is one fact.** **[proved —
+`Cascade/StationarySectorMultiplier.lean`, all thirteen declarations axiom-clean]**
+
+**What that does *not* buy — stated because an earlier draft of this caveat got it wrong.** The
+Obukhov fixed point is attracting and the Katz–Pavlović one repelling *for the forward iteration*, so
+forward the Obukhov recursion converges from every positive start while the Katz–Pavlović one survives
+only at `s*`. **But the model's index is `ℤ`, and two-sidedness removes the asymmetry**: the backward
+map of the Obukhov recursion *is* the Katz–Pavlović forward map, which is a repeller. A bounded
+two-sided ratio sequence must therefore be exactly `s*` in *either* sector — **rigidity is shared, not
+flipped.** An earlier draft claimed a one-parameter family of stationary profiles in the Obukhov
+sector; that was an artifact of indexing one-sidedly and is false for the model as indexed. Nothing
+here is a statement about the **viscous** model either: for `ν > 0` the stationary condition is
+`transfer = ν·2^{ek}·u_k`, which no vanishing-transfer profile satisfies.
+
+*One correction from that formalisation.* An earlier hand derivation in this document's working notes
+asserted the exact A-sector error-ratio identity for *every* `s*`; it is false — the residual goal is
+exactly `s*³ = K`, so the fixed-point hypothesis is required. The Lean statement carries it
+explicitly. The multiplier value `−2` is unaffected.
+
+*And one inference this document should stop making.* Line 758 above says the repelling "is *why*
+Barbato's uniqueness theorem holds". That is **not proved** — here or in the Lean file — and it links
+a `ν = 0` recursion to a forced stationary-solution theorem; whether Thm 2.3 is a `ν = 0`, a `ν > 0`,
+or a mixed statement was not determined. The repelling is a fact; the causal clause is not.
+
 So what a free drive buys is the **amplitude** of the one admissible shape, not the shape. "The input
 is right" does not mean "anything hangs off it": the input is the single free number setting how large
 the already-rigid cascade is.
@@ -941,17 +1047,55 @@ The negative is narrow and should be quoted narrowly:
 * `α̃` is recoverable from the zeta only by supplying **one** external ingredient, the factor `½`;
   `N_* = p` is a definition. **[derived]**
 * **The functional equation exists, is unique, and is forced by the pole**: `ζ(1/(p²T)) = −pT·ζ(T)`,
-  axis `= 1/p =` the pole radius. A genuine self-duality constraint would require rank `≥ 2`, i.e. a
-  proper subshift, which the full cascade is not. **[proved — exact computation]**
-* The non-Archimedean Ruelle theory of Jiang–Wu **does not apply** to the shift (nonexpanding), which
-  removes the last route that might have given the rank-one determinant an independent meaning.
-  **[sourced]**
+  axis `= 1/p =` the pole radius. A genuine self-duality constraint would require rank `≥ 3`, **not
+  `≥ 2`** (correction 13): ranks 1 and 2 are both automatic, so a 2-state subshift selects nothing
+  either. The full cascade is rank one. **[proved — `PAdicZeta/RankN.lean`]**
+* The non-Archimedean Ruelle theory of Jiang–Wu **does not apply** to the shift because `σ` is not a
+  *rational* map — not because it fails to expand, which it does (correction 10) — and that removes the
+  last route that might have given the rank-one determinant an independent meaning. **[sourced]**
 * `β` is an input in every source read. Here, four exponents `{1, 2, 2, 0}` arise from four different
   imposed requirements and do not converge; the one `⟺`-selection theorem that exists
   (`Cascade.viscous_periodicity_iff`) selects `e = 0`, the opposite of physical. **[sourced] +
   [proved]**
 * **Status: negative, and a record rather than a discovery** — except for one small lemma about
   rank-one zeta functions (§4), which is new here and checkable in five lines.
+
+---
+
+## 9. The three-state extension: an experiment, marked as such
+
+Correction 13 says the functional equation's automatic range ends at rank 2, so reaching a
+*constraining* equation means reaching rank `≥ 3` — and the frozen model's transfer operator is rank
+one (§2.2). The only way to test the route further inside this line of work is therefore to **add**
+structure. `PAdicZeta/ThreeState.lean` does so under the provenance label
+**`[extension — added by hand]`** (added to the key above for this purpose). **Nothing in it is the
+frozen model, and no `[proved]` statement about the frozen model transfers to it without
+re-derivation** — in particular neither the degree forcing (`boussinesq_law_forces_degree_two`) nor the
+Bernstein vacuity (`DimensionBlind`), both proved one-state.
+
+**Prediction, written before the theorems** — the fidelity rule requires the model fixed before
+anything is proved about it. Rank `≤ 2` is the automatic range, rank `≥ 3` the special one, so a
+*generic* extension should have **no** functional equation at all.
+
+**What happened.** The natural extension — the internal state advancing cyclically, so the transition
+matrix is a weighted 3-cycle — is not generic. Its transfer matrix has determinant `abc`
+(`det_threeStateWeight`), and `det (1 − zM) = 1 − abc z³` (`det_one_sub_smul_threeStateWeight`), so the
+zeta is `1/(1 − abc z³)`: **three** poles, not one. Its spectrum is the three cube roots of `abc`
+scaled, `{r, rω, rω²}`, which **is** reciprocal-paired (`r² = rω · rω²`), so the criterion of §4
+applies and the equation exists: at unit weight `P(z) = −z³ P(1/z)` for `P(z) = 1 − z³`
+(`cyclic_functionalEquation`), equivalently `ζ(1/z) = −z³ ζ(z)` (`cyclicZeta_functionalEquation`).
+
+**The prediction is confirmed, and the specialness has a name.** The equation was bought with **group
+structure** — a cyclic group acting on the internal state. That is Palasek's own condition (*"an
+additive group structure on `I` is necessary to discuss exact scale invariance"*, arXiv:2407.06179) and
+precisely what the cascade's index set lacks (`CLOSURE.md` §6: level sizes `1, b, b², …` are
+equinumerous only at `b = 1`).
+
+**And it still selects nothing.** The symmetry axis of the resulting equation is the spectrum's own
+scale `r`, not a quantity imposed on it. So the extension reproduces the rank-one vacuity one level
+up, at the price of adding by hand the one structure the cascade does not have. **The route does not
+open; it relocates the same obstruction.** **[extension — added by hand]; the three determinant and
+functional-equation statements are [proved] in `PAdicZeta/ThreeState.lean`**
 
 ---
 
@@ -1001,6 +1145,19 @@ arithmetic harness that reduced numerator and denominator separately, invalid wh
     than deleted. **This is the third time in this thread that a claim of this document's own has had
     to be retracted, and the second time the retraction was found by checking a *consequence* rather
     than the claim itself** — the energy balance, not the per-node identity.
+13. **§4's rank threshold was one too low: a genuine functional equation needs rank ≥ 3, not ≥ 2.**
+    §4 concluded that "a genuine constraint would need rank ≥ 2", and the search for a subshift
+    formulation was aimed at 2-state systems. **False.** For `ζ(T) = ∏_i 1/(1 − λ_i T)` the
+    inversion-form equation exists iff `{c λ_i} = {1/λ_i}` as multisets — i.e. iff some permutation
+    makes `λ_i λ_{σ(i)}` constant over `i`. At rank 2 there is only one pair, so the condition is
+    vacuous, and `c = 1/(λ₁λ₂)` works for **every** `(λ₁,λ₂)`; verified symbolically and on 200 random
+    rational pairs. The first rank at which it can fail is **3**: `(2,4,8)` admits `c = 1/16`,
+    `(2,3,5)` admits nothing. §4's *conclusion* — that the full `p`-shift cannot meet the condition,
+    being rank one — stands unchanged; what is corrected is the **target**, which is ≥ 3 states with a
+    non-generic spectrum. A 2-state subshift is another automatic case and demonstrates nothing: the
+    golden-mean shift has `ζ = 1/(1 − z − z²)` and the genuine-looking equation `ζ(−1/z) = −z²ζ(z)`,
+    both of which are forced, not found. **Found by checking the criterion against the rank-2
+    computation rather than by re-reading the claim** — the same discipline that produced 12.
 
 ---
 
@@ -1017,9 +1174,19 @@ arithmetic harness that reduced numerator and denominator separately, invalid wh
 | Zubarev, *On p-adic cascade equations of hydrodynamic type*, [arXiv:2006.05811](https://arxiv.org/abs/2006.05811) | general dissipative kernel, no `D^β`; exponents fitted to the 2/3 law; §4 discrete scale invariance. |
 | Kozyrev, *Towards ultrametric theory of turbulence*, [arXiv:0803.2719](https://arxiv.org/abs/0803.2719) | the ultrametric cascade equation and its wavelet eigenvalues `η_I`; zero occurrences of "zeta" or "pole". |
 | Zhou & Sornette, [arXiv:cond-mat/0110436](https://arxiv.org/abs/cond-mat/0110436) | log-periodic corrections to scaling in turbulence (abstract only; no claim about its body). |
+| Fel'shtyn, *Dynamical Zeta Functions, Nielsen Theory and Reidemeister Torsion*, Memoirs AMS **147** (2000) no. 699, [arXiv:chao-dyn/9603017](https://arxiv.org/abs/chao-dyn/9603017) | **Lemma 14**: the reciprocal zero/pole criterion for `X(1/(dz)) = K z^{−e}X(z)`, stated verbatim in its proof. The standard reference for §4's criterion — not this document's. |
+| Baake, Lau, Paškūnas, *A note on the dynamical zeta function of general toral endomorphisms*, [arXiv:0810.1855](https://arxiv.org/abs/0810.1855) | Cor. 1 (`ζ_M(1/(Dz)) = B^ε(ζ_M(z))^{(−1)^d}`) and the reciprocal pairing `P_k(1/(Dz)) = (1/β_{d−k})(−1/z)^{C(d,k)}P_{d−k}(z)`. |
+| Lee, Park, Shin, *Reversible topological Markov shifts*, Ergodic Theory Dynam. Systems **26** (2006) 267–280 | the name **reversible** for `T ∘ R = R ∘ T⁻¹`. |
+| Ryu, *The Lind zeta functions of reversal systems of finite order*, [arXiv:1712.03519](https://arxiv.org/abs/1712.03519) | "reversal system"; "shift-reversal system of finite type". |
+| Kim, Lee, Park, *A zeta function for flip systems*, Pacific J. Math. **209** (2003) 289–301 | the order-2 case ("flip"). |
+| Noguchi, [arXiv:math/0505531](https://arxiv.org/abs/math/0505531) | the Lefschetz-zeta FE `ζ_f(1/(λz)) = ±λ^{χ/2}z^χ ζ_f(z)`, derived from Poincaré duality. |
+| Y. C. Li, *Segment description of turbulence*, Dyn. Partial Differ. Equ. **4** (2007) 283–291, [arXiv:0707.4459](https://arxiv.org/abs/0707.4459) | nearest prior art for the subshift route: a Markov partition of the turbulent attractor and an SFT from its transition matrix — for **full Navier–Stokes**, with no zeta, no transfer-operator rank and no functional equation. |
+| Tuteri, Chibbaro, Alexakis, [arXiv:2601.04788](https://arxiv.org/abs/2601.04788) | a shell model **on a dyadic tree**, branches sampled by a Markov chain, exponents from the spectral radius of a Feynman–Kac operator — infinite-dimensional, **no zeta**. |
+| Fan, Liao, Wang, Zhou, *p-adic repellers in `ℚ_p` are subshifts of finite type*, C. R. Acad. Sci. Paris **344** (2007) 219–224 | p-adic transitive weak repellers are topologically conjugate to SFTs. |
+| Fan, Liao, Nie, Wang, [arXiv:2111.01579](https://arxiv.org/abs/2111.01579) | Thm 1.4: sub-hyperbolic p-adic rational maps are topologically conjugate to Markov shifts. |
 
 Repo-side: `Cascade/DissipationDegree.lean`, `Cascade/PerShellThreshold.lean`,
-`Cascade/DissipationThreshold.lean`, `Cascade/IntermittencyThreshold.lean`.
+`Cascade/DissipationThreshold.lean`, `Cascade/IntermittencyThreshold.lean`, `PAdicZeta/RankN.lean`.
 
 ## What could not be verified
 
